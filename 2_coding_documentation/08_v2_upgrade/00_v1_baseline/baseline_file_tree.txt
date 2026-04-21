@@ -1,0 +1,118 @@
+1) src 文件树（`1_project_files/cooking-ai-planner/src`）
+
+Folder PATH listing for volume 素材
+Volume serial number is 4EE5-3805
+G:\\生成艺术\\COOKING-AI-PLANNER\\1_PROJECT_FILES\\COOKING-AI-PLANNER\\SRC
+|   App.jsx
+|   main.jsx
+|
++---assets
+|   |   hero.png
+|   |   react.svg
+|   |   vite.svg
+|   |
+|   \\---recipes
+|           broccoli.svg
+|           egg-rice.svg
+|           microwave.svg
+|           veg-bowl.svg
+|
++---components
+|   |   AppLayout.jsx
+|   |   PageHeader.jsx
+|   |   TabBar.jsx
+|   |
+|   +---home
+|   |       AgentComposer.jsx
+|   |       FiltersPanel.jsx
+|   |       PhotoUploadButton.jsx
+|   |       RandomRecipeModal.jsx
+|   |       RecipeCard.jsx
+|   |
+|   \\---p5
+|           P5HeroDecoration.jsx
+|
++---data
+|   |   demoShoppingItems.js
+|   |   recipeCatalog.js
+|   |
+|   \\---knowledge
+|           budget_rules.json
+|           cooking_basics.json
+|           equipment_limits.json
+|           ingredient_tips.json
+|
++---hooks
+|       useAiConfig.js
+|       useFavorites.js
+|       useHashRoute.js
+|       useLocalStorage.js
+|       useRecipeGeneratorState.js
+|       useShoppingList.js
+|       useToast.js
+|
++---pages
+|       FavoritesPage.jsx
+|       HomePage.jsx
+|       RecipeDetailPage.jsx
+|       SettingsPage.jsx
+|       ShoppingDetailPage.jsx
+|       ShoppingListPage.jsx
+|
++---services
+|   |   exportService.js
+|   |   homeRecipeAgentService.js
+|   |   mockPlanner.js
+|   |   shoppingService.js
+|   |
+|   \\---ai
+|           aiConfigModel.js
+|           llmProvider.js
+|           promptBuilder.js
+|           recipeGenerationService.js
+|           retrievalService.js
+|
++---store
+|       appData.js
+|       appStore.js
+|       storageKeys.js
+|
++---styles
+|       app.css
+|       global.css
+|       tokens.css
+|
+\\---utils
+        recipeModel.js
+        shoppingModel.js
+        storage.js
+
+
+2) 文档目录树（`2_coding_documentation/`，仅目录）
+
+Folder PATH listing for volume 素材
+Volume serial number is 4EE5-3805
+G:\\生成艺术\\COOKING-AI-PLANNER\\2_CODING_DOCUMENTATION
++---00_project_brief
++---01_prompt_logs
++---02_step_reports
++---03_git_records
++---04_issue_reviews
++---05_flowcharts
++---06_assets
+|   +---manual_pages
+|   |   \\---manual-2.0
+|   \\---screenshots
+|       +---step-01-project-init
+|       +---step-02-router-and-global-style
+|       +---step-03-home-agent-mock
+|       +---step-04-recipe-detail-localstorage
+|       +---step-05-shopping-group-crud
+|       +---step-06-favorites-export
+|       +---step-07-data-flow-refactor
+|       \\---step-10-mobile-ux-enhance
+|           +---after
+|           \\---before
++---07_exports
+\\---templates
+

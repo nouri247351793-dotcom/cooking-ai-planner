@@ -1,0 +1,27 @@
+[
+  {
+    "id": "kb_ing_egg_01",
+    "title": "鸡蛋：不老的关键是“关火余温 + 少翻动”",
+    "category": "ingredient_tips",
+    "tags": ["egg", "beginner", "practice", "time_15", "budget_low"],
+    "content": "炒蛋容易老是因为持续高温。建议蛋液下锅后火别大、少翻动，凝固后立刻关火用余温完成。想更嫩可加少量水或牛奶（可选）。",
+    "applicableScenes": ["university_cooking_learning_planner", "any"]
+  },
+  {
+    "id": "kb_ing_chicken_01",
+    "title": "鸡胸肉：先腌后煎，避免柴",
+    "category": "ingredient_tips",
+    "tags": ["chicken", "beginner", "budget_mid", "stove", "time_30"],
+    "content": "鸡胸肉变柴通常是温度过高或时间过长。建议切薄片、加少量盐/生抽/淀粉腌 10 分钟左右；煎到两面变色即可，必要时加一点水焖熟。",
+    "applicableScenes": ["university_cooking_learning_planner", "any"]
+  },
+  {
+    "id": "kb_ing_veg_01",
+    "title": "青菜：先沥干水再下锅，避免出水",
+    "category": "ingredient_tips",
+    "tags": ["vegetable", "stove", "time_15", "beginner"],
+    "content": "青菜刚洗完直接下锅容易出水，影响口感。建议洗后稍微沥干或甩干，锅热后快炒，调味尽量靠后放。",
+    "applicableScenes": ["university_cooking_learning_planner", "any"]
+  }
+]
+

@@ -1,0 +1,27 @@
+[
+  {
+    "id": "kb_budget_low_01",
+    "title": "低预算：用“蛋/豆制品/时令菜”做主力蛋白",
+    "category": "budget_rules",
+    "tags": ["budget_low", "beginner", "planning"],
+    "content": "预算紧时，优先用鸡蛋、豆腐、豆干、时令青菜，搭配米饭/面条。少买难处理的肉类，多做一锅两吃（例如：豆腐汤+拌饭）。",
+    "applicableScenes": ["university_cooking_learning_planner", "any"]
+  },
+  {
+    "id": "kb_budget_mid_01",
+    "title": "中预算：一周 2 次“练刀工/练火候”的菜谱组合",
+    "category": "budget_rules",
+    "tags": ["budget_mid", "practice", "planning"],
+    "content": "中预算可以安排更明确的练习：一周两次练刀工（配菜切丝、切丁），两次练火候（煎/炒）。每次只追一个技能点，记录翻车原因与改进点。",
+    "applicableScenes": ["university_cooking_learning_planner", "any"]
+  },
+  {
+    "id": "kb_budget_any_01",
+    "title": "省钱通用法：先定“本周练习目标”，再买最少食材",
+    "category": "budget_rules",
+    "tags": ["planning", "beginner", "time_30"],
+    "content": "先决定本周要练的 1~2 个技能（例如：炒蛋不老、青菜不出水），再围绕这两个技能买最少食材。减少冲动购买，避免买一堆用不完的调料。",
+    "applicableScenes": ["university_cooking_learning_planner", "any"]
+  }
+]
+

@@ -1,0 +1,1014 @@
+﻿# File Tree Snapshot (v2 final)
+GeneratedAt: 2026-04-21T18:10:13.0751452+08:00
+
+## repo root
+Folder PATH listing for volume �ز�
+Volume serial number is 4EE5-3805
+G:\��������\COOKING-AI-PLANNER
++---.tmp
+|   +---edge-headless
+|   |   \---profile
+|   |       +---Autofill
+|   |       +---AutoLaunchProtocolsComponent
+|   |       +---BrowserMetrics
+|   |       +---CertificateRevocation
+|   |       +---Crashpad
+|   |       |   +---attachments
+|   |       |   \---reports
+|   |       +---Default
+|   |       |   +---Asset Store
+|   |       |   |   \---assets.db
+|   |       |   +---blob_storage
+|   |       |   |   \---568c15c6-1b36-4d88-9a41-c06be8b1b7fc
+|   |       |   +---Cache
+|   |       |   |   \---Cache_Data
+|   |       |   +---ClientCertificates
+|   |       |   +---Code Cache
+|   |       |   |   +---js
+|   |       |   |   |   \---index-dir
+|   |       |   |   \---wasm
+|   |       |   |       \---index-dir
+|   |       |   +---Collections
+|   |       |   +---commerce_subscription_db
+|   |       |   +---DawnGraphiteCache
+|   |       |   +---DawnWebGPUCache
+|   |       |   +---discounts_db
+|   |       |   +---EdgeEDrop
+|   |       |   +---EdgeHubAppUsage
+|   |       |   +---EdgePushStorageWithConnectTokenAndKey
+|   |       |   +---EntityExtraction
+|   |       |   |   \---EntityExtractionAssetStore.db
+|   |       |   +---Extension Rules
+|   |       |   +---Extension Scripts
+|   |       |   +---Extension State
+|   |       |   +---GPUCache
+|   |       |   +---JumpListIconsRecentWorkspacesV2
+|   |       |   +---Local Extension Settings
+|   |       |   |   \---jdiccldimpdaibmpdkjnbmckianbfold
+|   |       |   +---Local Storage
+|   |       |   |   \---leveldb
+|   |       |   +---Network
+|   |       |   +---Nurturing
+|   |       |   +---parcel_tracking_db
+|   |       |   +---PersistentOriginTrials
+|   |       |   +---Safe Browsing Network
+|   |       |   +---Session Storage
+|   |       |   +---Sessions
+|   |       |   +---Shared Dictionary
+|   |       |   |   \---cache
+|   |       |   |       \---index-dir
+|   |       |   +---shared_proto_db
+|   |       |   |   \---metadata
+|   |       |   +---Site Characteristics Database
+|   |       |   +---Storage
+|   |       |   |   \---ext
+|   |       |   |       \---ihmafllikibpmigkcoadcmckbfhibefp
+|   |       |   |           \---def
+|   |       |   |               +---Cache
+|   |       |   |               |   \---Cache_Data
+|   |       |   |               +---Code Cache
+|   |       |   |               |   +---js
+|   |       |   |               |   |   \---index-dir
+|   |       |   |               |   \---wasm
+|   |       |   |               |       \---index-dir
+|   |       |   |               +---DawnGraphiteCache
+|   |       |   |               +---DawnWebGPUCache
+|   |       |   |               +---GPUCache
+|   |       |   |               +---Local Storage
+|   |       |   |               |   \---leveldb
+|   |       |   |               +---Network
+|   |       |   |               +---Session Storage
+|   |       |   |               \---Shared Dictionary
+|   |       |   |                   \---cache
+|   |       |   |                       \---index-dir
+|   |       |   +---Sync Data
+|   |       |   |   +---LevelDB
+|   |       |   |   \---Logs
+|   |       |   \---WebStorage
+|   |       +---EADPData Component
+|   |       +---Edge Designer
+|   |       +---Edge Notifications
+|   |       +---Edge Shopping
+|   |       +---Edge Travel
+|   |       +---Edge Wallet
+|   |       +---EdgeOnnxRuntimeDirectML
+|   |       +---GraphiteDawnCache
+|   |       +---GrShaderCache
+|   |       +---hyphen-data
+|   |       +---Nurturing
+|   |       +---OriginTrials
+|   |       +---PKIMetadata
+|   |       +---RecoveryImproved
+|   |       +---Safe Browsing
+|   |       +---SafetyTips
+|   |       +---ShaderCache
+|   |       +---SmartScreen
+|   |       |   \---RemoteData
+|   |       +---Speech Recognition
+|   |       +---Subresource Filter
+|   |       |   \---Unindexed Rules
+|   |       +---Trust Protection Lists
+|   |       +---TrustTokenKeyCommitments
+|   |       +---Typosquatting
+|   |       +---Web Notifications Deny List
+|   |       +---WidevineCdm
+|   |       +---WorkspacesNavigationComponent
+|   |       \---ZxcvbnData
+|   +---edge-profile
+|   |   +---BrowserMetrics
+|   |   \---Crashpad
+|   |       +---attachments
+|   |       \---reports
+|   +---edge-profile-test
+|   |   +---Autofill
+|   |   +---AutoLaunchProtocolsComponent
+|   |   +---BrowserMetrics
+|   |   +---CertificateRevocation
+|   |   +---Crashpad
+|   |   |   +---attachments
+|   |   |   \---reports
+|   |   +---Default
+|   |   |   +---Cache
+|   |   |   |   \---Cache_Data
+|   |   |   +---ClientCertificates
+|   |   |   +---Code Cache
+|   |   |   |   +---js
+|   |   |   |   |   \---index-dir
+|   |   |   |   \---wasm
+|   |   |   |       \---index-dir
+|   |   |   +---Collections
+|   |   |   +---commerce_subscription_db
+|   |   |   +---DawnGraphiteCache
+|   |   |   +---DawnWebGPUCache
+|   |   |   +---discounts_db
+|   |   |   +---EdgeEDrop
+|   |   |   +---EdgeHubAppUsage
+|   |   |   +---EdgePushStorageWithConnectTokenAndKey
+|   |   |   +---Extension Rules
+|   |   |   +---Extension Scripts
+|   |   |   +---Extension State
+|   |   |   +---GPUCache
+|   |   |   +---Local Storage
+|   |   |   |   \---leveldb
+|   |   |   +---Network
+|   |   |   +---Nurturing
+|   |   |   +---parcel_tracking_db
+|   |   |   +---PersistentOriginTrials
+|   |   |   +---Safe Browsing Network
+|   |   |   +---Session Storage
+|   |   |   +---Sessions
+|   |   |   +---Shared Dictionary
+|   |   |   |   \---cache
+|   |   |   |       \---index-dir
+|   |   |   +---shared_proto_db
+|   |   |   |   \---metadata
+|   |   |   +---Site Characteristics Database
+|   |   |   +---Storage
+|   |   |   |   \---ext
+|   |   |   |       \---ihmafllikibpmigkcoadcmckbfhibefp
+|   |   |   |           \---def
+|   |   |   |               +---Cache
+|   |   |   |               |   \---Cache_Data
+|   |   |   |               +---Code Cache
+|   |   |   |               |   +---js
+|   |   |   |               |   |   \---index-dir
+|   |   |   |               |   \---wasm
+|   |   |   |               |       \---index-dir
+|   |   |   |               +---DawnGraphiteCache
+|   |   |   |               +---DawnWebGPUCache
+|   |   |   |               +---GPUCache
+|   |   |   |               +---Local Storage
+|   |   |   |               |   \---leveldb
+|   |   |   |               +---Network
+|   |   |   |               +---Session Storage
+|   |   |   |               \---Shared Dictionary
+|   |   |   |                   \---cache
+|   |   |   +---Sync Data
+|   |   |   |   \---LevelDB
+|   |   |   \---WebStorage
+|   |   +---EADPData Component
+|   |   +---Edge Designer
+|   |   +---Edge Notifications
+|   |   +---Edge Shopping
+|   |   +---Edge Travel
+|   |   +---Edge Wallet
+|   |   +---EdgeOnnxRuntimeDirectML
+|   |   +---GraphiteDawnCache
+|   |   +---GrShaderCache
+|   |   +---hyphen-data
+|   |   +---Nurturing
+|   |   +---OriginTrials
+|   |   +---PKIMetadata
+|   |   +---RecoveryImproved
+|   |   +---Safe Browsing
+|   |   +---SafetyTips
+|   |   +---ShaderCache
+|   |   +---SmartScreen
+|   |   |   \---RemoteData
+|   |   +---Speech Recognition
+|   |   +---Subresource Filter
+|   |   |   \---Unindexed Rules
+|   |   +---Trust Protection Lists
+|   |   +---TrustTokenKeyCommitments
+|   |   +---Typosquatting
+|   |   +---Web Notifications Deny List
+|   |   +---WidevineCdm
+|   |   +---WorkspacesNavigationComponent
+|   |   \---ZxcvbnData
+|   +---edge-ud-blank
+|   |   +---BrowserMetrics
+|   |   \---Crashpad
+|   |       +---attachments
+|   |       \---reports
+|   \---edge-user-data
+|       +---11ee8e2e4879455eb9662792c3f95e25
+|       +---170d3c2f6a6749d794e1046fa6274251
+|       +---5b456d8be5b84d0ab1df28b34aabacc6
+|       +---7b7f15c12ad649b5912110a150efd5c1
+|       +---b48b325ecb804d9389596f1e9701c0c7
+|       \---c3bc9286fd3b4798b58510e7c59a9cf3
++---1_project_files
+|   \---cooking-ai-planner
+|       +---.tmp
+|       +---.vite-cache
+|       |   \---deps
+|       +---dist
+|       |   +---assets
+|       |   +---brand
+|       |   +---sounds
+|       |   \---vendor
+|       +---node_modules
+|       |   +---.bin
+|       |   +---.vite
+|       |   |   \---deps
+|       |   +---.vite-temp
+|       |   +---@babel
+|       |   |   +---code-frame
+|       |   |   |   \---lib
+|       |   |   +---compat-data
+|       |   |   |   \---data
+|       |   |   +---core
+|       |   |   |   +---lib
+|       |   |   |   |   +---config
+|       |   |   |   |   |   +---files
+|       |   |   |   |   |   +---helpers
+|       |   |   |   |   |   \---validation
+|       |   |   |   |   +---errors
+|       |   |   |   |   +---gensync-utils
+|       |   |   |   |   +---parser
+|       |   |   |   |   |   \---util
+|       |   |   |   |   +---tools
+|       |   |   |   |   +---transformation
+|       |   |   |   |   |   +---file
+|       |   |   |   |   |   \---util
+|       |   |   |   |   \---vendor
+|       |   |   |   \---src
+|       |   |   |       \---config
+|       |   |   |           \---files
+|       |   |   +---generator
+|       |   |   |   \---lib
+|       |   |   |       +---generators
+|       |   |   |       \---node
+|       |   |   +---helper-compilation-targets
+|       |   |   |   \---lib
+|       |   |   +---helper-globals
+|       |   |   |   \---data
+|       |   |   +---helper-module-imports
+|       |   |   |   \---lib
+|       |   |   +---helper-module-transforms
+|       |   |   |   \---lib
+|       |   |   +---helper-string-parser
+|       |   |   |   \---lib
+|       |   |   +---helper-validator-identifier
+|       |   |   |   \---lib
+|       |   |   +---helper-validator-option
+|       |   |   |   \---lib
+|       |   |   +---helpers
+|       |   |   |   \---lib
+|       |   |   |       \---helpers
+|       |   |   +---parser
+|       |   |   |   +---bin
+|       |   |   |   +---lib
+|       |   |   |   \---typings
+|       |   |   +---runtime
+|       |   |   |   +---helpers
+|       |   |   |   |   \---esm
+|       |   |   |   \---regenerator
+|       |   |   +---template
+|       |   |   |   \---lib
+|       |   |   +---traverse
+|       |   |   |   \---lib
+|       |   |   |       +---path
+|       |   |   |       |   +---inference
+|       |   |   |       |   \---lib
+|       |   |   |       \---scope
+|       |   |   |           \---lib
+|       |   |   \---types
+|       |   |       \---lib
+|       |   |           +---asserts
+|       |   |           |   \---generated
+|       |   |           +---ast-types
+|       |   |           |   \---generated
+|       |   |           +---builders
+|       |   |           |   +---flow
+|       |   |           |   +---generated
+|       |   |           |   +---react
+|       |   |           |   \---typescript
+|       |   |           +---clone
+|       |   |           +---comments
+|       |   |           +---constants
+|       |   |           |   \---generated
+|       |   |           +---converters
+|       |   |           +---definitions
+|       |   |           +---modifications
+|       |   |           |   +---flow
+|       |   |           |   \---typescript
+|       |   |           +---retrievers
+|       |   |           +---traverse
+|       |   |           +---utils
+|       |   |           |   \---react
+|       |   |           \---validators
+|       |   |               +---generated
+|       |   |               \---react
+|       |   +---@davepagurek
+|       |   |   \---bezier-path
+|       |   |       \---build
+|       |   +---@eslint
+|       |   |   +---config-array
+|       |   |   |   \---dist
+|       |   |   |       +---cjs
+|       |   |   |       |   \---std__path
+|       |   |   |       \---esm
+|       |   |   |           \---std__path
+|       |   |   +---config-helpers
+|       |   |   |   \---dist
+|       |   |   |       +---cjs
+|       |   |   |       \---esm
+|       |   |   +---core
+|       |   |   |   \---dist
+|       |   |   |       +---cjs
+|       |   |   |       \---esm
+|       |   |   +---eslintrc
+|       |   |   |   +---conf
+|       |   |   |   +---dist
+|       |   |   |   +---lib
+|       |   |   |   |   +---config-array
+|       |   |   |   |   +---shared
+|       |   |   |   |   \---types
+|       |   |   |   \---node_modules
+|       |   |   |       \---globals
+|       |   |   +---js
+|       |   |   |   +---src
+|       |   |   |   |   \---configs
+|       |   |   |   \---types
+|       |   |   +---object-schema
+|       |   |   |   \---dist
+|       |   |   |       +---cjs
+|       |   |   |       \---esm
+|       |   |   \---plugin-kit
+|       |   |       \---dist
+|       |   |           +---cjs
+|       |   |           \---esm
+|       |   +---@eslint-community
+|       |   |   +---eslint-utils
+|       |   |   |   \---node_modules
+|       |   |   |       \---eslint-visitor-keys
+|       |   |   |           +---dist
+|       |   |   |           \---lib
+|       |   |   \---regexpp
+|       |   +---@humanfs
+|       |   |   +---core
+|       |   |   |   +---dist
+|       |   |   |   \---src
+|       |   |   \---node
+|       |   |       +---dist
+|       |   |       \---src
+|       |   +---@humanwhocodes
+|       |   |   +---module-importer
+|       |   |   |   +---dist
+|       |   |   |   \---src
+|       |   |   \---retry
+|       |   |       \---dist
+|       |   +---@japont
+|       |   |   \---unicode-range
+|       |   |       \---lib
+|       |   +---@jridgewell
+|       |   |   +---gen-mapping
+|       |   |   |   +---dist
+|       |   |   |   |   \---types
+|       |   |   |   +---src
+|       |   |   |   \---types
+|       |   |   +---remapping
+|       |   |   |   +---dist
+|       |   |   |   +---src
+|       |   |   |   \---types
+|       |   |   +---resolve-uri
+|       |   |   |   \---dist
+|       |   |   |       \---types
+|       |   |   +---sourcemap-codec
+|       |   |   |   +---dist
+|       |   |   |   +---src
+|       |   |   |   \---types
+|       |   |   \---trace-mapping
+|       |   |       +---dist
+|       |   |       +---src
+|       |   |       \---types
+|       |   +---@oxc-project
+|       |   |   \---types
+|       |   +---@rolldown
+|       |   |   +---binding-win32-x64-msvc
+|       |   |   \---pluginutils
+|       |   |       \---dist
+|       |   |           \---filter
+|       |   +---@types
+|       |   |   +---estree
+|       |   |   +---json-schema
+|       |   |   +---react
+|       |   |   |   \---ts5.0
+|       |   |   \---react-dom
+|       |   |       \---test-utils
+|       |   +---@vitejs
+|       |   |   \---plugin-react
+|       |   |       +---dist
+|       |   |       \---types
+|       |   +---acorn
+|       |   |   +---bin
+|       |   |   \---dist
+|       |   +---acorn-jsx
+|       |   +---acorn-walk
+|       |   |   \---dist
+|       |   +---ajv
+|       |   |   +---dist
+|       |   |   +---lib
+|       |   |   |   +---compile
+|       |   |   |   +---dot
+|       |   |   |   +---dotjs
+|       |   |   |   \---refs
+|       |   |   \---scripts
+|       |   +---ansi-styles
+|       |   +---argparse
+|       |   |   \---lib
+|       |   +---balanced-match
+|       |   |   \---.github
+|       |   +---baseline-browser-mapping
+|       |   |   \---dist
+|       |   +---brace-expansion
+|       |   +---browserslist
+|       |   +---callsites
+|       |   +---caniuse-lite
+|       |   |   +---data
+|       |   |   |   +---features
+|       |   |   |   \---regions
+|       |   |   \---dist
+|       |   |       +---lib
+|       |   |       \---unpacker
+|       |   +---chalk
+|       |   |   \---source
+|       |   +---color-convert
+|       |   +---color-name
+|       |   +---colorjs.io
+|       |   |   +---dist
+|       |   |   +---src
+|       |   |   |   +---contrast
+|       |   |   |   +---deltaE
+|       |   |   |   \---spaces
+|       |   |   \---types
+|       |   |       \---src
+|       |   |           +---contrast
+|       |   |           +---deltaE
+|       |   |           \---spaces
+|       |   +---concat-map
+|       |   |   +---example
+|       |   |   \---test
+|       |   +---convert-source-map
+|       |   +---cookie
+|       |   |   \---dist
+|       |   +---cross-spawn
+|       |   |   \---lib
+|       |   |       \---util
+|       |   +---csstype
+|       |   +---debug
+|       |   |   \---src
+|       |   +---deep-is
+|       |   |   +---example
+|       |   |   \---test
+|       |   +---detect-libc
+|       |   |   \---lib
+|       |   +---electron-to-chromium
+|       |   +---escalade
+|       |   |   +---dist
+|       |   |   \---sync
+|       |   +---escape-string-regexp
+|       |   +---escodegen
+|       |   |   \---bin
+|       |   +---eslint
+|       |   |   +---bin
+|       |   |   +---conf
+|       |   |   +---lib
+|       |   |   |   +---cli-engine
+|       |   |   |   |   \---formatters
+|       |   |   |   +---config
+|       |   |   |   +---eslint
+|       |   |   |   +---languages
+|       |   |   |   |   \---js
+|       |   |   |   |       \---source-code
+|       |   |   |   |           \---token-store
+|       |   |   |   +---linter
+|       |   |   |   |   \---code-path-analysis
+|       |   |   |   +---rule-tester
+|       |   |   |   +---rules
+|       |   |   |   |   \---utils
+|       |   |   |   |       \---unicode
+|       |   |   |   +---services
+|       |   |   |   +---shared
+|       |   |   |   \---types
+|       |   |   \---messages
+|       |   +---eslint-plugin-react-hooks
+|       |   |   \---cjs
+|       |   +---eslint-plugin-react-refresh
+|       |   +---eslint-scope
+|       |   |   +---dist
+|       |   |   \---lib
+|       |   +---eslint-visitor-keys
+|       |   |   +---dist
+|       |   |   \---lib
+|       |   +---espree
+|       |   |   +---dist
+|       |   |   \---lib
+|       |   +---esprima
+|       |   |   +---bin
+|       |   |   \---dist
+|       |   +---esquery
+|       |   |   \---dist
+|       |   +---esrecurse
+|       |   +---estraverse
+|       |   +---esutils
+|       |   |   \---lib
+|       |   +---fast-deep-equal
+|       |   |   \---es6
+|       |   +---fast-json-stable-stringify
+|       |   |   +---.github
+|       |   |   +---benchmark
+|       |   |   +---example
+|       |   |   \---test
+|       |   +---fast-levenshtein
+|       |   +---fdir
+|       |   |   \---dist
+|       |   +---file-entry-cache
+|       |   +---find-up
+|       |   +---flat-cache
+|       |   |   \---src
+|       |   +---flatted
+|       |   |   +---cjs
+|       |   |   +---esm
+|       |   |   +---golang
+|       |   |   |   \---pkg
+|       |   |   |       \---flatted
+|       |   |   +---php
+|       |   |   +---python
+|       |   |   \---types
+|       |   +---gensync
+|       |   |   \---test
+|       |   +---gifenc
+|       |   |   +---dist
+|       |   |   \---src
+|       |   +---glob-parent
+|       |   +---globals
+|       |   +---has-flag
+|       |   +---hermes-estree
+|       |   |   \---dist
+|       |   |       \---generated
+|       |   +---hermes-parser
+|       |   |   \---dist
+|       |   |       +---babel
+|       |   |       +---estree
+|       |   |       +---generated
+|       |   |       +---transform
+|       |   |       +---traverse
+|       |   |       \---utils
+|       |   +---i18next
+|       |   |   \---dist
+|       |   |       +---cjs
+|       |   |       +---esm
+|       |   |       \---umd
+|       |   +---i18next-browser-languagedetector
+|       |   |   \---dist
+|       |   |       +---cjs
+|       |   |       +---esm
+|       |   |       \---umd
+|       |   +---ignore
+|       |   +---import-fresh
+|       |   +---imurmurhash
+|       |   +---is-extglob
+|       |   +---is-glob
+|       |   +---isexe
+|       |   |   \---test
+|       |   +---js-tokens
+|       |   +---js-yaml
+|       |   |   +---bin
+|       |   |   +---dist
+|       |   |   \---lib
+|       |   |       +---schema
+|       |   |       \---type
+|       |   +---jsesc
+|       |   |   +---bin
+|       |   |   \---man
+|       |   +---json-buffer
+|       |   |   \---test
+|       |   +---json-schema-traverse
+|       |   |   \---spec
+|       |   |       \---fixtures
+|       |   +---json-stable-stringify-without-jsonify
+|       |   |   +---example
+|       |   |   \---test
+|       |   +---json5
+|       |   |   +---dist
+|       |   |   \---lib
+|       |   +---keyv
+|       |   |   \---src
+|       |   +---levn
+|       |   |   \---lib
+|       |   +---libtess
+|       |   +---lightningcss
+|       |   |   \---node
+|       |   +---lightningcss-win32-x64-msvc
+|       |   +---locate-path
+|       |   +---lodash.merge
+|       |   +---lru-cache
+|       |   +---minimatch
+|       |   +---ms
+|       |   +---nanoid
+|       |   |   +---async
+|       |   |   +---bin
+|       |   |   +---non-secure
+|       |   |   \---url-alphabet
+|       |   +---natural-compare
+|       |   +---node-releases
+|       |   |   \---data
+|       |   |       +---processed
+|       |   |       \---release-schedule
+|       |   +---omggif
+|       |   +---optionator
+|       |   |   \---lib
+|       |   +---p-limit
+|       |   +---p-locate
+|       |   +---p5
+|       |   |   +---dist
+|       |   |   |   +---accessibility
+|       |   |   |   +---color
+|       |   |   |   |   \---color_spaces
+|       |   |   |   +---core
+|       |   |   |   |   \---friendly_errors
+|       |   |   |   +---data
+|       |   |   |   +---dom
+|       |   |   |   +---events
+|       |   |   |   +---image
+|       |   |   |   +---io
+|       |   |   |   +---math
+|       |   |   |   |   \---Matrices
+|       |   |   |   +---shape
+|       |   |   |   +---strands
+|       |   |   |   +---type
+|       |   |   |   |   \---lib
+|       |   |   |   +---utilities
+|       |   |   |   +---webgl
+|       |   |   |   \---webgpu
+|       |   |   |       \---shaders
+|       |   |   |           +---filters
+|       |   |   |           \---functions
+|       |   |   +---lib
+|       |   |   +---translations
+|       |   |   |   +---en
+|       |   |   |   +---es
+|       |   |   |   +---hi
+|       |   |   |   +---ja
+|       |   |   |   +---ko
+|       |   |   |   \---zh
+|       |   |   \---types
+|       |   +---pako
+|       |   |   +---dist
+|       |   |   \---lib
+|       |   |       +---utils
+|       |   |       \---zlib
+|       |   +---parent-module
+|       |   +---path-exists
+|       |   +---path-key
+|       |   +---picocolors
+|       |   +---picomatch
+|       |   |   \---lib
+|       |   +---postcss
+|       |   |   \---lib
+|       |   +---prelude-ls
+|       |   |   \---lib
+|       |   +---punycode
+|       |   +---react
+|       |   |   \---cjs
+|       |   +---react-dom
+|       |   |   \---cjs
+|       |   +---react-router
+|       |   |   \---dist
+|       |   |       +---development
+|       |   |       |   \---lib
+|       |   |       |       \---types
+|       |   |       \---production
+|       |   |           \---lib
+|       |   |               \---types
+|       |   +---react-router-dom
+|       |   |   \---dist
+|       |   +---resolve-from
+|       |   +---rolldown
+|       |   |   +---bin
+|       |   |   +---dist
+|       |   |   |   \---shared
+|       |   |   \---node_modules
+|       |   |       \---@rolldown
+|       |   |           \---pluginutils
+|       |   |               \---dist
+|       |   |                   \---filter
+|       |   +---scheduler
+|       |   |   \---cjs
+|       |   +---semver
+|       |   |   \---bin
+|       |   +---set-cookie-parser
+|       |   |   \---lib
+|       |   +---shebang-command
+|       |   +---shebang-regex
+|       |   +---source-map
+|       |   |   +---dist
+|       |   |   \---lib
+|       |   +---source-map-js
+|       |   |   \---lib
+|       |   +---strip-json-comments
+|       |   +---supports-color
+|       |   +---tinyglobby
+|       |   |   \---dist
+|       |   +---type-check
+|       |   |   \---lib
+|       |   +---update-browserslist-db
+|       |   +---uri-js
+|       |   |   \---dist
+|       |   |       +---es5
+|       |   |       \---esnext
+|       |   |           \---schemes
+|       |   +---vite
+|       |   |   +---bin
+|       |   |   +---dist
+|       |   |   |   +---client
+|       |   |   |   \---node
+|       |   |   |       \---chunks
+|       |   |   +---misc
+|       |   |   \---types
+|       |   |       \---internal
+|       |   +---which
+|       |   |   \---bin
+|       |   +---word-wrap
+|       |   +---yallist
+|       |   +---yocto-queue
+|       |   +---zod
+|       |   |   +---locales
+|       |   |   +---mini
+|       |   |   +---src
+|       |   |   |   +---locales
+|       |   |   |   +---mini
+|       |   |   |   +---v3
+|       |   |   |   |   +---benchmarks
+|       |   |   |   |   +---helpers
+|       |   |   |   |   +---locales
+|       |   |   |   |   \---tests
+|       |   |   |   +---v4
+|       |   |   |   |   +---classic
+|       |   |   |   |   |   \---tests
+|       |   |   |   |   +---core
+|       |   |   |   |   |   \---tests
+|       |   |   |   |   |       \---locales
+|       |   |   |   |   +---locales
+|       |   |   |   |   \---mini
+|       |   |   |   |       \---tests
+|       |   |   |   \---v4-mini
+|       |   |   +---v3
+|       |   |   |   +---helpers
+|       |   |   |   \---locales
+|       |   |   +---v4
+|       |   |   |   +---classic
+|       |   |   |   +---core
+|       |   |   |   +---locales
+|       |   |   |   \---mini
+|       |   |   \---v4-mini
+|       |   \---zod-validation-error
+|       |       +---v3
+|       |       \---v4
+|       +---public
+|       |   +---brand
+|       |   +---sounds
+|       |   \---vendor
+|       \---src
+|           +---assets
+|           |   \---recipes
+|           +---components
+|           |   +---home
+|           |   +---p5
+|           |   +---recipe
+|           |   \---tips
+|           +---data
+|           |   \---knowledge
+|           +---hooks
+|           +---pages
+|           +---services
+|           |   +---ai
+|           |   \---sound
+|           +---store
+|           +---styles
+|           \---utils
++---2_coding_documentation
+|   +---00_project_brief
+|   +---01_prompt_logs
+|   +---02_step_reports
+|   +---03_git_records
+|   +---04_issue_reviews
+|   +---05_flowcharts
+|   +---06_assets
+|   |   +---manual_pages
+|   |   |   \---manual-2.0
+|   |   \---screenshots
+|   |       +---step-01-project-init
+|   |       +---step-02-router-and-global-style
+|   |       +---step-03-home-agent-mock
+|   |       +---step-04-recipe-detail-localstorage
+|   |       +---step-05-shopping-group-crud
+|   |       +---step-06-favorites-export
+|   |       +---step-07-data-flow-refactor
+|   |       \---step-10-mobile-ux-enhance
+|   |           +---after
+|   |           \---before
+|   +---07_exports
+|   +---08_v2_upgrade
+|   |   +---00_v1_baseline
+|   |   +---01_prompt_logs_v2
+|   |   +---02_step_reports_v2
+|   |   +---03_issue_reviews_v2
+|   |   +---04_flowcharts_v2
+|   |   \---05_assets_v2
+|   |       +---screenshots_before
+|   |       +---step-2.0-02-home
+|   |       |   +---after
+|   |       |   \---before
+|   |       +---step-2.0-03-results
+|   |       |   +---after
+|   |       |   \---before
+|   |       +---step-2.0-04-random-modal
+|   |       |   +---after
+|   |       |   \---before
+|   |       +---step-2.0-05-recipe-detail
+|   |       |   +---after
+|   |       |   \---before
+|   |       +---step-2.0-07-pages
+|   |       |   +---after
+|   |       |   \---before
+|   |       +---step-2.0-09-ux-lite
+|   |       |   +---after
+|   |       |   \---before
+|   |       +---step-2.0-10-visual-layout-adjust
+|   |       |   +---after
+|   |       |   \---before
+|   |       +---step-2.0-11-home-structure-cleanup
+|   |       |   +---after
+|   |       |   \---before
+|   |       +---step-2.0-12-home-detail-polish
+|   |       |   +---after
+|   |       |   \---before
+|   |       +---step-2.0-13-list-favorites-detail-recent
+|   |       |   +---after
+|   |       |   \---before
+|   |       +---step-2.0-14-detail-layout-polish
+|   |       |   +---after
+|   |       |   \---before
+|   |       +---step-2.0-15-home-atmosphere-cards
+|   |       |   +---after
+|   |       |   \---before
+|   |       \---step-2.0-16-random-modal-confetti
+|   |           +---after
+|   |           \---before
+|   \---templates
++---3_presentation
++---4_certs
+\---scripts
+
+## 1_project_files/cooking-ai-planner/src
+Folder PATH listing for volume �ز�
+Volume serial number is 4EE5-3805
+G:\��������\COOKING-AI-PLANNER\1_PROJECT_FILES\COOKING-AI-PLANNER\SRC
+|   App.jsx
+|   main.jsx
+|   
++---assets
+|   |   hero.png
+|   |   react.svg
+|   |   vite.svg
+|   |   
+|   \---recipes
+|           broccoli.svg
+|           egg-rice.svg
+|           microwave.svg
+|           veg-bowl.svg
+|           
++---components
+|   |   AppLayout.jsx
+|   |   PageHeader.jsx
+|   |   SideNav.jsx
+|   |   TopBar.jsx
+|   |   
+|   +---home
+|   |       AgentComposer.jsx
+|   |       BudgetPlanModal.jsx
+|   |       FiltersPanel.jsx
+|   |       HomeHero.jsx
+|   |       PhotoUploadButton.jsx
+|   |       RandomRecipeModal.jsx
+|   |       RecipeCard.jsx
+|   |       
+|   +---p5
+|   |       P5HeroDecoration.jsx
+|   |       
+|   +---recipe
+|   |       AddToShoppingResultModal.jsx
+|   |       
+|   \---tips
+|           TipCard.jsx
+|           
++---data
+|   |   demoShoppingItems.js
+|   |   recipeCatalog.js
+|   |   tipsCatalog.js
+|   |   
+|   \---knowledge
+|           budget_rules.json
+|           cooking_basics.json
+|           equipment_limits.json
+|           ingredient_tips.json
+|           
++---hooks
+|       useAiConfig.js
+|       useFavorites.js
+|       useHashRoute.js
+|       useLocalStorage.js
+|       useRecent.js
+|       useRecipeGeneratorState.js
+|       useShoppingList.js
+|       useToast.js
+|       
++---pages
+|       FavoritesPage.jsx
+|       HomePage.jsx
+|       RecentPage.jsx
+|       RecipeDetailPage.jsx
+|       RecipeResultsPage.jsx
+|       SettingsPage.jsx
+|       ShoppingDetailPage.jsx
+|       ShoppingListPage.jsx
+|       TipsPage.jsx
+|       
++---services
+|   |   exportService.js
+|   |   homeRecipeAgentService.js
+|   |   mockPlanner.js
+|   |   shoppingService.js
+|   |   
+|   +---ai
+|   |       aiConfigModel.js
+|   |       llmProvider.js
+|   |       promptBuilder.js
+|   |       recipeGenerationService.js
+|   |       retrievalService.js
+|   |       
+|   \---sound
+|           soundService.js
+|           
++---store
+|       appData.js
+|       appStore.js
+|       storageKeys.js
+|       
++---styles
+|       app.css
+|       global.css
+|       tokens.css
+|       
+\---utils
+        recipeModel.js
+        shoppingModel.js
+        soundConstants.js
+        storage.js
+        
+
+## 3_presentation
+Folder PATH listing for volume �ز�
+Volume serial number is 4EE5-3805
+G:\��������\COOKING-AI-PLANNER\3_PRESENTATION
+    2.0_release_note.md
+    demo_script_v2.md
+    v2_final_checklist.md
+    v2_final_file_tree.txt
+    xiaofanzhuo_v2_delivery_2026-04-21.zip
+    
+No subfolders exist 
+

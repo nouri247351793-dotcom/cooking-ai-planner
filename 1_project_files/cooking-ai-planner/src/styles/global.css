@@ -1,0 +1,54 @@
+@import './tokens.css';
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background: var(--c-bg);
+  color: var(--c-text);
+  overscroll-behavior-y: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--bg-dots-image);
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+  opacity: var(--bg-dots-opacity);
+  z-index: -1;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+#root {
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,14 @@
+[step-XX][type] 简短主题
+
+why:
+- 
+
+changed files:
+- 
+
+key logic:
+- 
+
+test result:
+- 
+

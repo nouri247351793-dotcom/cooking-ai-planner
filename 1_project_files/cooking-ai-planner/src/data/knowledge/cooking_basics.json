@@ -1,0 +1,27 @@
+[
+  {
+    "id": "kb_basic_knife_01",
+    "title": "刀工入门：先学“切丝/切片/拍碎”三件事",
+    "category": "cooking_basics",
+    "tags": ["knife", "beginner", "practice", "safety"],
+    "content": "大学生新手做饭最值得优先练的是稳定性：切丝、切片、拍碎（蒜/姜）。每次练习只专注一个动作，速度不要快，先保证手指收拢与刀尖贴案板。能稳定切出均匀大小，后续火候更容易掌控。",
+    "applicableScenes": ["university_cooking_learning_planner", "any"]
+  },
+  {
+    "id": "kb_basic_heat_01",
+    "title": "火候基础：先用“中小火 + 分段加热”减少翻车",
+    "category": "cooking_basics",
+    "tags": ["heat", "beginner", "stove"],
+    "content": "新手最常见翻车是火太大导致外焦里生。建议先以中小火起步，必要时分段加热：先把食材加热熟，再把调味收汁。遇到冒烟/焦味就立刻降火或离火。",
+    "applicableScenes": ["university_cooking_learning_planner", "any"]
+  },
+  {
+    "id": "kb_basic_mise_01",
+    "title": "备菜习惯：先把所有食材称量/切好再开火",
+    "category": "cooking_basics",
+    "tags": ["prep", "workflow", "time_15", "time_30"],
+    "content": "宿舍/合租环境容易手忙脚乱。建议按流程：洗→切→装盘→调好酱汁→再开火。这样可以显著减少爆锅和忘放某样调料的概率，整体用时也更可控。",
+    "applicableScenes": ["university_cooking_learning_planner", "any"]
+  }
+]
+

@@ -1,0 +1,27 @@
+[
+  {
+    "id": "kb_eq_microwave_01",
+    "title": "只有微波炉：优先选择“蒸/焖/拌”思路",
+    "category": "equipment_limits",
+    "tags": ["microwave_only", "no_stove", "time_15", "beginner"],
+    "content": "只有微波炉时不适合追求锅气。可以用耐热碗：蔬菜+蛋/豆腐+少量调味，微波加热到熟；再做冷拌或简单酱汁。重点是可执行与卫生安全。",
+    "applicableScenes": ["university_cooking_learning_planner"]
+  },
+  {
+    "id": "kb_eq_no_oven_01",
+    "title": "没有烤箱：用平底锅/空气炸锅替代烘烤口感",
+    "category": "equipment_limits",
+    "tags": ["no_oven", "stove", "beginner"],
+    "content": "没有烤箱不影响多数家常菜。想要类似烘烤的干香口感，可以用平底锅小火煎、或空气炸锅（如果有）。注意少油、分批翻面。",
+    "applicableScenes": ["university_cooking_learning_planner", "any"]
+  },
+  {
+    "id": "kb_eq_no_stove_01",
+    "title": "没有明火：优先做“免开火”与“微波替代”",
+    "category": "equipment_limits",
+    "tags": ["no_stove", "microwave_only", "beginner"],
+    "content": "没有明火时优先选择：即食蔬菜、罐头金枪鱼、酸奶/水果等组合；或使用微波炉替代加热。关键是食品安全与可持续执行。",
+    "applicableScenes": ["university_cooking_learning_planner", "any"]
+  }
+]
+
