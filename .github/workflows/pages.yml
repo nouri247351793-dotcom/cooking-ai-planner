@@ -41,6 +41,10 @@ jobs:
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
+        with:
+          # Some repos return 404 until Pages is enabled; ask the action to enable it if possible.
+          enablement: true
+          enable: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
