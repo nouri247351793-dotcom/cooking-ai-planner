@@ -8,6 +8,10 @@ dist/
 .tmp/
 **/.vite-cache/
 
+# delivery archives (generated)
+3_presentation/*.zip
+**/*.zip
+
 # logs
 npm-debug.log*
 yarn-debug.log*

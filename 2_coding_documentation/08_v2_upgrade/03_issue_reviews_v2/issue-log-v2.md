@@ -32,3 +32,4 @@
 | 2026-04-21 | 2.0-17 | Final QA：`npm run lint` 扫描 `.vite-cache` 导致 vendor 噪音 | low | closed | 通过 eslint ignores 排除 `.vite-cache/**`，并对动画类 effect 做规则兜底（避免 final polish 期引入重构风险） |
 | 2026-04-21 | 2.0-17 | Final QA：音效素材位文档与默认 mp3 不一致 | low | closed | 对齐 `public/sounds/README.md` 与 `SOUND_ASSETS.success`，补充硬刷新/清缓存说明，降低替换踩坑 |
 | 2026-04-21 | 2.0-17 | 当前环境 `.git` 写入被拒绝，无法 `git add/commit` | medium | open | `git add -A` 报 `.git/index.lock Permission denied`；本轮只做打包与提交命令建议，需在可写环境完成真实提交 |
+| 2026-04-21 | 2.0-18 | 最终提交材料分散，缺少统一导出索引与大纲 | medium | closed | 已补齐 `07_exports/`（索引/过程概览/分工模板/演示脚本/checklist/release note/总大纲），并生成交付 zip（见 `3_presentation/`） |
