@@ -24,7 +24,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
           cache-dependency-path: 1_project_files/cooking-ai-planner/package-lock.json
 
@@ -41,10 +41,10 @@ jobs:
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
+        continue-on-error: true
         with:
           # Some repos return 404 until Pages is enabled; ask the action to enable it if possible.
           enablement: true
-          enable: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -54,6 +54,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
