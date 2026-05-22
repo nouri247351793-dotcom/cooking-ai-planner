@@ -76,10 +76,12 @@ export default function HomePage() {
         <aside className="homeV2__aside" aria-label="首页辅助区">
           <CookingTimerCard />
 
-          <div className="card">
-            <div className="card__title">🎲 随机一道菜</div>
-            <div className="muted" style={{ marginTop: 6 }}>
-              这是轻量入口：优先从“最近生成”里随机；没有生成时从任务练习菜谱里随机。
+          <div className="card utilityCard">
+            <div className="utilityCard__head">
+              <div>
+                <div className="utilityCard__title">🎲 随机一道菜</div>
+                <div className="utilityCard__desc">不知道做什么时，先抽一道可练习的菜。</div>
+              </div>
             </div>
             <div className="actionsRow" style={{ marginTop: 10 }}>
               <button
@@ -123,16 +125,13 @@ export default function HomePage() {
             </div>
             <ul className="noteList">
               <li>
-                <span className="noteDot">🥚</span> 鸡蛋入锅前加一点水，成品更嫩
+                <span className="noteDot">🥚</span> 鸡蛋加一点水，更嫩。
               </li>
               <li>
-                <span className="noteDot">🥬</span> 焯水后过凉，青菜不黄不苦
+                <span className="noteDot">🥬</span> 青菜焯水后过凉。
               </li>
               <li>
-                <span className="noteDot">🔥</span> 空气炸锅预热 2 分钟，出色更稳定
-              </li>
-              <li>
-                <span className="noteDot">🛒</span> 买鸡翅选表皮紧致、无渗血更新鲜
+                <span className="noteDot">🔥</span> 热锅后再下食材。
               </li>
             </ul>
           </div>

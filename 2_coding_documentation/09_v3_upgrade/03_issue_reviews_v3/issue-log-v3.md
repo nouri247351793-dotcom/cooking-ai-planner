@@ -76,3 +76,14 @@ Date: 2026-05-23
 | First-run State | Budget ledger has no meaningful overview before a budget exists | Empty numbers could look broken | Added first-time budget setup state in the modal |
 | Data Ownership | Budget records and task XP are different product concepts | Mixing them would make future changes risky | Added separate `budgetLedger` localStorage key |
 | Scope Control | Real bank/payment sync is out of scope | Would require external integrations and privacy decisions | Kept records as manual localStorage entries only |
+
+## Step 3.0-07 - Utility And First-level Page UI Alignment
+
+Date: 2026-05-23
+
+| Type | Issue | Impact | Resolution / Record |
+|---|---|---|---|
+| UI Consistency | Several first-level pages still used older card/header structure | 3.0 dashboard shell felt inconsistent after navigation | Added shared 3.0 hero and card alignment classes to shopping, favorites, recent, and tips pages |
+| Information Density | Home tips card was too dense for the right rail | It competed with timer and budget tools | Reduced tips to three short scan-friendly notes |
+| Scope Control | Random recipe should not be redesigned into a new feature | Risk of breaking existing reroll/detail flow | Preserved entry card, modal, reroll, and detail navigation |
+| Empty State | Recent page must still demonstrate well with no records | Empty state is common during demos | Kept and restyled empty state while preserving record display path |

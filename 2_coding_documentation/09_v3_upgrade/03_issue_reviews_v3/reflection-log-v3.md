@@ -62,3 +62,12 @@ Date: 2026-05-23
 - Budget and task progress should stay decoupled because one represents money spent and the other represents learning progress.
 - A manual ledger is sufficient for the current product stage and avoids pretending that the app has real payment or receipt intelligence.
 - The first-run setup flow matters because a budget tool without a budget baseline has no useful ratio or status.
+
+## Step 3.0-07 - Utility And First-level Page UI Alignment
+
+Date: 2026-05-23
+
+- The 3.0 dashboard shell only feels complete if secondary pages stop looking like older isolated screens.
+- Random recipe remains a helper, not a core growth loop; preserving its existing capability is safer than expanding it.
+- The right rail should be quick to scan, so tips need short actionable lines rather than paragraph-level explanation.
+- Empty states are part of the demo surface and need the same visual quality as filled states.

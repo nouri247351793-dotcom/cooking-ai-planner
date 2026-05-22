@@ -665,6 +665,79 @@
   line-height: 1.5;
 }
 
+.v3Page {
+  gap: var(--sp-18);
+}
+
+.v3PageHero {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-16);
+  align-items: flex-start;
+  border-radius: 30px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background:
+    radial-gradient(560px 220px at 10% 0%, rgba(var(--c-primary-rgb), 0.12), transparent 66%),
+    rgba(255, 255, 255, 0.84);
+  box-shadow: var(--sh-1);
+  padding: clamp(18px, 2.8vw, 28px);
+  backdrop-filter: blur(12px);
+}
+
+.v3PageHero__eyebrow {
+  margin-bottom: 8px;
+  color: rgba(var(--c-primary-rgb), 0.98);
+  font-size: var(--fs-12);
+  font-weight: 950;
+}
+
+.v3PageHero__title {
+  margin: 0;
+  color: var(--c-ink);
+  font-size: clamp(26px, 3.5vw, 40px);
+  font-weight: 950;
+  letter-spacing: -0.04em;
+  line-height: 1.08;
+}
+
+.v3PageHero__desc {
+  max-width: 720px;
+  margin: var(--sp-10) 0 0;
+  color: rgba(15, 23, 42, 0.68);
+  font-size: var(--fs-15);
+  line-height: 1.7;
+}
+
+.v3PageHero__badge {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  border: 1px solid rgba(var(--c-primary-rgb), 0.22);
+  background: rgba(var(--c-primary-rgb), 0.1);
+  color: rgba(var(--c-primary-rgb), 0.98);
+  padding: 9px 13px;
+  font-size: var(--fs-13);
+  font-weight: 950;
+}
+
+.v3ControlCard,
+.v3EmptyState,
+.v3ListCard,
+.v3RecipeGrid .recipeCard,
+.v3CardGrid .tipCard {
+  border-radius: 26px;
+}
+
+.v3CardGrid,
+.v3RecipeGrid {
+  gap: var(--sp-16);
+}
+
+@media (max-width: 720px) {
+  .v3PageHero {
+    flex-direction: column;
+  }
+}
+
 .groupList {
   display: flex;
   flex-direction: column;
@@ -1742,6 +1815,33 @@
   margin-top: 6px;
   color: var(--c-muted);
   font-size: var(--fs-12);
+}
+
+.utilityCard {
+  border-color: rgba(15, 23, 42, 0.08);
+  background:
+    radial-gradient(220px 110px at 12% 0%, rgba(var(--c-primary-rgb), 0.1), transparent 66%),
+    rgba(255, 255, 255, 0.76);
+}
+
+.utilityCard__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-10);
+}
+
+.utilityCard__title {
+  color: var(--c-ink);
+  font-size: var(--fs-15);
+  font-weight: 950;
+}
+
+.utilityCard__desc {
+  margin-top: 6px;
+  color: rgba(15, 23, 42, 0.68);
+  font-size: var(--fs-13);
+  line-height: 1.55;
 }
 
 .noteCard {

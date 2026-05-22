@@ -10,9 +10,9 @@ export default function TipCard({ tip }) {
         <div className="tipCard__title">{tip.title}</div>
         <div className="tipCard__meta">{tip.minutes} 分钟 · 适合快速复习</div>
         <div className="tipCard__tags">
-          {(tip.tags || []).slice(0, 4).map((t) => (
-            <span key={t} className="tag">
-              {t}
+          {(tip.tags || []).slice(0, 4).map((tag) => (
+            <span key={tag} className="tag">
+              {tag}
             </span>
           ))}
         </div>
@@ -21,4 +21,3 @@ export default function TipCard({ tip }) {
     </article>
   )
 }
-

@@ -60,28 +60,28 @@ function ConfettiBurst({ runKey }) {
   useEffect(() => {
     if (!pieces.length) return undefined
     setAlive(true)
-    const t = window.setTimeout(() => setAlive(false), 1450)
-    return () => window.clearTimeout(t)
+    const timer = window.setTimeout(() => setAlive(false), 1450)
+    return () => window.clearTimeout(timer)
   }, [pieces.length, runKey])
 
   if (!alive || !pieces.length) return null
 
   return (
     <div className="confettiLayer" aria-hidden="true">
-      {pieces.map((p) => (
+      {pieces.map((piece) => (
         <span
-          key={p.id}
-          className={p.round ? 'confettiPiece is-round' : 'confettiPiece'}
+          key={piece.id}
+          className={piece.round ? 'confettiPiece is-round' : 'confettiPiece'}
           style={{
-            left: `${p.left}%`,
-            width: `${p.width}px`,
-            height: `${p.height}px`,
-            opacity: p.opacity,
-            backgroundColor: p.color,
-            animationDelay: `${p.delay}ms`,
-            ['--dx']: `${p.dx}px`,
-            ['--rot']: `${p.rot}deg`,
-            ['--dur']: `${p.dur}ms`,
+            left: `${piece.left}%`,
+            width: `${piece.width}px`,
+            height: `${piece.height}px`,
+            opacity: piece.opacity,
+            backgroundColor: piece.color,
+            animationDelay: `${piece.delay}ms`,
+            '--dx': `${piece.dx}px`,
+            '--rot': `${piece.rot}deg`,
+            '--dur': `${piece.dur}ms`,
           }}
         />
       ))}
@@ -107,9 +107,9 @@ function RecipeCardPreview({ recipe }) {
           </div>
 
           <div className="recipeCard__tags">
-            {tags.map((t) => (
-              <span key={t} className="tag">
-                {t}
+            {tags.map((tag) => (
+              <span key={tag} className="tag">
+                {tag}
               </span>
             ))}
           </div>
@@ -123,9 +123,9 @@ function RecipeCardPreview({ recipe }) {
               <div className="recipeCard__learnTitle">学习目标：{recipe.learning.goal}</div>
               <div className="recipeCard__learnPoints">
                 {recipe.learning.focus && recipe.learning.focus.length
-                  ? recipe.learning.focus.slice(0, 3).map((p) => (
-                      <span key={p} className="pill">
-                        {p}
+                  ? recipe.learning.focus.slice(0, 3).map((point) => (
+                      <span key={point} className="pill">
+                        {point}
                       </span>
                     ))
                   : null}
@@ -145,8 +145,8 @@ export default function RandomRecipeModal({ open, recipe, onClose, onReroll }) {
 
   useEffect(() => {
     if (!open) return
-    const onKeyDown = (e) => {
-      if (e.key === 'Escape') onClose()
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') onClose()
     }
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
@@ -154,7 +154,7 @@ export default function RandomRecipeModal({ open, recipe, onClose, onReroll }) {
 
   useEffect(() => {
     if (!open) return
-    setBurstKey((x) => x + 1)
+    setBurstKey((value) => value + 1)
   }, [open])
 
   if (!open || !recipe) return null
@@ -165,21 +165,21 @@ export default function RandomRecipeModal({ open, recipe, onClose, onReroll }) {
       role="dialog"
       aria-modal="true"
       aria-label="随机一道菜"
-      onMouseDown={(e) => {
-        if (e.target === e.currentTarget) onClose()
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget) onClose()
       }}
     >
-      <div className="modalCard" onMouseDown={(e) => e.stopPropagation()}>
+      <div className="modalCard" onMouseDown={(event) => event.stopPropagation()}>
         <ConfettiBurst runKey={burstKey} />
         <div className="modalHead">
           <div>
             <div className="modalTitle">🎲 随机一道菜</div>
             <div className="muted" style={{ marginTop: 6 }}>
-              手气不满意就再摇一次；满意就去详情页学习这道菜的关键动作。
+              不知道做什么时先抽一张；不满意就再摇一次，满意就进入详情学习关键动作。
             </div>
           </div>
           <button type="button" className="iconBtn" onClick={onClose} aria-label="关闭">
-            ✕
+            ×
           </button>
         </div>
 
@@ -190,7 +190,7 @@ export default function RandomRecipeModal({ open, recipe, onClose, onReroll }) {
             type="button"
             className="secondaryBtn"
             onClick={() => {
-              setBurstKey((x) => x + 1)
+              setBurstKey((value) => value + 1)
               if (onReroll) onReroll()
             }}
           >
