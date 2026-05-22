@@ -8,12 +8,12 @@ function getLayoutMeta(location) {
 
   if (pathname === '/') {
     return {
-      title: '大学生做饭学习规划师',
-      subtitle: '年轻清爽的家常菜学习规划（先 mock，后接 AI）',
+      title: '小饭桌',
+      subtitle: '大学生做饭学习规划师 · 2.0 mock，3.0 界面升级中',
       showBack: false,
       right: (
         <Link className="iconBtn" to="/settings" aria-label="AI 配置">
-          ⚙
+          ⚙️
         </Link>
       ),
     }
@@ -40,7 +40,7 @@ function getLayoutMeta(location) {
   }
 
   if (pathname === '/tips') {
-    return { title: '新手贴士（占位）', showBack: false }
+    return { title: '新手贴士', showBack: false }
   }
 
   if (pathname.startsWith('/recipes/')) {
@@ -48,7 +48,7 @@ function getLayoutMeta(location) {
   }
 
   if (pathname === '/settings') {
-    return { title: 'AI 模型配置（占位）', showBack: true, backTo: '/' }
+    return { title: 'AI 模型配置', showBack: true, backTo: '/' }
   }
 
   return { title: '页面', showBack: true, backTo: '/' }
@@ -62,23 +62,23 @@ export default function AppLayout() {
   const headerShowBack = typeof meta.headerShowBack === 'boolean' ? meta.headerShowBack : meta.showBack
 
   return (
-    <div className="v2Frame">
-      <aside className="v2Sidebar" aria-label="主导航">
+    <div className="dashboardFrame">
+      <aside className="dashboardNavRail" aria-label="主导航">
         <SideNav />
       </aside>
 
-      <div className="v2Body">
+      <div className="dashboardBody">
         {pathname === '/' ? null : <TopBar title={meta.title} showBack={meta.showBack} backTo={meta.backTo} />}
 
         <div className={shellVariant === 'wide' ? 'appShell appShell--wide' : 'appShell'}>
           {pathname === '/' ? null : (
-          <PageHeader
-            title={meta.title}
-            subtitle={meta.subtitle}
-            showBack={headerShowBack}
-            backTo={meta.backTo}
-            rightSlot={meta.right || <span className="pageHeader__spacer" aria-hidden="true" />}
-          />
+            <PageHeader
+              title={meta.title}
+              subtitle={meta.subtitle}
+              showBack={headerShowBack}
+              backTo={meta.backTo}
+              rightSlot={meta.right || <span className="pageHeader__spacer" aria-hidden="true" />}
+            />
           )}
 
           <main className="appMain" role="main">

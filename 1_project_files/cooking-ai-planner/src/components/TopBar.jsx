@@ -1,7 +1,7 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { useMemo } from 'react'
 import { useFavorites } from '../hooks/useFavorites.js'
 import { useShoppingList } from '../hooks/useShoppingList.js'
-import { useMemo } from 'react'
 
 function PillLink({ to, label, countText, ariaLabel }) {
   return (
@@ -18,7 +18,7 @@ export default function TopBar({ title, showBack, backTo }) {
   const { shoppingItems } = useShoppingList()
   const counts = useMemo(() => {
     const fav = favoriteIds.length
-    const todo = shoppingItems.filter((x) => !x.checked).length
+    const todo = shoppingItems.filter((item) => !item.checked).length
     return { fav, todo }
   }, [favoriteIds.length, shoppingItems])
 
@@ -38,10 +38,9 @@ export default function TopBar({ title, showBack, backTo }) {
         <PillLink to="/shopping" label="待购" countText={String(counts.todo)} ariaLabel="打开待购清单" />
         <PillLink to="/favorites" label="收藏" countText={String(counts.fav)} ariaLabel="打开我的收藏" />
         <Link className="iconBtn" to="/settings" aria-label="AI 配置">
-          ⚙
+          ⚙️
         </Link>
       </div>
     </header>
   )
 }
-

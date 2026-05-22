@@ -9,3 +9,11 @@ Date: 2026-05-22
 - Current 2.0 is recipe-flow centered. 3.0 should shift the home page center of gravity toward task growth and lightweight tools without breaking the existing recipe/shopping/favorites flows.
 - Existing localStorage namespaces are explicit and versioned, which is a good base for adding 3.0 task and budget records.
 
+## Step 3.0-01 - Dashboard Shell
+
+Date: 2026-05-22
+
+- The dashboard shell should be treated as infrastructure for later 3.0 work, not as a full redesign of every module.
+- Keeping the existing HomePage main/right split was the lowest-risk way to satisfy “中间主操作区 + 右侧工具区” without changing business logic.
+- The icon rail gives the app a clearer product identity, but Step 3.0-02 still needs to simplify the input panel because the current filter chips remain visually heavy.
+- GitHub Pages compatibility should stay visible in UI asset decisions; logo and future assets should avoid absolute root paths.

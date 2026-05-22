@@ -40,3 +40,4 @@
 | 2026-04-21 | 2.0-18 | main | `[step-2.0-18][docs] final submission exports and master outline` | 最终整理与导出：补齐 `07_exports`（索引/过程概览/分工模板/演示脚本/最终 checklist/release note/总大纲），更新 v2 flow/issue；生成可提交 zip（`3_presentation/xiaofanzhuo_v2_delivery_2026-04-21.zip`） |
 | 2026-04-23 | 2.0-git-publish | main | `[v2-release][chore] publish current xiaofanzhuo 2.0 progress` | 已推送到 GitHub `origin/main`（publish commit: `266e567`）；push 过程中遇到 connection reset，使用 `http.version=HTTP/1.1` 重试成功；详见 `08_v2_upgrade/02_step_reports_v2/step-2.0-git-publish-report.md` |
 | 2026-05-22 | 3.0-00 | main | `[step-3.0-00][docs] archive v2 baseline before v3 upgrade` | 3.0 升级前基线留档：新增 `09_v3_upgrade` 目录、记录当前 2.0 路由/组件/localStorage/build/已知问题/文件树，并保存 before 截图；本轮不主动改业务功能 |
+| 2026-05-22 | 3.0-01 | main | `[step-3.0-01][layout] upgrade dashboard shell and icon nav` | 3.0 dashboard 页面壳：新增大圆角外层容器、左侧图标导航、品牌 logo、首页主操作区/右侧工具区布局基础；保留原有路由与业务逻辑 |
