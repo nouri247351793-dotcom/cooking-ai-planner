@@ -43,3 +43,4 @@
 | 2026-05-22 | 3.0-01 | main | `[step-3.0-01][layout] upgrade dashboard shell and icon nav` | 3.0 dashboard 页面壳：新增大圆角外层容器、左侧图标导航、品牌 logo、首页主操作区/右侧工具区布局基础；保留原有路由与业务逻辑 |
 | 2026-05-22 | 3.0-02 | main | `[step-3.0-02][feat] refactor homepage input panel and filter entry` | 3.0 首页输入主面板：深底主操作卡、标题图标位、大输入框、拍照上传/生成菜谱操作区；默认收起筛选 chips，统一为“筛选”入口 |
 | 2026-05-22 | 3.0-03 | main | `[step-3.0-03][feat] add right rail timer tool` | 3.0 右侧工具区：新增深底计时器主工具，支持 MM:SS 编辑、开始/暂停、重置、结束态；随机菜/贴士/省钱计划维持浅底辅助卡层级 |
+| 2026-05-22 | 3.0-04 | main | `[step-3.0-04][feat] add recommended task panel framework` | 3.0 推荐任务面板框架：替换首页下方推荐菜谱区，新增等级/阶段/XP 进度头部、易/中/难切换和占位任务卡；完整任务详情与 XP 闭环留到 Step 3.0-05 |

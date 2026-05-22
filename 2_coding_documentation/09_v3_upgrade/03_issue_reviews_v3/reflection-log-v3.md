@@ -35,3 +35,12 @@ Date: 2026-05-22
 - Keeping timer logic in a standalone component makes future reuse or persistence easier.
 - The timer intentionally starts with a simple local state model; persistence, sound alerts, or notifications can be evaluated later if they become necessary.
 - This step improves utility hierarchy without changing the recipe generation path, which keeps the 3.0 upgrade incremental.
+
+## Step 3.0-04 - Recommended Task Panel
+
+Date: 2026-05-22
+
+- The homepage now starts to shift from “recommend me food” toward “help me practice cooking.”
+- Replacing the recommendation grid is important because the growth loop needs a visible home on the dashboard before the detail flow exists.
+- Static level and XP data are acceptable for this step because Step 3.0-04 is a framework step; persistence and mutation belong to Step 3.0-05.
+- The distinction between stage and difficulty should stay explicit: stage is long-term learner progress, difficulty is the current task filter.

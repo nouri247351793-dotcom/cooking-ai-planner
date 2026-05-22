@@ -1,19 +1,17 @@
 import { useNavigate } from 'react-router-dom'
 import { useMemo, useState } from 'react'
 import HomeHero from '../components/home/HomeHero.jsx'
-import RecipeCard from '../components/home/RecipeCard.jsx'
 import RandomRecipeModal from '../components/home/RandomRecipeModal.jsx'
 import BudgetPlanModal from '../components/home/BudgetPlanModal.jsx'
 import CookingTimerCard from '../components/home/CookingTimerCard.jsx'
+import RecommendedTasksPanel from '../components/home/RecommendedTasksPanel.jsx'
 import { pickRandomRecipe } from '../services/homeRecipeAgentService.js'
-import { useFavorites } from '../hooks/useFavorites.js'
 import { useRecipeGeneratorState } from '../hooks/useRecipeGeneratorState.js'
 import useToast from '../hooks/useToast.js'
 import { playSuccessSound, primeSuccessSound } from '../services/sound/soundService.js'
 
 export default function HomePage() {
   const navigate = useNavigate()
-  const { isFavorite, toggleFavorite } = useFavorites()
   const { toast, showToast } = useToast()
   const [randomOpen, setRandomOpen] = useState(false)
   const [budgetOpen, setBudgetOpen] = useState(false)
@@ -39,11 +37,9 @@ export default function HomePage() {
   }, [defaultRecipes, recipes])
 
   const handleGenerate = async () => {
-    // Prime sound on user gesture to avoid autoplay policy blocking after async generation.
     primeSuccessSound()
     const res = await generate()
     if (res && res.status === 'success') {
-      // UX enhancement: play once on success only
       playSuccessSound()
       navigate('/results')
       return
@@ -72,40 +68,7 @@ export default function HomePage() {
             onFiltersChange={setFilters}
           />
 
-          <div className="card">
-            <div className="cardHeadRow">
-              <div>
-                <div className="card__title">✨ 今日灵感</div>
-                <div className="muted">先挑 2~3 道「可复盘」的菜，循环练习。</div>
-              </div>
-            </div>
-
-            <div className="weekGrid">
-              {defaultRecipes.map((r) => (
-                <RecipeCard
-                  key={r.id}
-                  recipe={r}
-                  actionSlot={
-                    <button
-                      type="button"
-                      className="iconBtn"
-                      aria-label={isFavorite(r.id) ? '取消收藏' : '收藏'}
-                      onClick={() => {
-                        const wasFav = isFavorite(r.id)
-                        toggleFavorite(r.id)
-                        showToast(wasFav ? '已取消收藏' : '已收藏')
-                      }}
-                      style={{ color: isFavorite(r.id) ? 'var(--c-primary)' : undefined }}
-                    >
-                      {isFavorite(r.id) ? '★' : '☆'}
-                    </button>
-                  }
-                />
-              ))}
-            </div>
-          </div>
-
-          
+          <RecommendedTasksPanel />
         </div>
 
         <aside className="homeV2__aside" aria-label="首页辅助区">
@@ -114,7 +77,7 @@ export default function HomePage() {
           <div className="card">
             <div className="card__title">🎲 随机一道菜</div>
             <div className="muted" style={{ marginTop: 6 }}>
-              这是轻量入口：优先从「最近生成」里随机；没有生成时从「今日灵感」里随机。
+              这是轻量入口：优先从「最近生成」里随机；没有生成时从任务练习菜谱里随机。
             </div>
             <div className="actionsRow" style={{ marginTop: 10 }}>
               <button
@@ -161,7 +124,7 @@ export default function HomePage() {
                 <span className="noteDot">🥚</span> 鸡蛋入锅前加一点水，成品更嫩
               </li>
               <li>
-                <span className="noteDot">🥬</span> 焯水后过凉，青菜不黄不苦
+                <span className="noteDot">🥦</span> 焯水后过凉，青菜不黄不苦
               </li>
               <li>
                 <span className="noteDot">🔥</span> 空气炸锅预热 2 分钟，出色更稳定

@@ -1337,6 +1337,216 @@
   color: rgba(var(--c-primary-rgb), 0.98);
 }
 
+.taskPanel {
+  border-radius: 28px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background:
+    radial-gradient(560px 260px at 8% 0%, rgba(var(--c-primary-rgb), 0.12), transparent 62%),
+    rgba(255, 255, 255, 0.84);
+  box-shadow: var(--sh-1);
+  padding: clamp(16px, 2.4vw, 24px);
+  backdrop-filter: blur(14px);
+}
+
+.taskPanel__head {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-16);
+  align-items: flex-start;
+}
+
+.taskPanel__titleWrap {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-12);
+}
+
+.taskPanel__icon {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  background: rgba(var(--c-primary-rgb), 0.12);
+  border: 1px solid rgba(var(--c-primary-rgb), 0.18);
+  font-size: 22px;
+}
+
+.taskPanel__eyebrow {
+  margin-bottom: 4px;
+  color: var(--c-muted);
+  font-size: var(--fs-12);
+  font-weight: 850;
+}
+
+.taskPanel__title {
+  margin: 0;
+  font-size: var(--fs-20);
+  font-weight: 950;
+  line-height: 1.15;
+}
+
+.taskPanel__difficulty {
+  flex: 0 0 auto;
+  display: inline-flex;
+  gap: 6px;
+  padding: 5px;
+  border-radius: 999px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.74);
+}
+
+.taskPanel__tab {
+  width: 34px;
+  height: 30px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(15, 23, 42, 0.62);
+  font-weight: 950;
+  cursor: pointer;
+}
+
+.taskPanel__tab.is-active {
+  background: rgba(var(--c-primary-rgb), 0.14);
+  color: rgba(var(--c-primary-rgb), 0.98);
+}
+
+.taskPanel__progressCard {
+  margin-top: var(--sp-16);
+  display: grid;
+  grid-template-columns: minmax(100px, 0.28fr) minmax(0, 1fr);
+  gap: var(--sp-14);
+  align-items: center;
+  border-radius: 22px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.68);
+  padding: var(--sp-14);
+}
+
+.taskPanel__level {
+  font-size: var(--fs-20);
+  font-weight: 950;
+  line-height: 1.1;
+}
+
+.taskPanel__stage {
+  margin-top: 6px;
+  color: var(--c-muted);
+  font-size: var(--fs-12);
+  font-weight: 850;
+}
+
+.taskPanel__progressWrap {
+  min-width: 0;
+}
+
+.taskPanel__xpText {
+  margin-bottom: 8px;
+  color: rgba(15, 23, 42, 0.72);
+  font-size: var(--fs-12);
+  font-weight: 900;
+  text-align: right;
+}
+
+.taskPanel__progressBar {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+}
+
+.taskPanel__progressFill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(var(--c-primary-rgb), 0.98), rgba(var(--c-primary-rgb), 0.56));
+}
+
+.taskPanel__list {
+  margin-top: var(--sp-14);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-12);
+}
+
+.taskCard {
+  min-height: 148px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-10);
+  border-radius: 22px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.72);
+  padding: var(--sp-14);
+}
+
+.taskCard__top {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-10);
+  align-items: flex-start;
+}
+
+.taskCard__title {
+  font-size: var(--fs-14);
+  font-weight: 950;
+  line-height: 1.25;
+}
+
+.taskCard__xp {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  padding: 4px 8px;
+  border: 1px solid rgba(var(--c-primary-rgb), 0.2);
+  background: rgba(var(--c-primary-rgb), 0.1);
+  color: rgba(var(--c-primary-rgb), 0.98);
+  font-size: var(--fs-12);
+  font-weight: 950;
+}
+
+.taskCard__desc {
+  margin: 0;
+  color: rgba(15, 23, 42, 0.68);
+  font-size: var(--fs-13);
+  line-height: 1.55;
+}
+
+.taskCard__meta {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.taskCard__meta span {
+  border-radius: 999px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.72);
+  padding: 4px 8px;
+  color: rgba(15, 23, 42, 0.66);
+  font-size: var(--fs-12);
+  font-weight: 750;
+}
+
+@media (max-width: 720px) {
+  .taskPanel__head,
+  .taskPanel__progressCard {
+    grid-template-columns: 1fr;
+  }
+
+  .taskPanel__head {
+    flex-direction: column;
+  }
+
+  .taskPanel__xpText {
+    text-align: left;
+  }
+
+  .taskPanel__list {
+    grid-template-columns: 1fr;
+  }
+}
+
 .genStatusCard .miniGrid {
   display: grid;
   grid-template-columns: 1fr;

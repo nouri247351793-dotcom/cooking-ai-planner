@@ -43,3 +43,14 @@ Date: 2026-05-22
 | Timer Input | Editable time needs validation | Invalid values could break countdown behavior | Added MM:SS parser with fallback to default 10 minutes |
 | Timer State | Countdown must support multiple visible states | Users need feedback for idle/editing/running/ended | Added `idle / editing / running / ended` state labels and behavior |
 | Scope Control | Step 3.0-03 should not rewrite right rail business modules | Risk of changing random recipe or budget behavior | Kept random recipe, tips, and budget interactions unchanged |
+
+## Step 3.0-04 - Recommended Task Panel
+
+Date: 2026-05-22
+
+| Type | Issue | Impact | Resolution / Record |
+|---|---|---|---|
+| Product Direction | Homepage lower area was still recipe-browsing focused | 3.0 growth/task concept was not visible | Replaced the recipe recommendation grid with a recommended task panel |
+| Scope Control | Full XP completion flow belongs to Step 3.0-05 | Risk of implementing too much in this step | Added placeholder task cards only; no detail page or XP mutation yet |
+| Data Model | Task data model is not finalized | Premature persistence could create migration work | Used static framework data for level/stage/progress and task placeholders |
+| Existing Features | Removing homepage recipe grid could affect random recipe source | Random recipe still needs candidates | Kept `defaultRecipes` in HomePage for random recipe fallback |
