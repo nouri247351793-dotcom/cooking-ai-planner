@@ -8,6 +8,7 @@ export const STORAGE_KEYS = {
   recentCooked: 'cooking_ai_planner.recent.cooked.v1',
   aiConfig: 'cooking_ai_planner.ai.config.v1',
   taskProgress: 'cooking_ai_planner.v3.task_progress.v1',
+  budgetLedger: 'cooking_ai_planner.v3.budget_ledger.v1',
 }
 
 // Best-effort legacy key migration (read-only fallback)

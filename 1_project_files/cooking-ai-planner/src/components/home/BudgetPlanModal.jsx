@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 function useLockBodyScroll(open) {
   useEffect(() => {
@@ -11,13 +11,41 @@ function useLockBodyScroll(open) {
   }, [open])
 }
 
-export default function BudgetPlanModal({ open, onClose }) {
+function formatCurrency(value) {
+  return `¥${Number(value || 0).toFixed(Number(value || 0) % 1 === 0 ? 0 : 1)}`
+}
+
+function formatDate(date) {
+  if (!date) return '今天'
+  return new Intl.DateTimeFormat('zh-CN', {
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(new Date(date))
+}
+
+export default function BudgetPlanModal({ open, onClose, budgetLedger }) {
+  const { stats, setMonthlyBudget, addExpense } = budgetLedger
+  const [budgetInput, setBudgetInput] = useState('')
+  const [expenseAmount, setExpenseAmount] = useState('')
+  const [expenseNote, setExpenseNote] = useState('')
+  const [message, setMessage] = useState('')
+
   useLockBodyScroll(open)
 
   useEffect(() => {
     if (!open) return
-    const onKeyDown = (e) => {
-      if (e.key === 'Escape') onClose()
+    setBudgetInput(stats.hasBudget ? String(stats.monthlyBudget) : '')
+    setExpenseAmount('')
+    setExpenseNote('')
+    setMessage('')
+  }, [open, stats.hasBudget, stats.monthlyBudget])
+
+  useEffect(() => {
+    if (!open) return
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') onClose()
     }
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
@@ -25,22 +53,44 @@ export default function BudgetPlanModal({ open, onClose }) {
 
   if (!open) return null
 
+  const handleBudgetSubmit = (event) => {
+    event.preventDefault()
+    const result = setMonthlyBudget(budgetInput)
+    if (!result.ok) {
+      setMessage('请先输入大于 0 的本月预算。')
+      return
+    }
+    setMessage('本月预算已更新。')
+  }
+
+  const handleExpenseSubmit = (event) => {
+    event.preventDefault()
+    const result = addExpense({ amount: expenseAmount, note: expenseNote })
+    if (!result.ok) {
+      setMessage('请填写大于 0 的本次做饭开支。')
+      return
+    }
+    setExpenseAmount('')
+    setExpenseNote('')
+    setMessage('已记录本次做饭开支。')
+  }
+
   return (
     <div
       className="modalOverlay"
       role="dialog"
       aria-modal="true"
       aria-label="本月省钱计划"
-      onMouseDown={(e) => {
-        if (e.target === e.currentTarget) onClose()
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget) onClose()
       }}
     >
-      <div className="modalCard" onMouseDown={(e) => e.stopPropagation()}>
+      <div className="modalCard budgetModal" onMouseDown={(event) => event.stopPropagation()}>
         <div className="modalHead">
           <div>
             <div className="modalTitle">💰 本月省钱计划</div>
             <div className="muted" style={{ marginTop: 6 }}>
-              按你的做饭频率，帮你估算这个月的预算压力。
+              先记录预算，再把每次做饭花费记下来。这里只做本地账本，不接真实支付数据。
             </div>
           </div>
           <button type="button" className="iconBtn" onClick={onClose} aria-label="关闭">
@@ -48,86 +98,138 @@ export default function BudgetPlanModal({ open, onClose }) {
           </button>
         </div>
 
-        <div className="budgetModal__section">
-          <div className="sectionTitle">预算概览</div>
-          <div className="budgetModal__grid" style={{ marginTop: 10 }}>
-            <div className="budgetStat">
-              <div className="budgetStat__k">本月预算</div>
-              <div className="budgetStat__v">¥400</div>
-            </div>
-            <div className="budgetStat">
-              <div className="budgetStat__k">当前已用</div>
-              <div className="budgetStat__v">¥213</div>
-            </div>
-            <div className="budgetStat">
-              <div className="budgetStat__k">预计剩余</div>
-              <div className="budgetStat__v">¥187</div>
-            </div>
-            <div className="budgetStat">
-              <div className="budgetStat__k">当前状态</div>
-              <div className="budgetStat__v" style={{ fontSize: 13 }}>
-                还算稳，可以继续自己做饭省钱 ✨
+        {!stats.hasBudget ? (
+          <form className="budgetSetup" onSubmit={handleBudgetSubmit}>
+            <div className="budgetSetup__title">先设置本月预算</div>
+            <div className="budgetSetup__desc">第一次进入省钱计划时，需要先告诉系统这个月准备花多少钱做饭。</div>
+            <label className="field">
+              <div className="field__label">本月预算</div>
+              <input
+                className="input"
+                type="number"
+                min="1"
+                step="1"
+                value={budgetInput}
+                onChange={(event) => setBudgetInput(event.target.value)}
+                placeholder="例如：400"
+              />
+            </label>
+            <button type="submit" className="primaryBtn">
+              保存预算
+            </button>
+          </form>
+        ) : (
+          <>
+            <div className="budgetModal__section">
+              <div className="sectionTitle">预算概览</div>
+              <div className="budgetModal__grid" style={{ marginTop: 10 }}>
+                <div className="budgetStat">
+                  <div className="budgetStat__k">本月预算</div>
+                  <div className="budgetStat__v">{formatCurrency(stats.monthlyBudget)}</div>
+                </div>
+                <div className="budgetStat">
+                  <div className="budgetStat__k">本月已花</div>
+                  <div className="budgetStat__v">{formatCurrency(stats.spent)}</div>
+                </div>
+                <div className="budgetStat">
+                  <div className="budgetStat__k">剩余预算</div>
+                  <div className="budgetStat__v">{formatCurrency(stats.remaining)}</div>
+                </div>
+                <div className="budgetStat">
+                  <div className="budgetStat__k">当前状态</div>
+                  <div className="budgetStat__v" style={{ fontSize: 13 }}>
+                    {stats.status}
+                  </div>
+                </div>
+              </div>
+              <div className="progressBar budgetModal__progress" aria-label={`预算使用比例 ${stats.usagePercent}%`}>
+                <div className="progressBar__fill" style={{ width: `${stats.usagePercent}%` }} />
               </div>
             </div>
-          </div>
-        </div>
 
-        <div className="budgetModal__section">
-          <div className="sectionTitle">本周花费拆分</div>
-          <ul className="noteList" style={{ marginTop: 10 }}>
-            <li>
-              <span className="noteDot">🥦</span> 食材采购：<b>¥128</b>
-            </li>
-            <li>
-              <span className="noteDot">🧂</span> 调料补货：<b>¥35</b>
-            </li>
-            <li>
-              <span className="noteDot">🍜</span> 临时外卖替代：<b>¥50</b>
-            </li>
-          </ul>
-        </div>
+            <form className="budgetModal__section budgetForm" onSubmit={handleBudgetSubmit}>
+              <div className="sectionTitle">修改本月预算</div>
+              <div className="budgetForm__row">
+                <label className="field">
+                  <div className="field__label">预算金额</div>
+                  <input
+                    className="input"
+                    type="number"
+                    min="1"
+                    step="1"
+                    value={budgetInput}
+                    onChange={(event) => setBudgetInput(event.target.value)}
+                  />
+                </label>
+                <button type="submit" className="ghostBtn isPrimary">
+                  更新预算
+                </button>
+              </div>
+            </form>
 
-        <div className="budgetModal__section">
-          <div className="sectionTitle">省钱建议</div>
-          <ul className="noteList" style={{ marginTop: 10 }}>
-            <li>
-              <span className="noteDot">✅</span> 本周优先消耗现有食材，减少重复购买
-            </li>
-            <li>
-              <span className="noteDot">🔁</span> 调料类尽量复用，不必每道菜单独新增
-            </li>
-            <li>
-              <span className="noteDot">🍱</span> 优先做“1 菜 + 主食”组合，比点外卖更稳
-            </li>
-            <li>
-              <span className="noteDot">📅</span> 本周还能再做 <b>4–5</b> 顿基础餐
-            </li>
-          </ul>
-        </div>
+            <form className="budgetModal__section budgetForm" onSubmit={handleExpenseSubmit}>
+              <div className="sectionTitle">新增本次做饭开支</div>
+              <div className="budgetForm__row">
+                <label className="field">
+                  <div className="field__label">金额</div>
+                  <input
+                    className="input"
+                    type="number"
+                    min="0.1"
+                    step="0.1"
+                    value={expenseAmount}
+                    onChange={(event) => setExpenseAmount(event.target.value)}
+                    placeholder="例如：12.5"
+                  />
+                </label>
+                <label className="field budgetForm__note">
+                  <div className="field__label">备注（可选）</div>
+                  <input
+                    className="input"
+                    type="text"
+                    value={expenseNote}
+                    onChange={(event) => setExpenseNote(event.target.value)}
+                    placeholder="例如：番茄鸡蛋食材"
+                  />
+                </label>
+                <button type="submit" className="primaryBtn">
+                  记录开支
+                </button>
+              </div>
+            </form>
 
-        <div className="budgetModal__section">
-          <div className="sectionTitle">本周推荐省钱思路</div>
-          <div className="notice subtle" style={{ marginTop: 10 }}>
-            <div className="notice__desc">
-              先做宿舍快手菜，再留一道稍复杂的菜周末练习，预算和成就感都会更平衡。
+            <div className="budgetModal__section">
+              <div className="sectionTitle">本月项目记录</div>
+              {stats.monthlyExpenses.length ? (
+                <div className="budgetRecordList">
+                  {stats.monthlyExpenses.map((expense) => (
+                    <div className="budgetRecord" key={expense.id}>
+                      <div>
+                        <div className="budgetRecord__note">{expense.note || '本次做饭开支'}</div>
+                        <div className="budgetRecord__date">{formatDate(expense.date)}</div>
+                      </div>
+                      <div className="budgetRecord__amount">{formatCurrency(expense.amount)}</div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="emptyMini">本月还没有记录做饭开支。</div>
+              )}
             </div>
-          </div>
-        </div>
+          </>
+        )}
+
+        {message ? <div className="budgetModal__message">{message}</div> : null}
 
         <div className="actionsRow" style={{ marginTop: 14 }}>
           <button type="button" className="ghostBtn" onClick={onClose}>
             关闭
           </button>
           <button type="button" className="ghostBtn isPrimary" onClick={onClose}>
-            我知道了
+            完成
           </button>
-        </div>
-
-        <div className="muted" style={{ marginTop: 10, textAlign: 'center' }}>
-          按当前节奏，月底大概率还能省下 <b>¥60–80</b>。
         </div>
       </div>
     </div>
   )
 }
-

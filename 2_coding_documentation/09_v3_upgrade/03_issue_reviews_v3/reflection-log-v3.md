@@ -53,3 +53,12 @@ Date: 2026-05-22
 - Manual confirmation is a better 3.0 baseline than simulated AI judgment because it is honest about current product capability.
 - XP persistence is now part of the product model, so later task recommendation steps should treat `taskProgress` as an owned data contract.
 - The duplicate-completion guard is essential even in a prototype; growth systems lose trust quickly if rewards can be farmed accidentally.
+
+## Step 3.0-06 - Budget Ledger Modal
+
+Date: 2026-05-23
+
+- The homepage should behave like a dashboard summary, not a data-entry surface; detailed budget work belongs in the modal.
+- Budget and task progress should stay decoupled because one represents money spent and the other represents learning progress.
+- A manual ledger is sufficient for the current product stage and avoids pretending that the app has real payment or receipt intelligence.
+- The first-run setup flow matters because a budget tool without a budget baseline has no useful ratio or status.

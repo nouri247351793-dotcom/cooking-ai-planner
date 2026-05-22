@@ -65,3 +65,14 @@ Date: 2026-05-22
 | Data Integrity | Completed tasks could accidentally award XP multiple times | Repeated clicks would inflate level and stage | Stored `completedTaskIds` and blocked duplicate XP rewards |
 | Persistence | XP progress needs to survive refreshes | Growth feedback would feel unreliable if reset on reload | Added `cooking_ai_planner.v3.task_progress.v1` localStorage state |
 | Navigation | Task detail is a new route inside the dashboard shell | Users need a way back to the homepage task panel | Added `/tasks/:taskId` route metadata and return links |
+
+## Step 3.0-06 - Budget Ledger Modal
+
+Date: 2026-05-23
+
+| Type | Issue | Impact | Resolution / Record |
+|---|---|---|---|
+| Information Density | Homepage budget card previously showed too much secondary detail | Right rail could become hard to scan | Kept only monthly budget, spent amount, and progress bar on homepage |
+| First-run State | Budget ledger has no meaningful overview before a budget exists | Empty numbers could look broken | Added first-time budget setup state in the modal |
+| Data Ownership | Budget records and task XP are different product concepts | Mixing them would make future changes risky | Added separate `budgetLedger` localStorage key |
+| Scope Control | Real bank/payment sync is out of scope | Would require external integrations and privacy decisions | Kept records as manual localStorage entries only |

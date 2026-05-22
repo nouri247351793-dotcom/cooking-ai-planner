@@ -7,6 +7,7 @@ import CookingTimerCard from '../components/home/CookingTimerCard.jsx'
 import RecommendedTasksPanel from '../components/home/RecommendedTasksPanel.jsx'
 import { pickRandomRecipe } from '../services/homeRecipeAgentService.js'
 import { useRecipeGeneratorState } from '../hooks/useRecipeGeneratorState.js'
+import useBudgetLedger from '../hooks/useBudgetLedger.js'
 import useToast from '../hooks/useToast.js'
 import { playSuccessSound, primeSuccessSound } from '../services/sound/soundService.js'
 
@@ -15,6 +16,7 @@ export default function HomePage() {
   const { toast, showToast } = useToast()
   const [randomOpen, setRandomOpen] = useState(false)
   const [budgetOpen, setBudgetOpen] = useState(false)
+  const budgetLedger = useBudgetLedger()
 
   const {
     defaultRecipes,
@@ -77,7 +79,7 @@ export default function HomePage() {
           <div className="card">
             <div className="card__title">🎲 随机一道菜</div>
             <div className="muted" style={{ marginTop: 6 }}>
-              这是轻量入口：优先从「最近生成」里随机；没有生成时从任务练习菜谱里随机。
+              这是轻量入口：优先从“最近生成”里随机；没有生成时从任务练习菜谱里随机。
             </div>
             <div className="actionsRow" style={{ marginTop: 10 }}>
               <button
@@ -116,7 +118,7 @@ export default function HomePage() {
 
           <div className="card noteCard">
             <div className="noteCard__head">
-              <div className="noteCard__title">🧑‍🍳 学做饭小贴士</div>
+              <div className="noteCard__title">👩‍🍳 学做饭小贴士</div>
               <div className="noteCard__badge">经验便签</div>
             </div>
             <ul className="noteList">
@@ -124,7 +126,7 @@ export default function HomePage() {
                 <span className="noteDot">🥚</span> 鸡蛋入锅前加一点水，成品更嫩
               </li>
               <li>
-                <span className="noteDot">🥦</span> 焯水后过凉，青菜不黄不苦
+                <span className="noteDot">🥬</span> 焯水后过凉，青菜不黄不苦
               </li>
               <li>
                 <span className="noteDot">🔥</span> 空气炸锅预热 2 分钟，出色更稳定
@@ -144,28 +146,26 @@ export default function HomePage() {
             <div className="budgetCard__head">
               <div>
                 <div className="budgetCard__title">💰 省钱计划</div>
-                <div className="budgetCard__sub">学生生活预算卡 · 点开看看</div>
+                <div className="budgetCard__sub">本月做饭开支摘要 · 点开记录</div>
               </div>
               <div className="budgetCard__tag">本月</div>
             </div>
 
-            <div className="budgetCard__grid">
+            <div className="budgetCard__grid budgetCard__grid--summary">
               <div className="budgetMini">
                 <div className="budgetMini__k">本月预算</div>
-                <div className="budgetMini__v">¥400</div>
+                <div className="budgetMini__v">
+                  {budgetLedger.stats.hasBudget ? `¥${budgetLedger.stats.monthlyBudget}` : '未设置'}
+                </div>
               </div>
               <div className="budgetMini">
-                <div className="budgetMini__k">已用</div>
-                <div className="budgetMini__v">¥213</div>
-              </div>
-              <div className="budgetMini">
-                <div className="budgetMini__k">预计还能省</div>
-                <div className="budgetMini__v">¥60–80</div>
+                <div className="budgetMini__k">本月已花</div>
+                <div className="budgetMini__v">¥{budgetLedger.stats.spent}</div>
               </div>
             </div>
 
             <div className="progressBar" aria-hidden="true" style={{ marginTop: 10 }}>
-              <div className="progressBar__fill" style={{ width: `${Math.round((213 / 400) * 100)}%` }} />
+              <div className="progressBar__fill" style={{ width: `${budgetLedger.stats.usagePercent}%` }} />
             </div>
           </button>
         </aside>
@@ -182,7 +182,7 @@ export default function HomePage() {
         }}
       />
 
-      <BudgetPlanModal open={budgetOpen} onClose={() => setBudgetOpen(false)} />
+      <BudgetPlanModal open={budgetOpen} onClose={() => setBudgetOpen(false)} budgetLedger={budgetLedger} />
 
       {toast ? <div className="toast">{toast}</div> : null}
     </section>

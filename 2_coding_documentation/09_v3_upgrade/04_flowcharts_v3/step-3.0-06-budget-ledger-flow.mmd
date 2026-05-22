@@ -1,0 +1,16 @@
+flowchart TD
+  A[Home Budget Summary Card] --> B[Click Budget Card]
+  B --> C[Open Budget Plan Modal]
+  C --> D{Monthly Budget Exists?}
+  D -- No --> E[Show First-time Budget Setup]
+  E --> F[Save monthlyBudget]
+  F --> G[Show Budget Overview]
+  D -- Yes --> G[Show Budget Overview]
+  G --> H[Edit Monthly Budget]
+  G --> I[Add Cooking Expense]
+  I --> J[Create Expense Record]
+  J --> K[Record id amount note date]
+  K --> L[Persist budgetLedger In localStorage]
+  L --> M[Derive Spent Remaining Usage]
+  M --> N[Update Modal Overview]
+  M --> O[Update Home Summary Only]
