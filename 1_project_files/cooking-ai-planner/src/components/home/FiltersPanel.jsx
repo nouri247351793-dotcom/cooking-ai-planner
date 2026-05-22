@@ -2,154 +2,131 @@ import { createDefaultFilters } from '../../services/homeRecipeAgentService.js'
 
 const defaults = createDefaultFilters()
 
+const durationOptions = [
+  { value: '10', label: '≤ 10 分钟' },
+  { value: '15', label: '≤ 15 分钟' },
+  { value: '20', label: '≤ 20 分钟' },
+  { value: '30', label: '≤ 30 分钟' },
+  { value: '45', label: '≤ 45 分钟' },
+  { value: '60', label: '≤ 60 分钟' },
+]
+
+const budgetOptions = [
+  { value: 'any', label: '不限预算' },
+  { value: 'low', label: '低预算（<10 元）' },
+  { value: 'mid', label: '中预算' },
+]
+
+const equipmentOptions = [
+  { value: 'any', label: '不限设备' },
+  { value: 'dormPot', label: '仅宿舍小锅' },
+  { value: 'microwaveOnly', label: '仅微波炉' },
+  { value: 'airfryer', label: '空气炸锅' },
+  { value: 'noOven', label: '无烤箱' },
+  { value: 'noStove', label: '无明火' },
+]
+
+const servingOptions = [
+  { value: '1', label: '1 人份' },
+  { value: '2', label: '2 人份' },
+  { value: '3', label: '3 人份' },
+  { value: '4', label: '4 人份' },
+]
+
+function getActiveFilterCount(filters) {
+  return ['durationMax', 'budget', 'equipmentLimit', 'servings'].filter((key) => {
+    return String(filters[key]) !== String(defaults[key])
+  }).length
+}
+
 export default function FiltersPanel({ filters, onChange, embedded = false }) {
   const setPatch = (patch) => onChange({ ...filters, ...(patch || {}) })
-
-  const capsules = [
-    {
-      key: 't10',
-      label: '10 分钟内',
-      isActive: (f) => String(f.durationMax) === '10',
-      apply: () => setPatch({ durationMax: '10' }),
-      reset: () => setPatch({ durationMax: defaults.durationMax }),
-    },
-    {
-      key: 't20',
-      label: '20 分钟内',
-      isActive: (f) => String(f.durationMax) === '20',
-      apply: () => setPatch({ durationMax: '20' }),
-      reset: () => setPatch({ durationMax: defaults.durationMax }),
-    },
-    {
-      key: 'b10',
-      label: '<10 元',
-      isActive: (f) => String(f.budget) === 'low',
-      apply: () => setPatch({ budget: 'low' }),
-      reset: () => setPatch({ budget: defaults.budget }),
-    },
-    {
-      key: 'dormpot',
-      label: '仅宿舍小锅',
-      isActive: (f) => String(f.equipmentLimit) === 'dormPot',
-      apply: () => setPatch({ equipmentLimit: 'dormPot' }),
-      reset: () => setPatch({ equipmentLimit: defaults.equipmentLimit }),
-    },
-    {
-      key: 'microwave',
-      label: '微波炉',
-      isActive: (f) => String(f.equipmentLimit) === 'microwaveOnly',
-      apply: () => setPatch({ equipmentLimit: 'microwaveOnly' }),
-      reset: () => setPatch({ equipmentLimit: defaults.equipmentLimit }),
-    },
-    {
-      key: 'airfryer',
-      label: '空气炸锅',
-      isActive: (f) => String(f.equipmentLimit) === 'airfryer',
-      apply: () => setPatch({ equipmentLimit: 'airfryer' }),
-      reset: () => setPatch({ equipmentLimit: defaults.equipmentLimit }),
-    },
-    {
-      key: 'simple',
-      label: '极简',
-      isActive: (f) => String(f.durationMax) === '20' && String(f.budget) === 'low',
-      apply: () => setPatch({ durationMax: '20', budget: 'low' }),
-      reset: () => setPatch({ durationMax: defaults.durationMax, budget: defaults.budget }),
-    },
-    {
-      key: 's1',
-      label: '1 人份',
-      isActive: (f) => String(f.servings) === '1',
-      apply: () => setPatch({ servings: '1' }),
-      reset: () => setPatch({ servings: defaults.servings }),
-    },
-  ]
+  const activeCount = getActiveFilterCount(filters)
 
   return (
     <div className={embedded ? 'homeFilters homeFilters--embedded' : 'homeFilters'}>
-      <div className="capsRow" aria-label="快捷筛选">
-        {capsules.map((c) => {
-          const active = c.isActive(filters)
-          return (
-            <button
-              key={c.key}
-              type="button"
-              className={active ? 'capBtn is-active' : 'capBtn'}
-              onClick={() => (active ? c.reset() : c.apply())}
-            >
-              {c.label}
-            </button>
-          )
-        })}
-      </div>
+      <details className="filtersMore filtersMore--v3">
+        <summary className="filtersMore__summary">
+          <span className="filtersMore__summaryMain">筛选</span>
+          <span className="filtersMore__summaryMeta">{activeCount ? `已设置 ${activeCount} 项` : '时长 / 预算 / 设备 / 人份'}</span>
+        </summary>
 
-      <details className="filtersMore">
-        <summary className="filtersMore__summary">更多筛选</summary>
-        <div className="filterGrid" style={{ marginTop: 10 }}>
-          <label className="field">
-            <div className="field__label">时长</div>
-            <select
-              className="select"
-              value={filters.durationMax}
-              name="filter_duration"
-              onChange={(e) => onChange({ ...filters, durationMax: e.target.value })}
-            >
-              <option value="10">≤ 10 分钟</option>
-              <option value="15">≤ 15 分钟</option>
-              <option value="20">≤ 20 分钟</option>
-              <option value="30">≤ 30 分钟</option>
-              <option value="45">≤ 45 分钟</option>
-              <option value="60">≤ 60 分钟</option>
-            </select>
-          </label>
+        <div className="filtersMore__body">
+          <div className="filtersMore__intro">
+            把筛选项统一放在这里，默认不占用主输入区注意力；需要限制条件时再展开调整。
+          </div>
 
-          <label className="field">
-            <div className="field__label">预算</div>
-            <select
-              className="select"
-              value={filters.budget}
-              name="filter_budget"
-              onChange={(e) => onChange({ ...filters, budget: e.target.value })}
-            >
-              <option value="any">不限</option>
-              <option value="low">低预算（≈ &lt;10 元）</option>
-              <option value="mid">中预算</option>
-            </select>
-          </label>
+          <div className="filterGrid">
+            <label className="field">
+              <div className="field__label">时长</div>
+              <select
+                className="select"
+                value={filters.durationMax}
+                name="filter_duration"
+                onChange={(event) => setPatch({ durationMax: event.target.value })}
+              >
+                {durationOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
 
-          <label className="field">
-            <div className="field__label">设备</div>
-            <select
-              className="select"
-              value={filters.equipmentLimit}
-              name="filter_equipment_limit"
-              onChange={(e) => onChange({ ...filters, equipmentLimit: e.target.value })}
-            >
-              <option value="any">不限</option>
-              <option value="dormPot">仅宿舍小锅</option>
-              <option value="microwaveOnly">仅微波炉</option>
-              <option value="airfryer">空气炸锅（占位）</option>
-              <option value="noOven">无烤箱</option>
-              <option value="noStove">无明火</option>
-            </select>
-          </label>
+            <label className="field">
+              <div className="field__label">预算</div>
+              <select
+                className="select"
+                value={filters.budget}
+                name="filter_budget"
+                onChange={(event) => setPatch({ budget: event.target.value })}
+              >
+                {budgetOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
 
-          <label className="field">
-            <div className="field__label">几人份</div>
-            <select
-              className="select"
-              value={filters.servings}
-              name="filter_servings"
-              onChange={(e) => onChange({ ...filters, servings: e.target.value })}
-            >
-              <option value="1">1 人份</option>
-              <option value="2">2 人份</option>
-              <option value="3">3 人份</option>
-              <option value="4">4 人份</option>
-            </select>
-          </label>
+            <label className="field">
+              <div className="field__label">设备</div>
+              <select
+                className="select"
+                value={filters.equipmentLimit}
+                name="filter_equipment_limit"
+                onChange={(event) => setPatch({ equipmentLimit: event.target.value })}
+              >
+                {equipmentOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label className="field">
+              <div className="field__label">几人份</div>
+              <select
+                className="select"
+                value={filters.servings}
+                name="filter_servings"
+                onChange={(event) => setPatch({ servings: event.target.value })}
+              >
+                {servingOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+
+          <button type="button" className="filtersMore__reset" onClick={() => onChange(defaults)}>
+            恢复默认筛选
+          </button>
         </div>
       </details>
     </div>
   )
 }
-

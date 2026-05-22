@@ -17,3 +17,12 @@ Date: 2026-05-22
 - Keeping the existing HomePage main/right split was the lowest-risk way to satisfy “中间主操作区 + 右侧工具区” without changing business logic.
 - The icon rail gives the app a clearer product identity, but Step 3.0-02 still needs to simplify the input panel because the current filter chips remain visually heavy.
 - GitHub Pages compatibility should stay visible in UI asset decisions; logo and future assets should avoid absolute root paths.
+
+## Step 3.0-02 - Input Panel And Filter Entry
+
+Date: 2026-05-22
+
+- The homepage should first ask for intent, not force users to make filter decisions before they type.
+- Collapsing chips into one filter entry keeps power-user controls available while reducing the default cognitive load.
+- A deep primary card makes the central action visibly different from supporting content; this helps the dashboard hierarchy read correctly.
+- The current solution intentionally keeps filters as a native panel rather than a complex custom modal, because Step 3.0-02 is about focus and hierarchy, not adding new filter logic.
