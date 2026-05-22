@@ -44,3 +44,12 @@ Date: 2026-05-22
 - Replacing the recommendation grid is important because the growth loop needs a visible home on the dashboard before the detail flow exists.
 - Static level and XP data are acceptable for this step because Step 3.0-04 is a framework step; persistence and mutation belong to Step 3.0-05.
 - The distinction between stage and difficulty should stay explicit: stage is long-term learner progress, difficulty is the current task filter.
+
+## Step 3.0-05 - Task Detail And XP Loop
+
+Date: 2026-05-22
+
+- The first usable task loop should stay intentionally small: browse task, learn steps, manually confirm, receive XP.
+- Manual confirmation is a better 3.0 baseline than simulated AI judgment because it is honest about current product capability.
+- XP persistence is now part of the product model, so later task recommendation steps should treat `taskProgress` as an owned data contract.
+- The duplicate-completion guard is essential even in a prototype; growth systems lose trust quickly if rewards can be farmed accidentally.

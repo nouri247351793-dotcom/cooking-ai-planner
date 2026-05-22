@@ -54,3 +54,14 @@ Date: 2026-05-22
 | Scope Control | Full XP completion flow belongs to Step 3.0-05 | Risk of implementing too much in this step | Added placeholder task cards only; no detail page or XP mutation yet |
 | Data Model | Task data model is not finalized | Premature persistence could create migration work | Used static framework data for level/stage/progress and task placeholders |
 | Existing Features | Removing homepage recipe grid could affect random recipe source | Random recipe still needs candidates | Kept `defaultRecipes` in HomePage for random recipe fallback |
+
+## Step 3.0-05 - Task Detail And XP Loop
+
+Date: 2026-05-22
+
+| Type | Issue | Impact | Resolution / Record |
+|---|---|---|---|
+| Product Scope | Real task completion detection is not required in 3.0-05 | AI/vision detection would expand scope and create false precision | Used manual “我做了” confirmation only |
+| Data Integrity | Completed tasks could accidentally award XP multiple times | Repeated clicks would inflate level and stage | Stored `completedTaskIds` and blocked duplicate XP rewards |
+| Persistence | XP progress needs to survive refreshes | Growth feedback would feel unreliable if reset on reload | Added `cooking_ai_planner.v3.task_progress.v1` localStorage state |
+| Navigation | Task detail is a new route inside the dashboard shell | Users need a way back to the homepage task panel | Added `/tasks/:taskId` route metadata and return links |

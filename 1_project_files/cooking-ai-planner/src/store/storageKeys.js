@@ -7,6 +7,7 @@ export const STORAGE_KEYS = {
   recipeGenerator: 'cooking_ai_planner.recipe_generator.state.v1',
   recentCooked: 'cooking_ai_planner.recent.cooked.v1',
   aiConfig: 'cooking_ai_planner.ai.config.v1',
+  taskProgress: 'cooking_ai_planner.v3.task_progress.v1',
 }
 
 // Best-effort legacy key migration (read-only fallback)

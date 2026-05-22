@@ -8,6 +8,7 @@ import RecentPage from './pages/RecentPage.jsx'
 import SettingsPage from './pages/SettingsPage.jsx'
 import ShoppingDetailPage from './pages/ShoppingDetailPage.jsx'
 import ShoppingListPage from './pages/ShoppingListPage.jsx'
+import TaskDetailPage from './pages/TaskDetailPage.jsx'
 import TipsPage from './pages/TipsPage.jsx'
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route path="/favorites" element={<FavoritesPage />} />
           <Route path="/recent" element={<RecentPage />} />
           <Route path="/tips" element={<TipsPage />} />
+          <Route path="/tasks/:taskId" element={<TaskDetailPage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>

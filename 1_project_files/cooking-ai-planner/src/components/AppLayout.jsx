@@ -43,6 +43,10 @@ function getLayoutMeta(location) {
     return { title: '新手贴士', showBack: false }
   }
 
+  if (pathname.startsWith('/tasks/')) {
+    return { title: '任务教程', showBack: true, headerShowBack: false, backTo: '/' }
+  }
+
   if (pathname.startsWith('/recipes/')) {
     return { title: '菜谱详情', showBack: true, headerShowBack: false, backTo: (state && state.from) || '/' }
   }

@@ -1,0 +1,15 @@
+flowchart TD
+  A[Home Recommended Task Panel] --> B[Select Difficulty]
+  B --> C[Render Task Cards]
+  C --> D[Open Task Detail]
+  D --> E[Read Task Catalog Item]
+  E --> F[Show Objective Tutorial Steps Criteria]
+  F --> G[User Clicks I Did It]
+  G --> H{Task Already Completed?}
+  H -- Yes --> I[Do Not Award XP Again]
+  H -- No --> J[Add Task ID To completedTaskIds]
+  J --> K[Increase totalXp By Difficulty Reward]
+  K --> L[Derive Level From XP]
+  L --> M[Derive Stage From Level]
+  M --> N[Persist taskProgress In localStorage]
+  N --> O[Homepage Progress Updates]
