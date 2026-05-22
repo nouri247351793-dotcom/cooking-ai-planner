@@ -32,3 +32,14 @@ Date: 2026-05-22
 | Visual Hierarchy | Input panel needed to become the strongest visual center | Dashboard shell alone was not enough for 3.0 home focus | Converted HomeHero into a deep primary operation card |
 | Scope Control | Step 3.0-02 should not change recipe generation logic | Risk of mixing UI refactor with data behavior changes | Kept the existing filter field shape and generation service calls |
 | CSS Order | Old embedded filter styles overrode the new dark filter panel | The `筛选` summary became low contrast | Scoped the old embedded filter override to non-v3 filter panels |
+
+## Step 3.0-03 - Right Tools And Timer
+
+Date: 2026-05-22
+
+| Type | Issue | Impact | Resolution / Record |
+|---|---|---|---|
+| Tool Priority | Right rail did not have a clearly dominant tool | Random recipe/tips/budget looked equal priority | Added a deep timer card as the top-right primary tool |
+| Timer Input | Editable time needs validation | Invalid values could break countdown behavior | Added MM:SS parser with fallback to default 10 minutes |
+| Timer State | Countdown must support multiple visible states | Users need feedback for idle/editing/running/ended | Added `idle / editing / running / ended` state labels and behavior |
+| Scope Control | Step 3.0-03 should not rewrite right rail business modules | Risk of changing random recipe or budget behavior | Kept random recipe, tips, and budget interactions unchanged |

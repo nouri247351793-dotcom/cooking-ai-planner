@@ -4,6 +4,7 @@ import HomeHero from '../components/home/HomeHero.jsx'
 import RecipeCard from '../components/home/RecipeCard.jsx'
 import RandomRecipeModal from '../components/home/RandomRecipeModal.jsx'
 import BudgetPlanModal from '../components/home/BudgetPlanModal.jsx'
+import CookingTimerCard from '../components/home/CookingTimerCard.jsx'
 import { pickRandomRecipe } from '../services/homeRecipeAgentService.js'
 import { useFavorites } from '../hooks/useFavorites.js'
 import { useRecipeGeneratorState } from '../hooks/useRecipeGeneratorState.js'
@@ -108,6 +109,8 @@ export default function HomePage() {
         </div>
 
         <aside className="homeV2__aside" aria-label="首页辅助区">
+          <CookingTimerCard />
+
           <div className="card">
             <div className="card__title">🎲 随机一道菜</div>
             <div className="muted" style={{ marginTop: 6 }}>

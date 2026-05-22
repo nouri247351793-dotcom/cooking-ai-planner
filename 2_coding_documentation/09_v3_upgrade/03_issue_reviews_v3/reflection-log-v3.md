@@ -26,3 +26,12 @@ Date: 2026-05-22
 - Collapsing chips into one filter entry keeps power-user controls available while reducing the default cognitive load.
 - A deep primary card makes the central action visibly different from supporting content; this helps the dashboard hierarchy read correctly.
 - The current solution intentionally keeps filters as a native panel rather than a complex custom modal, because Step 3.0-02 is about focus and hierarchy, not adding new filter logic.
+
+## Step 3.0-03 - Right Tools And Timer
+
+Date: 2026-05-22
+
+- The timer is a high-frequency cooking utility, so it deserves the first position in the right rail.
+- Keeping timer logic in a standalone component makes future reuse or persistence easier.
+- The timer intentionally starts with a simple local state model; persistence, sound alerts, or notifications can be evaluated later if they become necessary.
+- This step improves utility hierarchy without changing the recipe generation path, which keeps the 3.0 upgrade incremental.

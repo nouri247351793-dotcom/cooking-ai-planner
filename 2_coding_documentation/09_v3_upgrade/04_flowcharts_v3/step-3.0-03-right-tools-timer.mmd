@@ -1,0 +1,17 @@
+flowchart LR
+  A[Right Tool Area] --> B[Timer - Highest Priority]
+  A --> C[Random Recipe]
+  A --> D[Cooking Tips]
+  A --> E[Budget Plan]
+
+  B --> B1[Idle State]
+  B --> B2[Editing State]
+  B --> B3[Running State]
+  B --> B4[Ended State]
+
+  B2 --> F[MM:SS Input]
+  B3 --> G[Countdown By Second]
+  B4 --> H[Restart Or Reset]
+
+  A --> I[Build Passed]
+  A --> J[After Screenshot Captured]
