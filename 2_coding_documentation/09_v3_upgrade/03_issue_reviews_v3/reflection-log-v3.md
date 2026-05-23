@@ -80,3 +80,12 @@ Date: 2026-05-23
 - The app now has a clearer split between deep primary action cards and light scan/read cards.
 - Button tiers should be enforced by usage intent: submit, secondary action, navigation/close, and local micro-action.
 - Screenshot capture is an environment issue, not a product issue; build verification is the reliable validation path in this run.
+
+## Step 3.0-09 - Archive Review And Export Plan
+
+Date: 2026-05-23
+
+- A strong final submission needs an evidence chain, not just working code.
+- It is better to explicitly record missing screenshots than to hide or fabricate evidence gaps.
+- Maintaining both Mermaid and Markdown status files helps reviewers scan the project without rendering tools.
+- Export planning should happen before final packaging, otherwise the final step becomes a manual sorting task.

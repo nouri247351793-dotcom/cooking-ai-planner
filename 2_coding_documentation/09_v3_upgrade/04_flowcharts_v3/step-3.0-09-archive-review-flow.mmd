@@ -1,0 +1,19 @@
+flowchart TD
+  A[Step 3.0-09 Archive Review] --> B[Audit Prompt Logs]
+  A --> C[Audit Step Reports]
+  A --> D[Audit Issue And Reflection Logs]
+  A --> E[Audit Flowcharts]
+  A --> F[Audit Assets]
+
+  B --> G{Missing Step Records?}
+  C --> G
+  D --> G
+  E --> G
+  F --> G
+
+  G -- Yes --> H[Fill Minimal Archive Gaps]
+  G -- No --> I[Record Archive Coverage]
+  H --> I
+  I --> J[Create Export Plan]
+  J --> K[Update Current Status]
+  K --> L[Ready For Final QA Step 3.0-10]

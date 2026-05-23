@@ -1,0 +1,11 @@
+flowchart TD
+  A[Step 3.0-00 Baseline Archive] --> B[Inspect Current 2.0 State]
+  B --> C[Record Routes Components Storage]
+  B --> D[Record Known Issues]
+  B --> E[Run Build Check]
+  E --> F[Build Passed]
+  C --> G[Save Baseline Docs]
+  D --> G
+  F --> G
+  G --> H[Capture Before Screenshots]
+  H --> I[Ready For Step 3.0-01 Dashboard Shell]

@@ -98,3 +98,14 @@ Date: 2026-05-23
 | Component Drift | Cards and buttons had overlapping one-off definitions | Visual system could diverge across pages | Normalized default card and button styles and added explicit card variants |
 | Missing Alias | Some styles referenced `--c-ink` and `--fs-15` without token definitions | Browser fallback behavior could make styles brittle | Added explicit token definitions |
 | Evidence | Headless screenshots remain blocked by local browser Crashpad permissions | Cannot reliably capture Step 3.0-08 after screenshots in this environment | Recorded screenshot limitation in the step report; build verification passed |
+
+## Step 3.0-09 - Archive Review And Export Plan
+
+Date: 2026-05-23
+
+| Type | Issue | Impact | Resolution / Record |
+|---|---|---|---|
+| Archive Gap | Step 3.0-00 had baseline docs but no independent step flowchart | Flowchart sequence started at Step 3.0-01 | Added `step-3.0-00-baseline-flow.mmd` |
+| Status Format | Manual requested `current_status_v3.md`, while the repo only had `current_status_v3.mmd` | Final reviewers may expect a readable text summary | Added `current_status_v3.md` alongside the Mermaid file |
+| Export Readiness | Export targets were not explicitly listed | Final PDF/PNG/PPT preparation would require manual sorting | Added `06_exports_v3/export_plan_v3.md` |
+| Evidence Limits | Some after screenshots are missing due local headless browser permissions | Screenshot evidence is incomplete for 3.0-07/08 | Added `archive_audit_v3.md` and recorded the exact gap |
