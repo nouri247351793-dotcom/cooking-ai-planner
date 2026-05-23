@@ -71,3 +71,12 @@ Date: 2026-05-23
 - Random recipe remains a helper, not a core growth loop; preserving its existing capability is safer than expanding it.
 - The right rail should be quick to scan, so tips need short actionable lines rather than paragraph-level explanation.
 - Empty states are part of the demo surface and need the same visual quality as filled states.
+
+## Step 3.0-08 - UI Tokens And Component Spec
+
+Date: 2026-05-23
+
+- Tokenization is worthwhile only if it reduces future decisions; the key win is naming the component roles, not adding more CSS variables.
+- The app now has a clearer split between deep primary action cards and light scan/read cards.
+- Button tiers should be enforced by usage intent: submit, secondary action, navigation/close, and local micro-action.
+- Screenshot capture is an environment issue, not a product issue; build verification is the reliable validation path in this run.

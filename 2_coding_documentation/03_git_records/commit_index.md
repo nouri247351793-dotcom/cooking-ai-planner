@@ -47,3 +47,4 @@
 | 2026-05-22 | 3.0-05 | main | `[step-3.0-05][feat] implement task tutorial page and XP flow` | 3.0 推荐任务闭环：新增任务目录、任务详情/小教程页、手动完成确认、XP 发放、等级/阶段推导与 localStorage 进度保存 |
 | 2026-05-23 | 3.0-06 | main | `[step-3.0-06][feat] add monthly budget modal and expense record logic` | 3.0 省钱计划账本：首页只显示预算摘要；弹窗支持首次设置预算、修改预算、新增做饭开支、本月记录列表和 localStorage 统计 |
 | 2026-05-23 | 3.0-07 | main | `[step-3.0-07][style] align utility cards and first-level pages` | 3.0 UI 对齐：保留随机一道菜能力，降低首页贴士密度，统一待购/收藏/最近/贴士一级页 hero、空状态和卡片风格 |
+| 2026-05-23 | 3.0-08 | main | `[step-3.0-08][style] normalize v3 ui tokens and component rules` | 3.0 UI 规范化：扩展 spacing/radius/color/button/badge/motion tokens，统一卡片与按钮层级，新增 `ui-spec-v3.md` |

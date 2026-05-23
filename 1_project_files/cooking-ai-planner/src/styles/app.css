@@ -414,12 +414,31 @@
 }
 
 .card {
-  background: var(--c-surface);
-  border: 1px solid var(--c-border);
-  border-radius: 22px;
-  padding: var(--sp-14);
+  background: var(--c-surface-raised);
+  border: 1px solid var(--c-border-soft);
+  border-radius: var(--r-2xl);
+  padding: var(--card-pad-md);
   box-shadow: var(--sh-1);
   backdrop-filter: blur(10px);
+}
+
+.card--soft {
+  background: var(--c-surface-soft);
+}
+
+.card--primary {
+  border-color: rgba(var(--c-primary-rgb), 0.18);
+  background:
+    radial-gradient(420px 180px at 12% 0%, rgba(var(--c-primary-rgb), 0.12), transparent 68%),
+    var(--c-surface-raised);
+}
+
+.card--deep {
+  border-color: rgba(255, 255, 255, 0.12);
+  background:
+    radial-gradient(520px 260px at 16% 0%, rgba(var(--c-primary-rgb), 0.38), transparent 58%),
+    var(--c-surface-deep);
+  color: #fff;
 }
 
 .card__title {
@@ -437,19 +456,21 @@
 }
 
 .secondaryBtn {
-  border: 1px solid var(--c-border);
+  min-height: var(--btn-h-md);
+  border: 1px solid var(--c-border-soft);
   background: var(--c-subtle);
   color: var(--c-text);
-  border-radius: 999px;
-  padding: 10px 12px;
+  border-radius: var(--r-pill);
+  padding: 0 14px;
   font-size: var(--fs-12);
+  font-weight: 850;
   text-decoration: none;
-  box-shadow: var(--sh-1);
+  box-shadow: var(--sh-button);
   white-space: nowrap;
   cursor: pointer;
   user-select: none;
   touch-action: manipulation;
-  transition: transform 120ms ease, filter 120ms ease, box-shadow 120ms ease, background 120ms ease;
+  transition: transform var(--t-fast), filter var(--t-fast), box-shadow var(--t-fast), background var(--t-fast);
 }
 
 .secondaryBtn[aria-disabled='true'] {
@@ -470,16 +491,18 @@
 .primaryBtn {
   width: 100%;
   margin-top: var(--sp-10);
+  min-height: var(--btn-h-md);
   border: 1px solid rgba(var(--c-primary-rgb), 0.28);
   border-radius: var(--r-md);
-  padding: 10px 12px;
+  padding: 0 14px;
   background: linear-gradient(180deg, rgba(var(--c-primary-rgb), 0.92), rgba(var(--c-primary-rgb), 0.78));
   color: #fff;
-  box-shadow: var(--sh-1);
+  box-shadow: var(--sh-button);
+  font-weight: 900;
   cursor: pointer;
   user-select: none;
   touch-action: manipulation;
-  transition: transform 120ms ease, filter 120ms ease, box-shadow 120ms ease;
+  transition: transform var(--t-fast), filter var(--t-fast), box-shadow var(--t-fast);
 }
 
 .primaryBtn:disabled {
@@ -674,13 +697,13 @@
   justify-content: space-between;
   gap: var(--sp-16);
   align-items: flex-start;
-  border-radius: 30px;
-  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: var(--r-shell);
+  border: 1px solid var(--c-border-soft);
   background:
     radial-gradient(560px 220px at 10% 0%, rgba(var(--c-primary-rgb), 0.12), transparent 66%),
     rgba(255, 255, 255, 0.84);
   box-shadow: var(--sh-1);
-  padding: clamp(18px, 2.8vw, 28px);
+  padding: clamp(var(--card-pad-md), 2.8vw, var(--card-pad-lg));
   backdrop-filter: blur(12px);
 }
 
@@ -710,11 +733,11 @@
 
 .v3PageHero__badge {
   flex: 0 0 auto;
-  border-radius: 999px;
+  border-radius: var(--r-pill);
   border: 1px solid rgba(var(--c-primary-rgb), 0.22);
   background: rgba(var(--c-primary-rgb), 0.1);
   color: rgba(var(--c-primary-rgb), 0.98);
-  padding: 9px 13px;
+  padding: var(--badge-pad-y) var(--badge-pad-x);
   font-size: var(--fs-13);
   font-weight: 950;
 }
@@ -724,7 +747,7 @@
 .v3ListCard,
 .v3RecipeGrid .recipeCard,
 .v3CardGrid .tipCard {
-  border-radius: 26px;
+  border-radius: var(--r-2xl);
 }
 
 .v3CardGrid,
@@ -896,16 +919,18 @@
 }
 
 .miniBtn {
-  border: 1px solid rgba(15, 23, 42, 0.12);
+  min-height: var(--btn-h-sm);
+  border: 1px solid var(--c-border-soft);
   background: rgba(255, 255, 255, 0.75);
-  border-radius: 999px;
-  padding: 6px 10px;
+  border-radius: var(--r-pill);
+  padding: 0 10px;
   font-size: var(--fs-12);
+  font-weight: 850;
   color: rgba(15, 23, 42, 0.82);
   cursor: pointer;
   user-select: none;
   touch-action: manipulation;
-  transition: transform 120ms ease, filter 120ms ease, box-shadow 120ms ease;
+  transition: transform var(--t-fast), filter var(--t-fast), box-shadow var(--t-fast);
 }
 
 .miniBtn:active {
@@ -2862,17 +2887,22 @@
 
 .ghostBtn {
   flex: 1 1 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--btn-h-md);
   text-align: center;
-  border: 1px solid var(--c-border);
+  border: 1px solid var(--c-border-soft);
   background: var(--c-subtle);
   color: var(--c-text);
   border-radius: var(--r-md);
-  padding: 10px 12px;
+  padding: 0 14px;
   text-decoration: none;
+  font-weight: 850;
   cursor: pointer;
   user-select: none;
   touch-action: manipulation;
-  transition: transform 120ms ease, filter 120ms ease, box-shadow 120ms ease, background 120ms ease;
+  transition: transform var(--t-fast), filter var(--t-fast), box-shadow var(--t-fast), background var(--t-fast);
 }
 
 .ghostBtn.isPrimary {

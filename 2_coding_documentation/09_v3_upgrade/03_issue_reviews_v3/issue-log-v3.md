@@ -87,3 +87,14 @@ Date: 2026-05-23
 | Information Density | Home tips card was too dense for the right rail | It competed with timer and budget tools | Reduced tips to three short scan-friendly notes |
 | Scope Control | Random recipe should not be redesigned into a new feature | Risk of breaking existing reroll/detail flow | Preserved entry card, modal, reroll, and detail navigation |
 | Empty State | Recent page must still demonstrate well with no records | Empty state is common during demos | Kept and restyled empty state while preserving record display path |
+
+## Step 3.0-08 - UI Tokens And Component Spec
+
+Date: 2026-05-23
+
+| Type | Issue | Impact | Resolution / Record |
+|---|---|---|---|
+| Maintainability | 3.0 UI values were still partly scattered in page styles | Future steps could introduce inconsistent spacing, radii, and buttons | Added v3 spacing/radius/surface/button/badge/motion tokens |
+| Component Drift | Cards and buttons had overlapping one-off definitions | Visual system could diverge across pages | Normalized default card and button styles and added explicit card variants |
+| Missing Alias | Some styles referenced `--c-ink` and `--fs-15` without token definitions | Browser fallback behavior could make styles brittle | Added explicit token definitions |
+| Evidence | Headless screenshots remain blocked by local browser Crashpad permissions | Cannot reliably capture Step 3.0-08 after screenshots in this environment | Recorded screenshot limitation in the step report; build verification passed |

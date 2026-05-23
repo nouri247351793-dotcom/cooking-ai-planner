@@ -10,9 +10,15 @@
   --c-subtle: #f3f3ec;
   --c-surface: rgba(255, 255, 255, 0.8);
   --c-surface-solid: #ffffff;
+  --c-surface-soft: rgba(255, 255, 255, 0.68);
+  --c-surface-raised: rgba(255, 255, 255, 0.84);
+  --c-surface-deep: #1f1d1a;
   --c-text: #0f172a;
+  --c-ink: #0f172a;
   --c-muted: rgba(15, 23, 42, 0.62);
   --c-border: rgba(15, 23, 42, 0.1);
+  --c-border-soft: rgba(15, 23, 42, 0.08);
+  --c-border-strong: rgba(15, 23, 42, 0.16);
   /* Primary accent (spec): use sparingly */
   --c-primary: #ff7c24;
   --c-primary-rgb: 255, 124, 36;
@@ -34,15 +40,22 @@
   --r-sm: 12px;
   --r-md: 14px;
   --r-lg: 18px;
+  --r-xl: 22px;
+  --r-2xl: 26px;
+  --r-shell: 30px;
+  --r-pill: 999px;
 
   /* Shadow */
   --sh-1: 0 10px 26px rgba(15, 23, 42, 0.08);
   --sh-2: 0 18px 44px rgba(15, 23, 42, 0.12);
+  --sh-shell: 0 22px 70px rgba(15, 23, 42, 0.1);
+  --sh-button: 0 10px 22px rgba(15, 23, 42, 0.08);
 
   /* Typography */
   --fs-12: 12px;
   --fs-13: 13px;
   --fs-14: 14px;
+  --fs-15: 15px;
   --fs-16: 16px;
   --fs-18: 18px;
   --fs-20: 20px;
@@ -55,8 +68,27 @@
   --sp-12: 12px;
   --sp-14: 14px;
   --sp-16: 16px;
+  --sp-18: 18px;
   --sp-20: 20px;
   --sp-24: 24px;
+  --sp-28: 28px;
+  --sp-32: 32px;
+
+  /* v3 component scale */
+  --page-gap: var(--sp-18);
+  --module-gap: var(--sp-16);
+  --card-pad-sm: var(--sp-12);
+  --card-pad-md: var(--sp-16);
+  --card-pad-lg: var(--sp-20);
+  --btn-h-sm: 34px;
+  --btn-h-md: 42px;
+  --btn-h-lg: 48px;
+  --badge-pad-x: 10px;
+  --badge-pad-y: 6px;
+
+  /* Motion */
+  --t-fast: 120ms ease;
+  --t-med: 180ms ease;
 
   color-scheme: light;
 }
