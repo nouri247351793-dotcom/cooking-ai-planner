@@ -89,3 +89,12 @@ Date: 2026-05-23
 - It is better to explicitly record missing screenshots than to hide or fabricate evidence gaps.
 - Maintaining both Mermaid and Markdown status files helps reviewers scan the project without rendering tools.
 - Export planning should happen before final packaging, otherwise the final step becomes a manual sorting task.
+
+## Step 3.0-10 - Final QA And Release Package
+
+Date: 2026-05-23
+
+- The final step should prove readiness through build, route inventory, state inventory, and delivery documents.
+- A demo script is necessary because the product has multiple loops; without it, reviewers may only see the homepage.
+- Timer persistence should not be invented late; it is better to document it as runtime-only.
+- Push and release should remain a separate explicit action because it affects the public GitHub Pages deployment.

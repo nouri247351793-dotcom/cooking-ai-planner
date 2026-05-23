@@ -1,0 +1,17 @@
+flowchart TD
+  A[Step 3.0-10 Final QA] --> B[Run Build]
+  B --> C{Build Passed?}
+  C -- No --> D[Record Failure And Fix Minimal Issue]
+  C -- Yes --> E[Check Routes And Modules]
+  E --> F[Check Home Modules]
+  E --> G[Check First-level Pages]
+  E --> H[Check Key States]
+  H --> I[Task XP LocalStorage]
+  H --> J[Budget Ledger LocalStorage]
+  H --> K[Timer Runtime State]
+  E --> L[Check Delivery Directories]
+  L --> M[Generate Final Checklist]
+  M --> N[Generate Release Notes]
+  N --> O[Generate Demo Script]
+  O --> P[Update Archive Records]
+  P --> Q[Ready To Push And Tag]

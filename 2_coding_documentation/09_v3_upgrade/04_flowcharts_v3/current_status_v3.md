@@ -4,7 +4,7 @@ Date: 2026-05-23
 
 ## 当前阶段
 
-3.0 已完成 Step 3.0-00 至 Step 3.0-09。
+3.0 已完成 Step 3.0-00 至 Step 3.0-10。
 
 ## 已完成能力
 
@@ -18,6 +18,7 @@ Date: 2026-05-23
 - Step 3.0-07：统一右侧辅助模块和一级辅助页面 UI。
 - Step 3.0-08：沉淀 UI token、按钮层级、卡片变体和 `ui-spec-v3.md`。
 - Step 3.0-09：整理归档、补齐导出建议和当前状态记录。
+- Step 3.0-10：完成最终 QA、release notes、final checklist、demo script 和文件树记录。
 
 ## 当前限制
 
@@ -28,4 +29,4 @@ Date: 2026-05-23
 
 ## 下一步
 
-执行 Step 3.0-10：最终联调、自测、release notes、demo script、final checklist、发布建议和 git 同步。
+下一步如需公开发布：push `main`，创建 `v3.0-final` tag，并用 `v3_release_notes.md` 作为 GitHub release notes。

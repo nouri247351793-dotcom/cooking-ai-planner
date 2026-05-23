@@ -109,3 +109,14 @@ Date: 2026-05-23
 | Status Format | Manual requested `current_status_v3.md`, while the repo only had `current_status_v3.mmd` | Final reviewers may expect a readable text summary | Added `current_status_v3.md` alongside the Mermaid file |
 | Export Readiness | Export targets were not explicitly listed | Final PDF/PNG/PPT preparation would require manual sorting | Added `06_exports_v3/export_plan_v3.md` |
 | Evidence Limits | Some after screenshots are missing due local headless browser permissions | Screenshot evidence is incomplete for 3.0-07/08 | Added `archive_audit_v3.md` and recorded the exact gap |
+
+## Step 3.0-10 - Final QA And Release Package
+
+Date: 2026-05-23
+
+| Type | Issue | Impact | Resolution / Record |
+|---|---|---|---|
+| Release Readiness | Final checklist, release notes, and demo script were not yet generated | Final handoff would require manual assembly | Added `v3_final_checklist.md`, `v3_release_notes.md`, and `demo_script_v3.md` |
+| QA Scope | Final step needs to verify both app and archive state | Risk of only checking documentation or only checking build | Ran build, checked preview root, routes, localStorage state paths, and delivery directories |
+| Timer Persistence | Timer does not persist after refresh | Could be misunderstood as a missing save feature | Recorded timer as runtime-only light tool in checklist/report |
+| Publishing | Local branch is ahead of remote | GitHub Pages will not update until push | Recorded push/tag/release recommendations; did not push without explicit user request |

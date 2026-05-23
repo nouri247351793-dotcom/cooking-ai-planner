@@ -49,3 +49,4 @@
 | 2026-05-23 | 3.0-07 | main | `[step-3.0-07][style] align utility cards and first-level pages` | 3.0 UI 对齐：保留随机一道菜能力，降低首页贴士密度，统一待购/收藏/最近/贴士一级页 hero、空状态和卡片风格 |
 | 2026-05-23 | 3.0-08 | main | `[step-3.0-08][style] normalize v3 ui tokens and component rules` | 3.0 UI 规范化：扩展 spacing/radius/color/button/badge/motion tokens，统一卡片与按钮层级，新增 `ui-spec-v3.md` |
 | 2026-05-23 | 3.0-09 | main | `[step-3.0-09][docs] review v3 archive and export plan` | 3.0 自归档复查：补齐 baseline flow/current status markdown/archive audit/export plan，记录截图证据缺口和最终导出建议 |
+| 2026-05-23 | 3.0-10 | main | `[step-3.0-10][docs] finalize v3 qa release records` | 3.0 最终 QA 与交付整理：build 通过；新增 final checklist、release notes、demo script、最终文件树和发布/tag 建议 |
