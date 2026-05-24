@@ -13,7 +13,7 @@
 - 在上游失败、JSON 解析失败、请求异常时输出结构化错误日志。
 - 保留 mock fallback，并在 fallback 返回中增加 `debugMessage`。
 - 前端 fallback 也补充 `debugMessage`，但不暴露 API Key。
-- AI 请求 timeout 保持为 45000ms。
+- AI 请求 timeout 调整为 60000ms。
 
 ## 文件级改动说明
 
@@ -26,7 +26,7 @@
   - mock fallback 返回增加 `debugMessage`。
 - `src/services/aiService.js`
   - 前端 mock fallback 返回增加 `debugMessage`。
-  - 保持前端请求 timeout 为 45000ms。
+  - 保持前端请求 timeout 为 60000ms。
 
 ## 代码级改动说明
 

@@ -2,7 +2,8 @@ import mockAIResponse from '../data/mockAIResponse.js'
 import { isAIResponse, normalizeAIResponse } from './aiTypes.js'
 
 export const AI_API_ENDPOINT = '/api/ai'
-export const AI_REQUEST_TIMEOUT_MS = 45000
+export const MIN_AI_REQUEST_TIMEOUT_MS = 60000
+export const AI_REQUEST_TIMEOUT_MS = 60000
 
 function logAIRequestFailure(reason, extra = {}) {
   console.error('[xiaofanzhuo ai] client request failed', {
@@ -47,7 +48,8 @@ export async function askAI(userMessage, context = {}, options = {}) {
   }
 
   const endpoint = options.endpoint || AI_API_ENDPOINT
-  const timeoutMs = Number(options.timeoutMs || AI_REQUEST_TIMEOUT_MS)
+  const requestedTimeoutMs = Number(options.timeoutMs || AI_REQUEST_TIMEOUT_MS)
+  const timeoutMs = Math.max(requestedTimeoutMs, MIN_AI_REQUEST_TIMEOUT_MS)
   const safeContext = context && typeof context === 'object' ? context : {}
   const safeMessage = String(userMessage || '').trim()
 

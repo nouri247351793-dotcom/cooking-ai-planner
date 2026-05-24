@@ -3268,6 +3268,7 @@
 }
 
 .detailHero {
+  position: relative;
   border-radius: var(--r-lg);
   overflow: hidden;
   border: 1px solid rgba(15, 23, 42, 0.08);
@@ -3280,6 +3281,19 @@
   height: 180px;
   object-fit: cover;
   display: block;
+}
+
+.detailHero__loading {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255, 250, 242, 0.92);
+  color: rgba(46, 31, 25, 0.78);
+  font-size: var(--fs-12);
+  font-weight: 850;
+  box-shadow: var(--sh-1);
 }
 
 .detailTitle {

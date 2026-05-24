@@ -1,9 +1,14 @@
 import mockAIResponse from '../src/data/mockAIResponse.js'
 import { isAIResponse, normalizeAIResponse } from '../src/services/aiTypes.js'
 
-const DEFAULT_BASE_URL = 'https://api.openai.com/v1'
-const DEFAULT_MODEL = 'gpt-4o-mini'
-const DEFAULT_PROVIDER_TIMEOUT_MS = 45000
+const SILICONFLOW_BASE_URL = 'https://api.siliconflow.cn/v1'
+const SILICONFLOW_MODEL = 'Qwen/Qwen3-32B'
+const MIN_PROVIDER_TIMEOUT_MS = 60000
+const DEFAULT_BASE_URL = SILICONFLOW_BASE_URL
+const DEFAULT_MODEL = SILICONFLOW_MODEL
+const DEFAULT_PROVIDER_TIMEOUT_MS = 60000
+const PROVIDER_TIMEOUT_MS = Math.max(DEFAULT_PROVIDER_TIMEOUT_MS, MIN_PROVIDER_TIMEOUT_MS)
+const STREAM_AI_RESPONSE = true
 const LOG_TEXT_LIMIT = 4000
 
 const AI_RESPONSE_JSON_SCHEMA_DESCRIPTION = `
@@ -119,13 +124,21 @@ function logAIProviderFailure({ status, responseText, error, model, baseUrl, api
 }
 
 function logAIEnvCheck() {
+  const normalizedBaseUrl = normalizeBaseUrl(process.env.AI_BASE_URL || DEFAULT_BASE_URL)
+  const model = process.env.AI_MODEL || DEFAULT_MODEL
   console.log('[AI DEBUG] env check', {
     hasApiKey: Boolean(process.env.AI_API_KEY),
     apiKeyPreview: process.env.AI_API_KEY
       ? `${process.env.AI_API_KEY.slice(0, 6)}...${process.env.AI_API_KEY.slice(-4)}`
       : 'missing',
-    model: process.env.AI_MODEL,
-    baseUrl: process.env.AI_BASE_URL,
+    model,
+    baseUrl: normalizedBaseUrl,
+    baseUrlExpected: SILICONFLOW_BASE_URL,
+    baseUrlMatched: normalizedBaseUrl === SILICONFLOW_BASE_URL,
+    modelExpected: SILICONFLOW_MODEL,
+    modelMatched: model === SILICONFLOW_MODEL,
+    stream: STREAM_AI_RESPONSE,
+    timeoutMs: PROVIDER_TIMEOUT_MS,
   })
 }
 
@@ -171,6 +184,31 @@ function parseAIContent(text) {
   }
 }
 
+function parseAIStreamContent(streamText) {
+  return String(streamText || '')
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter((line) => line.startsWith('data:'))
+    .map((line) => line.replace(/^data:\s*/, '').trim())
+    .filter((line) => line && line !== '[DONE]')
+    .map((line) => {
+      try {
+        const chunk = JSON.parse(line)
+        const choice = chunk && chunk.choices && chunk.choices[0] ? chunk.choices[0] : {}
+        if (choice.delta && typeof choice.delta.content === 'string') return choice.delta.content
+        if (choice.message && typeof choice.message.content === 'string') return choice.message.content
+        return ''
+      } catch (error) {
+        console.error('[AI ERROR] JSON parse failed', {
+          rawContent: limitLogText(line),
+          error: error.message,
+        })
+        return ''
+      }
+    })
+    .join('')
+}
+
 function buildUserPrompt(userMessage, context) {
   const safeContext = context && typeof context === 'object' ? context : {}
   return [
@@ -204,8 +242,11 @@ async function requestAIProvider({ apiKey, model, baseUrl, userMessage, context 
   const timeoutId = controller
     ? setTimeout(() => {
         controller.abort()
-      }, DEFAULT_PROVIDER_TIMEOUT_MS)
+      }, PROVIDER_TIMEOUT_MS)
     : null
+  const clearProviderTimeout = () => {
+    if (timeoutId) clearTimeout(timeoutId)
+  }
 
   let response
   try {
@@ -219,11 +260,13 @@ async function requestAIProvider({ apiKey, model, baseUrl, userMessage, context 
         model: model || DEFAULT_MODEL,
         messages: buildMessages(userMessage, context),
         temperature: 0.7,
+        stream: STREAM_AI_RESPONSE,
         response_format: { type: 'json_object' },
       }),
       signal: controller ? controller.signal : undefined,
     })
   } catch (error) {
+    clearProviderTimeout()
     console.error('[AI ERROR] request failed', {
       message: error.message,
       stack: error.stack,
@@ -235,8 +278,6 @@ async function requestAIProvider({ apiKey, model, baseUrl, userMessage, context 
       reason: error && error.name === 'AbortError' ? 'provider_timeout' : 'provider_exception',
       error,
     }
-  } finally {
-    if (timeoutId) clearTimeout(timeoutId)
   }
 
   console.log('[AI DEBUG] upstream status', response.status)
@@ -245,14 +286,20 @@ async function requestAIProvider({ apiKey, model, baseUrl, userMessage, context 
   try {
     responseText = await response.text()
   } catch (error) {
+    clearProviderTimeout()
+    console.error('[AI ERROR] request failed', {
+      message: error.message,
+      stack: error.stack,
+    })
     return {
       ok: false,
-      status: 502,
-      statusText: 'AI provider response text could not be read',
-      reason: 'provider_response_read_failed',
+      status: error && error.name === 'AbortError' ? 504 : 502,
+      statusText: error && error.name === 'AbortError' ? 'AI provider response timed out' : 'AI provider response text could not be read',
+      reason: error && error.name === 'AbortError' ? 'provider_timeout' : 'provider_response_read_failed',
       error,
     }
   }
+  clearProviderTimeout()
 
   if (!response.ok) {
     console.error('[AI ERROR] upstream failed', {
@@ -269,24 +316,30 @@ async function requestAIProvider({ apiKey, model, baseUrl, userMessage, context 
     }
   }
 
-  let data
-  try {
-    data = JSON.parse(responseText)
-  } catch (error) {
-    console.error('[AI ERROR] JSON parse failed', {
-      rawContent: limitLogText(responseText),
-      error: error.message,
-    })
-    return {
-      ok: false,
-      status: 502,
-      statusText: 'AI provider returned invalid JSON',
-      reason: 'invalid_provider_json',
-      responseText,
-      error,
+  const contentType = response.headers && typeof response.headers.get === 'function' ? response.headers.get('content-type') || '' : ''
+  let content = ''
+  if (contentType.includes('text/event-stream') || responseText.includes('data:')) {
+    content = parseAIStreamContent(responseText)
+  } else {
+    let data
+    try {
+      data = JSON.parse(responseText)
+    } catch (error) {
+      console.error('[AI ERROR] JSON parse failed', {
+        rawContent: limitLogText(responseText),
+        error: error.message,
+      })
+      return {
+        ok: false,
+        status: 502,
+        statusText: 'AI provider returned invalid JSON',
+        reason: 'invalid_provider_json',
+        responseText,
+        error,
+      }
     }
+    content = data && data.choices && data.choices[0] && data.choices[0].message ? data.choices[0].message.content : ''
   }
-  const content = data && data.choices && data.choices[0] && data.choices[0].message ? data.choices[0].message.content : ''
   const parsed = parseAIContent(content)
 
   if (!isAIResponse(parsed.data)) {
