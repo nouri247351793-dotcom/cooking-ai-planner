@@ -3267,35 +3267,6 @@
   font-size: var(--fs-12);
 }
 
-.detailHero {
-  position: relative;
-  border-radius: var(--r-lg);
-  overflow: hidden;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  background: rgba(255, 255, 255, 0.65);
-  box-shadow: var(--sh-1);
-}
-
-.detailHero__img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  display: block;
-}
-
-.detailHero__loading {
-  position: absolute;
-  left: 14px;
-  bottom: 14px;
-  padding: 8px 12px;
-  border-radius: 999px;
-  background: rgba(255, 250, 242, 0.92);
-  color: rgba(46, 31, 25, 0.78);
-  font-size: var(--fs-12);
-  font-weight: 850;
-  box-shadow: var(--sh-1);
-}
-
 .detailTitle {
   font-weight: 900;
   font-size: var(--fs-20);
@@ -3413,57 +3384,6 @@
   border-radius: var(--r-md);
   border: 1px solid rgba(15, 23, 42, 0.08);
   background: rgba(255, 255, 255, 0.55);
-}
-
-.step__imgPlaceholder {
-  margin-top: 8px;
-  height: 96px;
-  border-radius: 14px;
-  border: 1px dashed rgba(15, 23, 42, 0.16);
-  background: linear-gradient(135deg, rgba(var(--c-primary-rgb), 0.12), rgba(15, 23, 42, 0.04));
-  display: grid;
-  place-items: center;
-  color: rgba(15, 23, 42, 0.55);
-  font-size: var(--fs-12);
-}
-
-.step__imgPlaceholder--loading {
-  border-style: solid;
-  background: linear-gradient(90deg, rgba(var(--c-primary-rgb), 0.1), rgba(255, 255, 255, 0.72), rgba(var(--c-primary-rgb), 0.12));
-  background-size: 220% 100%;
-  animation: stepImageLoading 1.2s ease-in-out infinite;
-}
-
-.stepImage {
-  margin: 8px 0 0;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  background: rgba(255, 255, 255, 0.62);
-}
-
-.stepImage img {
-  display: block;
-  width: 100%;
-  min-height: 112px;
-  max-height: 160px;
-  object-fit: cover;
-}
-
-.stepImage figcaption {
-  padding: 7px 10px;
-  color: var(--c-muted);
-  font-size: var(--fs-12);
-  font-weight: 800;
-}
-
-@keyframes stepImageLoading {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 100% 50%;
-  }
 }
 
 .step__head {

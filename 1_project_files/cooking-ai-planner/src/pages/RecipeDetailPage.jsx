@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import AddToShoppingResultModal from '../components/recipe/AddToShoppingResultModal.jsx'
 import { getRecipeById } from '../data/recipeCatalog.js'
@@ -7,7 +7,6 @@ import { useShoppingList } from '../hooks/useShoppingList.js'
 import { useRecent } from '../hooks/useRecent.js'
 import useAIFavoriteRecipes from '../hooks/useAIFavoriteRecipes.js'
 import useToast from '../hooks/useToast.js'
-import { generateRecipeCoverImage, generateStepImage } from '../services/stepImageService.js'
 
 function formatBudget(budget) {
   if (budget === 'unknown') return 'AI估算'
@@ -50,84 +49,6 @@ function mergeQty(a, b) {
 
 function buildSelectionKey(type, id) {
   return `${type}:${id}`
-}
-
-function RecipeCoverImage({ recipe }) {
-  const [imageState, setImageState] = useState({
-    status: 'loading',
-    imageSrc: recipe.imageSrc,
-    prompt: '',
-  })
-
-  useEffect(() => {
-    let alive = true
-    setImageState({ status: 'loading', imageSrc: recipe.imageSrc, prompt: '' })
-    generateRecipeCoverImage(recipe)
-      .then((result) => {
-        if (!alive) return
-        setImageState({
-          status: result.status || 'mock',
-          imageSrc: result.imageSrc || recipe.imageSrc,
-          prompt: result.prompt || '',
-        })
-      })
-      .catch(() => {
-        if (!alive) return
-        setImageState({ status: 'fallback', imageSrc: recipe.imageSrc, prompt: '' })
-      })
-
-    return () => {
-      alive = false
-    }
-  }, [recipe])
-
-  return (
-    <div className="detailHero">
-      <img className="detailHero__img" src={imageState.imageSrc || recipe.imageSrc} alt="" />
-      {imageState.status === 'loading' ? <div className="detailHero__loading">正在生成辅助图...</div> : null}
-    </div>
-  )
-}
-
-function StepImageSlot({ step, recipeTitle, stepIndex, coreIngredients }) {
-  const [imageState, setImageState] = useState({ status: 'loading', imageSrc: '', prompt: '' })
-  const coreIngredientKey = Array.isArray(coreIngredients) ? coreIngredients.join('|') : ''
-
-  useEffect(() => {
-    let alive = true
-    setImageState({ status: 'loading', imageSrc: '', prompt: '' })
-    generateStepImage(step?.detail || step?.title || '', recipeTitle, {
-      stepIndex,
-      coreIngredients: coreIngredientKey ? coreIngredientKey.split('|') : [],
-    })
-      .then((result) => {
-        if (!alive) return
-        setImageState(result)
-      })
-      .catch(() => {
-        if (!alive) return
-        setImageState({ status: 'fallback', imageSrc: '', prompt: '' })
-      })
-
-    return () => {
-      alive = false
-    }
-  }, [coreIngredientKey, recipeTitle, step?.detail, step?.title, stepIndex])
-
-  if (imageState.status === 'loading') {
-    return <div className="step__imgPlaceholder step__imgPlaceholder--loading">正在生成辅助图...</div>
-  }
-
-  if (!imageState.imageSrc) {
-    return <div className="step__imgPlaceholder">辅助图片生成失败，已回退占位图</div>
-  }
-
-  return (
-    <figure className="stepImage">
-      <img src={imageState.imageSrc} alt={`${recipeTitle} ${step?.title || `步骤 ${stepIndex + 1}`} 辅助图`} />
-      <figcaption>{imageState.status === 'mock' ? 'AI 辅助图预览 · mock' : 'AI 辅助图'}</figcaption>
-    </figure>
-  )
 }
 
 function RecipeDetailInner({ recipe }) {
@@ -231,8 +152,6 @@ function RecipeDetailInner({ recipe }) {
 
   return (
     <section className="page">
-      <RecipeCoverImage recipe={recipe} />
-
       <div className="detailGrid">
         <div className="detailCol detailCol--left">
           <div className="card">
@@ -352,13 +271,6 @@ function RecipeDetailInner({ recipe }) {
                 <div className="step__title">{s.title}</div>
                 {typeof s.minutes === 'number' ? <div className="step__time">{s.minutes} min</div> : null}
               </div>
-
-              <StepImageSlot
-                step={s}
-                recipeTitle={recipe.title}
-                stepIndex={idx}
-                coreIngredients={recipe.coreIngredients}
-              />
 
               <div className="step__detail">{s.detail}</div>
             </li>
