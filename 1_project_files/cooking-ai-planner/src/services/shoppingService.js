@@ -29,7 +29,10 @@ export function createEmptyShoppingItem({ fromRecipeId }) {
 
 export function normalizeShoppingItem(raw) {
   const now = new Date().toISOString()
-  const hasRecipe = raw && typeof raw.fromRecipeId === 'string' && raw.fromRecipeId.length > 0
+  const rawFromRecipeId = raw && raw.fromRecipeId ? String(raw.fromRecipeId) : ''
+  const fromRecipeId = rawFromRecipeId === 'ai-generated' ? '' : rawFromRecipeId
+  const fromRecipeTitle = rawFromRecipeId === 'ai-generated' ? '' : raw && raw.fromRecipeTitle ? String(raw.fromRecipeTitle) : ''
+  const hasRecipe = fromRecipeId.length > 0
   const source =
     raw && typeof raw.source === 'string'
       ? raw.source
@@ -48,10 +51,11 @@ export function normalizeShoppingItem(raw) {
     qty: raw && raw.qty ? String(raw.qty) : '',
     category,
     source,
-    fromRecipeId: raw && raw.fromRecipeId ? String(raw.fromRecipeId) : '',
+    fromRecipeId,
+    fromRecipeTitle,
     checked: Boolean(raw && raw.checked),
     createdAt: raw && raw.createdAt ? String(raw.createdAt) : now,
-    updatedAt: raw && raw.updatedAt ? String(raw.updatedAt) : (raw && raw.createdAt ? String(raw.createdAt) : now),
+    updatedAt: raw && raw.updatedAt ? String(raw.updatedAt) : raw && raw.createdAt ? String(raw.createdAt) : now,
   }
 }
 
@@ -68,8 +72,8 @@ export function migrateShoppingItems(items) {
       changed = true
       break
     }
-    for (const k of ['category', 'source', 'updatedAt']) {
-      if (!(k in a) && k in b) {
+    for (const k of ['category', 'source', 'fromRecipeId', 'fromRecipeTitle', 'updatedAt']) {
+      if ((!(k in a) && k in b) || (k in a && a[k] !== b[k])) {
         changed = true
         break
       }
@@ -93,9 +97,11 @@ export function groupShoppingItemsByRecipe(items) {
     const total = list.length
     const done = list.filter((x) => x.checked).length
     const recipe = key === 'manual' ? null : getRecipeById(key)
+    const groupTitle = recipe ? recipe.title : list.find((item) => item.fromRecipeTitle)?.fromRecipeTitle || titleForShoppingGroup(key)
     return {
       key,
       recipe,
+      title: groupTitle,
       items: list,
       total,
       done,
@@ -106,8 +112,8 @@ export function groupShoppingItemsByRecipe(items) {
   result.sort((a, b) => {
     if (a.key === 'manual') return 1
     if (b.key === 'manual') return -1
-    const at = a.recipe ? a.recipe.title : a.key
-    const bt = b.recipe ? b.recipe.title : b.key
+    const at = a.title || a.key
+    const bt = b.title || b.key
     return at.localeCompare(bt, 'zh-Hans-CN')
   })
 
@@ -119,4 +125,3 @@ export function titleForShoppingGroup(groupKey) {
   const recipe = getRecipeById(groupKey)
   return recipe ? recipe.title : `菜谱清单：${groupKey}`
 }
-

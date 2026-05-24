@@ -1,0 +1,10 @@
+flowchart TD
+  A[AI Result Recipes Rendered] --> B[User Clicks Favorite]
+  B --> C[Normalize AI Recipe]
+  C --> D[Prefix ID With ai-recipe]
+  D --> E[Deduplicate Existing AI Favorite]
+  E --> F[Save To xiaofanzhuo_favorite_recipes]
+  F --> G[Favorites Page Reads AI Favorites]
+  G --> H[Merge With Catalog Favorites]
+  H --> I[Show Recipe Cards]
+  I --> J[User Can Cancel Favorite]

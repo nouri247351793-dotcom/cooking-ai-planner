@@ -1,0 +1,14 @@
+flowchart TD
+  A[Step 14 GitHub Ready Check] --> B[Run Build]
+  B --> C{Build Passed?}
+  C -- No --> D[Fix Build Blocker]
+  C -- Yes --> E[Scan For API Keys]
+  E --> F[Check Env Files Are Not Tracked]
+  F --> G[Check README Deployment Docs]
+  G --> H{README Complete?}
+  H -- No --> I[Update README]
+  H -- Yes --> J[Keep README]
+  I --> K[Check Vercel Base Path]
+  J --> K
+  K --> L[Record Upload Readiness]
+  L --> M[No Commit Or Push]

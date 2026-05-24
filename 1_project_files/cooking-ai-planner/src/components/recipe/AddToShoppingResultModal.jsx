@@ -13,7 +13,7 @@ export default function AddToShoppingResultModal({ open, recipeTitle, addedCount
         if (e.target === e.currentTarget) onClose()
       }}
     >
-      <div className="modalCard" onMouseDown={(e) => e.stopPropagation()}>
+      <div className="modalCard addShoppingModal" onMouseDown={(e) => e.stopPropagation()}>
         <div className="modalHead">
           <div>
             <div className="modalTitle">已加入待购清单</div>
@@ -26,7 +26,7 @@ export default function AddToShoppingResultModal({ open, recipeTitle, addedCount
           </button>
         </div>
 
-        <div className="actionsRow" style={{ marginTop: 12 }}>
+        <div className="addShoppingModal__actions">
           <Link to="/shopping" className="primaryBtn" onClick={onClose}>
             查看待购清单
           </Link>
@@ -38,4 +38,3 @@ export default function AddToShoppingResultModal({ open, recipeTitle, addedCount
     </div>
   )
 }
-

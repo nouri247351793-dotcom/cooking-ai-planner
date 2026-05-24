@@ -1,0 +1,14 @@
+flowchart TD
+  A[User Generates AI Cooking Plan] --> B[askAI Returns AIResponse]
+  B --> C{shoppingList Is Array?}
+  C -- No --> D[Keep Existing Shopping State]
+  C -- Yes --> E[Persist Raw List]
+  E --> F[xiaofanzhuo_ai_shopping_list]
+  E --> G[Map AI Items To Shopping Items]
+  G --> H[source ai_generated]
+  G --> I[fromRecipeId ai-generated]
+  I --> J[Replace Previous AI Group Items]
+  J --> K[Existing Shopping Storage]
+  K --> L[Shopping List Page Reads useShoppingList]
+  L --> M[AI Generated List Group]
+  M --> N[Check Uncheck Delete Clear All]

@@ -1,0 +1,10 @@
+flowchart TD
+  A[askAI Returns AIResponse] --> B{demoMode true?}
+  B -- No --> C[Render Normal AI Result]
+  B -- Yes --> D[Render Demo Notice]
+  D --> E[Show Exact Demo Text]
+  E --> F[Keep Recipes Visible]
+  E --> G[Keep Shopping Sync Available]
+  E --> H[Keep Favorite Button Available]
+  C --> I[Build Pass]
+  H --> I

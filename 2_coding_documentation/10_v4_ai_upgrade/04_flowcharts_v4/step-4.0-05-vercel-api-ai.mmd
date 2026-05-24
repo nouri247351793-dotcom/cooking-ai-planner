@@ -1,0 +1,20 @@
+flowchart TD
+  A[Step 4.0-05 Vercel API] --> B[Add api/ai.js]
+  B --> C{Request Method}
+  C -->|OPTIONS| D[Return Preflight OK]
+  C -->|Not POST| E[Return 405]
+  C -->|POST| F[Read userMessage And context]
+  F --> G[Read AI_API_KEY AI_MODEL AI_BASE_URL]
+  G --> H{AI_API_KEY Exists}
+  H -->|No| I[Return mockAIResponse demoMode true]
+  H -->|Yes| J[Call chat/completions]
+  J --> K{Provider OK}
+  K -->|No| L[Return mock With error metadata]
+  K -->|Yes| M[Extract JSON Content]
+  M --> N{Valid AIResponse}
+  N -->|No| L
+  N -->|Yes| O[Normalize And Return AI Result]
+  I --> P[Build And Syntax Check Passed]
+  L --> P
+  O --> P
+  P --> Q[Record Step 5]

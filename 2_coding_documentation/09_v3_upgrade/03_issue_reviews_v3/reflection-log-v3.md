@@ -98,3 +98,12 @@ Date: 2026-05-23
 - A demo script is necessary because the product has multiple loops; without it, reviewers may only see the homepage.
 - Timer persistence should not be invented late; it is better to document it as runtime-only.
 - Push and release should remain a separate explicit action because it affects the public GitHub Pages deployment.
+
+## Step 3.0-11 - Warm Light UI Token Retune
+
+Date: 2026-05-23
+
+- A token system is only useful if it can absorb concrete visual direction changes without rewriting business components.
+- The requested warm light palette is more consistent with a food-planning product than the previous dark primary surfaces.
+- Timer visual priority can be preserved with layout, typography, and contrast instead of a dark card background.
+- Treating title marks as icon slots improves consistency and keeps future icon replacement feasible.

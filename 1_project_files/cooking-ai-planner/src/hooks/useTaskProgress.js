@@ -6,6 +6,8 @@ export const XP_PER_LEVEL = 50
 const initialTaskProgress = {
   totalXp: 35,
   completedTaskIds: [],
+  level: 1,
+  currentLevelXp: 35,
   updatedAt: '',
 }
 
@@ -19,6 +21,7 @@ export function deriveTaskStats(progress) {
   const totalXp = Math.max(0, Number(progress && progress.totalXp ? progress.totalXp : 0))
   const level = Math.floor(totalXp / XP_PER_LEVEL) + 1
   const currentLevelXp = totalXp % XP_PER_LEVEL
+  const progressPercent = Math.round((currentLevelXp / XP_PER_LEVEL) * 100)
 
   return {
     totalXp,
@@ -26,7 +29,8 @@ export function deriveTaskStats(progress) {
     stageName: getStageName(level),
     currentLevelXp,
     nextLevelXp: XP_PER_LEVEL,
-    progressPercent: Math.round((currentLevelXp / XP_PER_LEVEL) * 100),
+    progressPercent,
+    xpToNextLevel: XP_PER_LEVEL - currentLevelXp,
   }
 }
 
@@ -35,6 +39,7 @@ export default function useTaskProgress() {
   const safeProgress = {
     ...initialTaskProgress,
     ...(progress || {}),
+    totalXp: Math.max(0, Number(progress && progress.totalXp ? progress.totalXp : 0)),
     completedTaskIds: Array.isArray(progress && progress.completedTaskIds) ? progress.completedTaskIds : [],
   }
 
@@ -44,15 +49,26 @@ export default function useTaskProgress() {
       return { completed: false, reason: 'already_completed', progress: safeProgress }
     }
 
+    const previousStats = deriveTaskStats(safeProgress)
+    const nextTotalXp = safeProgress.totalXp + Math.max(0, Number(task.xp || 0))
+    const nextStats = deriveTaskStats({ totalXp: nextTotalXp })
     const nextProgress = {
       ...safeProgress,
-      totalXp: safeProgress.totalXp + Number(task.xp || 0),
+      totalXp: nextTotalXp,
+      level: nextStats.level,
+      currentLevelXp: nextStats.currentLevelXp,
       completedTaskIds: [...safeProgress.completedTaskIds, task.id],
       updatedAt: new Date().toISOString(),
     }
 
     setProgress(nextProgress)
-    return { completed: true, progress: nextProgress }
+    return {
+      completed: true,
+      progress: nextProgress,
+      previousStats,
+      nextStats,
+      leveledUp: nextStats.level > previousStats.level,
+    }
   }
 
   return {

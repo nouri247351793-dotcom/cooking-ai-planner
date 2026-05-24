@@ -54,7 +54,10 @@ function ConfettiBurst({ runKey }) {
     }
   }, [])
 
-  const pieces = useMemo(() => (reduceMotion ? [] : createConfettiPieces(16)), [reduceMotion, runKey])
+  const pieces = useMemo(() => {
+    void runKey
+    return reduceMotion ? [] : createConfettiPieces(16)
+  }, [reduceMotion, runKey])
   const [alive, setAlive] = useState(true)
 
   useEffect(() => {

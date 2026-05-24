@@ -1,0 +1,25 @@
+flowchart TD
+  A[Step 3.0-11 Warm Light UI Token Retune] --> B[Token Layer]
+  B --> B1[Page Background #F6F3EE]
+  B --> B2[Main Container #F2EFE9]
+  B --> B3[Home Panel #EDE9E0]
+  B --> B4[Input Surface #FAF8F4]
+  B --> B5[Timer Surface #ECE7DD]
+
+  A --> C[Radius And Spacing]
+  C --> C1[Shell 36px]
+  C --> C2[Module 32px]
+  C --> C3[Card 28px]
+  C --> C4[Input 26px]
+  C --> C5[Button 20px]
+  C --> C6[Column Gap 24px]
+
+  A --> D[Component Retune]
+  D --> D1[Home Hero Light Panel]
+  D --> D2[Timer Light Card]
+  D --> D3[Primary Button States]
+  D --> D4[Title Icon Slot]
+
+  A --> E[Validation]
+  E --> E1[npm run build Passed]
+  E --> E2[git diff check Passed]

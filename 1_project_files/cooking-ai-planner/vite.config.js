@@ -4,11 +4,21 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => ({
   // GitHub Pages project site base path: https://<user>.github.io/<repo>/
-  // Keep dev server at `/`, but build assets for Pages under `/<repo>/`.
-  base: mode === 'production' ? '/cooking-ai-planner/' : '/',
+  // Keep dev server and Vercel at `/`, but build local production assets for Pages under `/<repo>/`.
+  base: mode === 'production' && !process.env.VERCEL && !process.env.NOMNOM_LOCAL ? '/cooking-ai-planner/' : '/',
   plugins: [react()],
+  server: process.env.NOMNOM_API_TARGET
+    ? {
+        proxy: {
+          '/api': {
+            target: process.env.NOMNOM_API_TARGET,
+            changeOrigin: true,
+          },
+        },
+      }
+    : undefined,
   // Avoid writing Vite deps cache into `node_modules/.vite` (may be blocked in some Windows envs).
-  cacheDir: '.vite-cache',
+  cacheDir: process.env.NOMNOM_VITE_CACHE_DIR || '.vite-cache',
   // Dev-only: disable deps pre-bundling to avoid EPERM unlink issues in some Windows/sandbox file systems.
   optimizeDeps: {
     // `optimizeDeps.disabled` was removed; keep "no prebundle" behavior via `noDiscovery`.
@@ -20,4 +30,3 @@ export default defineConfig(({ mode }) => ({
     emptyOutDir: false,
   },
 }))
-

@@ -2,6 +2,7 @@ import { Link, Outlet, useLocation } from 'react-router-dom'
 import PageHeader from './PageHeader.jsx'
 import SideNav from './SideNav.jsx'
 import TopBar from './TopBar.jsx'
+import FloatingTimer from './home/FloatingTimer.jsx'
 
 function getLayoutMeta(location) {
   const { pathname, state } = location
@@ -90,6 +91,7 @@ export default function AppLayout() {
           </main>
         </div>
       </div>
+      <FloatingTimer />
     </div>
   )
 }

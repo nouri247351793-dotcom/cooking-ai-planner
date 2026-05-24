@@ -20,6 +20,7 @@ export default function ShoppingDetailPage() {
     if (groupKey === 'manual') return normalized.filter((x) => !x.fromRecipeId)
     return normalized.filter((x) => x.fromRecipeId === groupKey)
   }, [groupKey, normalized])
+  const groupTitle = recipe ? recipe.title : groupItems.find((item) => item.fromRecipeTitle)?.fromRecipeTitle || titleForShoppingGroup(groupKey)
 
   const stats = useMemo(() => {
     const total = groupItems.length
@@ -57,6 +58,7 @@ export default function ShoppingDetailPage() {
       updatedAt: now,
       createdAt: draft.createdAt || now,
       fromRecipeId: groupKey === 'manual' ? '' : groupKey,
+      fromRecipeTitle: groupKey === 'manual' ? '' : groupTitle,
       source: editingId ? draft.source : 'manual',
     }
 
@@ -66,6 +68,13 @@ export default function ShoppingDetailPage() {
       setShoppingItems((prev) => [next, ...prev])
     }
     setModalOpen(false)
+  }
+
+  const clearGroupItems = () => {
+    setShoppingItems((prev) => {
+      if (groupKey === 'manual') return prev.filter((item) => item.fromRecipeId)
+      return prev.filter((item) => item.fromRecipeId !== groupKey)
+    })
   }
 
   const sections = useMemo(() => {
@@ -155,12 +164,19 @@ export default function ShoppingDetailPage() {
       <div className="card">
         <div className="cardHeadRow">
           <div>
-            <div className="card__title">{titleForShoppingGroup(groupKey)}</div>
+            <div className="card__title">{groupTitle}</div>
             <div className="muted">
               {stats.total} 项 · 完成 {stats.done}/{stats.total}（{stats.progress}%）
             </div>
           </div>
-          {recipe ? <img className="groupBadgeImg" src={recipe.imageSrc} alt="" /> : null}
+          <div className="actionsRow" style={{ marginTop: 0 }}>
+            {stats.total ? (
+              <button type="button" className="miniBtn danger" onClick={clearGroupItems}>
+                清空全部
+              </button>
+            ) : null}
+            {recipe ? <img className="groupBadgeImg" src={recipe.imageSrc} alt="" /> : null}
+          </div>
         </div>
 
         {stats.total === 0 ? (

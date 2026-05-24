@@ -105,7 +105,26 @@ export function getTasksByDifficulty(difficulty) {
   return TASK_CATALOG.filter((task) => task.difficulty === difficulty)
 }
 
+function rotateTasks(tasks, seed) {
+  if (!tasks.length) return []
+  const offset = Math.abs(Number(seed || 0)) % tasks.length
+  return [...tasks.slice(offset), ...tasks.slice(0, offset)]
+}
+
+export function getAvailableTaskCount({ completedTaskIds = [] } = {}) {
+  const completedSet = new Set(Array.isArray(completedTaskIds) ? completedTaskIds : [])
+  return TASK_CATALOG.filter((task) => !completedSet.has(task.id)).length
+}
+
+export function getRecommendedTasks({ difficulty = 'easy', completedTaskIds = [], limit = 2, seed = 0 } = {}) {
+  const completedSet = new Set(Array.isArray(completedTaskIds) ? completedTaskIds : [])
+  const sameDifficultyTasks = getTasksByDifficulty(difficulty).filter((task) => !completedSet.has(task.id))
+  const fallbackTasks = TASK_CATALOG.filter((task) => task.difficulty !== difficulty && !completedSet.has(task.id))
+  const recommended = sameDifficultyTasks.length ? sameDifficultyTasks : fallbackTasks
+
+  return rotateTasks(recommended, seed).slice(0, limit)
+}
+
 export function getDifficultyMeta(difficulty) {
   return TASK_DIFFICULTIES.find((item) => item.key === difficulty) || TASK_DIFFICULTIES[0]
 }
-

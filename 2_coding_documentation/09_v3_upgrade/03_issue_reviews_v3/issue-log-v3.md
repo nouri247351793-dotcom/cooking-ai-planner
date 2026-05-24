@@ -120,3 +120,14 @@ Date: 2026-05-23
 | QA Scope | Final step needs to verify both app and archive state | Risk of only checking documentation or only checking build | Ran build, checked preview root, routes, localStorage state paths, and delivery directories |
 | Timer Persistence | Timer does not persist after refresh | Could be misunderstood as a missing save feature | Recorded timer as runtime-only light tool in checklist/report |
 | Publishing | Local branch is ahead of remote | GitHub Pages will not update until push | Recorded push/tag/release recommendations; did not push without explicit user request |
+
+## Step 3.0-11 - Warm Light UI Token Retune
+
+Date: 2026-05-23
+
+| Type | Issue | Impact | Resolution / Record |
+|---|---|---|---|
+| Visual Direction | Previous 3.0 UI still used deep hero/timer surfaces | User requested a lighter warm gray-white product direction | Retuned page, container, home panel, input, timer, and button colors through tokens |
+| Maintainability | Exact color/radius/spacing values could become scattered across CSS | Future visual changes would require searching many selectors | Added named tokens for requested colors, radii, and spacing scale |
+| Component Semantics | Some homepage titles used inline emoji as decoration | Title left marks should behave like icon slots | Added `titleWithIcon` and `titleWithIcon__icon` structure |
+| Scope Control | UI retune should not change product behavior | Risk of breaking task, budget, recipe, favorites, shopping, or recent flows | Limited changes to tokens, CSS, and title markup; build passed |

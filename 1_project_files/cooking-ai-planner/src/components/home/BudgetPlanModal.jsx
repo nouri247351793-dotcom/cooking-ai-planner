@@ -25,11 +25,22 @@ function formatDate(date) {
   }).format(new Date(date))
 }
 
+function toDateInputValue(date) {
+  if (!date) return new Date().toISOString().slice(0, 10)
+  const parsed = new Date(date)
+  if (Number.isNaN(parsed.getTime())) return new Date().toISOString().slice(0, 10)
+  return parsed.toISOString().slice(0, 10)
+}
+
 export default function BudgetPlanModal({ open, onClose, budgetLedger }) {
-  const { stats, setMonthlyBudget, addExpense } = budgetLedger
+  const { stats, setMonthlyBudget, addExpense, updateExpense, deleteExpense } = budgetLedger
   const [budgetInput, setBudgetInput] = useState('')
   const [expenseAmount, setExpenseAmount] = useState('')
   const [expenseNote, setExpenseNote] = useState('')
+  const [editingExpenseId, setEditingExpenseId] = useState('')
+  const [editAmount, setEditAmount] = useState('')
+  const [editNote, setEditNote] = useState('')
+  const [editDate, setEditDate] = useState('')
   const [message, setMessage] = useState('')
 
   useLockBodyScroll(open)
@@ -39,6 +50,10 @@ export default function BudgetPlanModal({ open, onClose, budgetLedger }) {
     setBudgetInput(stats.hasBudget ? String(stats.monthlyBudget) : '')
     setExpenseAmount('')
     setExpenseNote('')
+    setEditingExpenseId('')
+    setEditAmount('')
+    setEditNote('')
+    setEditDate('')
     setMessage('')
   }, [open, stats.hasBudget, stats.monthlyBudget])
 
@@ -73,6 +88,48 @@ export default function BudgetPlanModal({ open, onClose, budgetLedger }) {
     setExpenseAmount('')
     setExpenseNote('')
     setMessage('已记录本次做饭开支。')
+  }
+
+  const startEditExpense = (expense) => {
+    setEditingExpenseId(expense.id)
+    setEditAmount(String(expense.amount || ''))
+    setEditNote(expense.note || '')
+    setEditDate(toDateInputValue(expense.date))
+    setMessage('')
+  }
+
+  const cancelEditExpense = () => {
+    setEditingExpenseId('')
+    setEditAmount('')
+    setEditNote('')
+    setEditDate('')
+  }
+
+  const handleEditExpenseSubmit = (event) => {
+    event.preventDefault()
+    const result = updateExpense(editingExpenseId, {
+      amount: editAmount,
+      note: editNote,
+      date: editDate,
+    })
+    if (!result.ok) {
+      setMessage('请确认金额大于 0，日期填写正确。')
+      return
+    }
+    cancelEditExpense()
+    setMessage('项目记录已更新。')
+  }
+
+  const handleDeleteExpense = (expense) => {
+    const confirmed = window.confirm(`确定删除「${expense.note || '本次做饭开支'}」这条记录吗？`)
+    if (!confirmed) return
+    const result = deleteExpense(expense.id)
+    if (!result.ok) {
+      setMessage('删除失败，请稍后重试。')
+      return
+    }
+    if (editingExpenseId === expense.id) cancelEditExpense()
+    setMessage('项目记录已删除。')
   }
 
   return (
@@ -147,7 +204,7 @@ export default function BudgetPlanModal({ open, onClose, budgetLedger }) {
               </div>
             </div>
 
-            <form className="budgetModal__section budgetForm" onSubmit={handleBudgetSubmit}>
+            <form className="budgetModal__section budgetForm budgetForm--budget" onSubmit={handleBudgetSubmit}>
               <div className="sectionTitle">修改本月预算</div>
               <div className="budgetForm__row">
                 <label className="field">
@@ -167,8 +224,13 @@ export default function BudgetPlanModal({ open, onClose, budgetLedger }) {
               </div>
             </form>
 
-            <form className="budgetModal__section budgetForm" onSubmit={handleExpenseSubmit}>
-              <div className="sectionTitle">新增本次做饭开支</div>
+            <form className="budgetModal__section budgetForm budgetForm--expense" onSubmit={handleExpenseSubmit}>
+              <div className="budgetForm__head">
+                <div className="sectionTitle">新增本次做饭开支</div>
+                <button type="submit" className="primaryBtn budgetForm__submit">
+                  记录开支
+                </button>
+              </div>
               <div className="budgetForm__row">
                 <label className="field">
                   <div className="field__label">金额</div>
@@ -192,9 +254,6 @@ export default function BudgetPlanModal({ open, onClose, budgetLedger }) {
                     placeholder="例如：番茄鸡蛋食材"
                   />
                 </label>
-                <button type="submit" className="primaryBtn">
-                  记录开支
-                </button>
               </div>
             </form>
 
@@ -202,15 +261,73 @@ export default function BudgetPlanModal({ open, onClose, budgetLedger }) {
               <div className="sectionTitle">本月项目记录</div>
               {stats.monthlyExpenses.length ? (
                 <div className="budgetRecordList">
-                  {stats.monthlyExpenses.map((expense) => (
-                    <div className="budgetRecord" key={expense.id}>
-                      <div>
-                        <div className="budgetRecord__note">{expense.note || '本次做饭开支'}</div>
-                        <div className="budgetRecord__date">{formatDate(expense.date)}</div>
+                  {stats.monthlyExpenses.map((expense) => {
+                    const isEditing = editingExpenseId === expense.id
+                    return (
+                      <div className={isEditing ? 'budgetRecord is-editing' : 'budgetRecord'} key={expense.id}>
+                        {isEditing ? (
+                          <form className="budgetRecordEdit" onSubmit={handleEditExpenseSubmit}>
+                            <label className="field">
+                              <div className="field__label">金额</div>
+                              <input
+                                className="input"
+                                type="number"
+                                min="0.1"
+                                step="0.1"
+                                value={editAmount}
+                                onChange={(event) => setEditAmount(event.target.value)}
+                              />
+                            </label>
+                            <label className="field">
+                              <div className="field__label">名称 / 备注</div>
+                              <input
+                                className="input"
+                                type="text"
+                                value={editNote}
+                                onChange={(event) => setEditNote(event.target.value)}
+                                placeholder="例如：番茄鸡蛋食材"
+                              />
+                            </label>
+                            <label className="field">
+                              <div className="field__label">日期</div>
+                              <input
+                                className="input"
+                                type="date"
+                                value={editDate}
+                                onChange={(event) => setEditDate(event.target.value)}
+                              />
+                            </label>
+                            <div className="budgetRecordEdit__actions">
+                              <button type="submit" className="miniBtn">
+                                保存
+                              </button>
+                              <button type="button" className="miniBtn ghost" onClick={cancelEditExpense}>
+                                取消
+                              </button>
+                            </div>
+                          </form>
+                        ) : (
+                          <>
+                            <div className="budgetRecord__main">
+                              <div className="budgetRecord__note">{expense.note || '本次做饭开支'}</div>
+                              <div className="budgetRecord__date">{formatDate(expense.date)}</div>
+                            </div>
+                            <div className="budgetRecord__side">
+                              <div className="budgetRecord__amount">{formatCurrency(expense.amount)}</div>
+                              <div className="budgetRecord__actions">
+                                <button type="button" className="miniBtn ghost" onClick={() => startEditExpense(expense)}>
+                                  编辑
+                                </button>
+                                <button type="button" className="miniBtn danger" onClick={() => handleDeleteExpense(expense)}>
+                                  删除
+                                </button>
+                              </div>
+                            </div>
+                          </>
+                        )}
                       </div>
-                      <div className="budgetRecord__amount">{formatCurrency(expense.amount)}</div>
-                    </div>
-                  ))}
+                    )
+                  })}
                 </div>
               ) : (
                 <div className="emptyMini">本月还没有记录做饭开支。</div>
@@ -220,15 +337,6 @@ export default function BudgetPlanModal({ open, onClose, budgetLedger }) {
         )}
 
         {message ? <div className="budgetModal__message">{message}</div> : null}
-
-        <div className="actionsRow" style={{ marginTop: 14 }}>
-          <button type="button" className="ghostBtn" onClick={onClose}>
-            关闭
-          </button>
-          <button type="button" className="ghostBtn isPrimary" onClick={onClose}>
-            完成
-          </button>
-        </div>
       </div>
     </div>
   )

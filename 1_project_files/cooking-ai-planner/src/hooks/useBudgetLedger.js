@@ -79,10 +79,54 @@ export default function useBudgetLedger() {
     return { ok: true, expense: nextExpense, ledger: nextLedger }
   }
 
+  const updateExpense = (expenseId, patch) => {
+    if (!expenseId) return { ok: false, reason: 'missing_expense_id' }
+    const target = safeLedger.expenses.find((expense) => expense.id === expenseId)
+    if (!target) return { ok: false, reason: 'expense_not_found' }
+
+    const safeAmount = toAmount(patch && patch.amount)
+    if (safeAmount <= 0) return { ok: false, reason: 'invalid_amount' }
+    const parsedDate = patch && patch.date ? new Date(patch.date) : null
+    if (parsedDate && Number.isNaN(parsedDate.getTime())) return { ok: false, reason: 'invalid_date' }
+
+    const nextExpense = {
+      ...target,
+      amount: safeAmount,
+      note: String((patch && patch.note) || '').trim(),
+      date: parsedDate ? parsedDate.toISOString() : target.date,
+      updatedAt: new Date().toISOString(),
+    }
+
+    const nextLedger = {
+      ...safeLedger,
+      expenses: safeLedger.expenses.map((expense) => (expense.id === expenseId ? nextExpense : expense)),
+      updatedAt: nextExpense.updatedAt,
+    }
+    setLedger(nextLedger)
+    return { ok: true, expense: nextExpense, ledger: nextLedger }
+  }
+
+  const deleteExpense = (expenseId) => {
+    if (!expenseId) return { ok: false, reason: 'missing_expense_id' }
+    const exists = safeLedger.expenses.some((expense) => expense.id === expenseId)
+    if (!exists) return { ok: false, reason: 'expense_not_found' }
+
+    const now = new Date().toISOString()
+    const nextLedger = {
+      ...safeLedger,
+      expenses: safeLedger.expenses.filter((expense) => expense.id !== expenseId),
+      updatedAt: now,
+    }
+    setLedger(nextLedger)
+    return { ok: true, ledger: nextLedger }
+  }
+
   return {
     ledger: safeLedger,
     stats,
     setMonthlyBudget,
     addExpense,
+    updateExpense,
+    deleteExpense,
   }
 }

@@ -1,0 +1,17 @@
+flowchart TD
+  A[Step 4.0-04 Frontend AI Service] --> B[Add aiService.js]
+  B --> C[Export askAI]
+  C --> D[POST /api/ai]
+  D --> E{Request OK}
+  E -->|Yes| F[Parse JSON]
+  F --> G{Valid AIResponse}
+  G -->|Yes| H[Normalize Response]
+  G -->|No| I[Fallback mockAIResponse]
+  E -->|No| I
+  D --> J{Timeout Or Network Error}
+  J -->|Yes| I
+  I --> K[Return demoMode true]
+  H --> L[Return API Result]
+  K --> M[Build Passed]
+  L --> M
+  M --> N[Record Step 4]

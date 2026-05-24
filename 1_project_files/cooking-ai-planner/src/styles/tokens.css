@@ -3,53 +3,63 @@
   --maxw: 430px;
   --tabbar-h: 64px;
 
-  /* Color */
-  /* Main page background (spec) */
-  --c-bg: #faf9f5;
-  /* Secondary light blocks (spec) */
-  --c-subtle: #f3f3ec;
-  --c-surface: rgba(255, 255, 255, 0.8);
+  /* Color tokens */
+  --c-page-bg: #f6f3ee;
+  --c-main-container: #f2efe9;
+  --c-home-panel: #ede9e0;
+  --c-input-bg: #faf8f4;
+  --c-timer-bg: #ece7dd;
+  --c-timer-digit: #2e1f19;
+  --c-surface: #faf8f4;
   --c-surface-solid: #ffffff;
-  --c-surface-soft: rgba(255, 255, 255, 0.68);
-  --c-surface-raised: rgba(255, 255, 255, 0.84);
-  --c-surface-deep: #1f1d1a;
-  --c-text: #0f172a;
-  --c-ink: #0f172a;
-  --c-muted: rgba(15, 23, 42, 0.62);
-  --c-border: rgba(15, 23, 42, 0.1);
-  --c-border-soft: rgba(15, 23, 42, 0.08);
-  --c-border-strong: rgba(15, 23, 42, 0.16);
-  /* Primary accent (spec): use sparingly */
-  --c-primary: #ff7c24;
-  --c-primary-rgb: 255, 124, 36;
+  --c-surface-soft: rgba(250, 248, 244, 0.74);
+  --c-surface-raised: rgba(250, 248, 244, 0.88);
+  --c-surface-deep: #ece7dd;
+  --c-subtle: #ede9e0;
+  --c-text: #2e1f19;
+  --c-ink: #2e1f19;
+  --c-muted: rgba(46, 31, 25, 0.62);
+  --c-border: rgba(46, 31, 25, 0.1);
+  --c-border-soft: rgba(46, 31, 25, 0.08);
+  --c-border-strong: rgba(46, 31, 25, 0.16);
+  --c-primary: #f29a4a;
+  --c-primary-hover: #ea8c37;
+  --c-primary-active: #df7f28;
+  --c-primary-rgb: 242, 154, 74;
   --c-secondary: #0ea5e9;
   --c-success: #22c55e;
 
-  /* v2 warm neutrals (desktop shell) */
-  --c-bg-warm: #faf9f5;
-  --c-surface-warm: rgba(255, 255, 255, 0.78);
-  --c-border-warm: rgba(15, 23, 42, 0.08);
+  /* Compatibility aliases */
+  --c-bg: var(--c-page-bg);
+  --c-bg-warm: var(--c-page-bg);
+  --c-surface-warm: var(--c-surface-raised);
+  --c-border-warm: var(--c-border-soft);
 
   /* Optional background decoration slot (safe empty) */
   /* Example: url('/brand/bg-dots-placeholder.svg') */
   --bg-dots-image: url('/brand/bg-dots-placeholder.svg');
-  --bg-dots-opacity: 1.0;
+  --bg-dots-opacity: 0.36;
 
   /* Radius */
-  --r-xs: 10px;
-  --r-sm: 12px;
-  --r-md: 14px;
-  --r-lg: 18px;
-  --r-xl: 22px;
-  --r-2xl: 26px;
-  --r-shell: 30px;
+  --r-xs: 14px;
+  --r-sm: 18px;
+  --r-md: 20px;
+  --r-lg: 24px;
+  --r-xl: 26px;
+  --r-2xl: 28px;
+  --r-shell: 36px;
+  --r-main-container: 36px;
+  --r-module: 32px;
+  --r-card: 28px;
+  --r-input: 26px;
+  --r-button: 20px;
   --r-pill: 999px;
 
   /* Shadow */
-  --sh-1: 0 10px 26px rgba(15, 23, 42, 0.08);
-  --sh-2: 0 18px 44px rgba(15, 23, 42, 0.12);
-  --sh-shell: 0 22px 70px rgba(15, 23, 42, 0.1);
-  --sh-button: 0 10px 22px rgba(15, 23, 42, 0.08);
+  --sh-1: 0 10px 26px rgba(46, 31, 25, 0.07);
+  --sh-2: 0 18px 44px rgba(46, 31, 25, 0.1);
+  --sh-shell: 0 22px 70px rgba(46, 31, 25, 0.08);
+  --sh-button: 0 10px 22px rgba(242, 154, 74, 0.18);
 
   /* Typography */
   --fs-12: 12px;
@@ -75,8 +85,12 @@
   --sp-32: 32px;
 
   /* v3 component scale */
-  --page-gap: var(--sp-18);
-  --module-gap: var(--sp-16);
+  --gap-columns: 24px;
+  --gap-module-lg: 28px;
+  --gap-module: 20px;
+  --gap-card-inner: 14px;
+  --page-gap: var(--gap-module-lg);
+  --module-gap: var(--gap-module);
   --card-pad-sm: var(--sp-12);
   --card-pad-md: var(--sp-16);
   --card-pad-lg: var(--sp-20);

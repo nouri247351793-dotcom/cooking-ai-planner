@@ -2,6 +2,12 @@
 
 Date: 2026-05-23
 
+## Latest Update
+
+- Step 3.0-11 已完成：按浅暖灰白 UI token 规范重调页面背景、主容器、首页输入面板、输入框、计时器、按钮三态、圆角、间距和标题图标位。
+- 验证结果：`npm.cmd run build` passed；`git diff --check` passed。
+- Git 状态：本轮改动尚未提交、尚未 push；建议提交信息为 `[step-3.0-11][style] retune v3 warm light UI tokens`。
+
 ## 当前阶段
 
 3.0 已完成 Step 3.0-00 至 Step 3.0-10。

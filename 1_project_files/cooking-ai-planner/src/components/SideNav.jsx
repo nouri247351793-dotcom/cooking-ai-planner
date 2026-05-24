@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import { useFavorites } from '../hooks/useFavorites.js'
 import { useShoppingList } from '../hooks/useShoppingList.js'
+import { APP_VERSION } from '../config/appConfig.js'
 
 function Badge({ value, ariaLabel }) {
   const count = typeof value === 'number' ? value : 0
@@ -17,7 +18,7 @@ export default function SideNav() {
   const { favoriteIds } = useFavorites()
   const { shoppingItems } = useShoppingList()
   const baseUrl = import.meta.env.BASE_URL || '/'
-  const logoSrc = `${baseUrl}brand/logo.png`
+  const logoSrc = `${baseUrl}brand/logo.png?v=20260523-5`
   const logoFallbackSrc = `${baseUrl}brand/logo-placeholder.svg`
   const shoppingTodo = shoppingItems.filter((item) => !item.checked).length
 
@@ -57,17 +58,15 @@ export default function SideNav() {
             <span className="sideNav__icon" aria-hidden="true">
               {item.icon}
             </span>
-            <span className="sideNav__label">{item.label}</span>
             <Badge value={item.badge} ariaLabel={item.badgeLabel} />
           </NavLink>
         ))}
       </div>
 
       <div className="sideNav__footRow">
-        <div className="sideNav__foot">3.0</div>
+        <div className="sideNav__foot">{APP_VERSION}</div>
         <NavLink to="/settings" className="sideNav__settings" aria-label="设置" title="设置">
           <span aria-hidden="true">⚙️</span>
-          <span className="sideNav__settingsLabel">设置</span>
         </NavLink>
       </div>
     </nav>

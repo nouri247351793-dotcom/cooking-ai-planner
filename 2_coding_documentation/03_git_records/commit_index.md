@@ -50,3 +50,20 @@
 | 2026-05-23 | 3.0-08 | main | `[step-3.0-08][style] normalize v3 ui tokens and component rules` | 3.0 UI 规范化：扩展 spacing/radius/color/button/badge/motion tokens，统一卡片与按钮层级，新增 `ui-spec-v3.md` |
 | 2026-05-23 | 3.0-09 | main | `[step-3.0-09][docs] review v3 archive and export plan` | 3.0 自归档复查：补齐 baseline flow/current status markdown/archive audit/export plan，记录截图证据缺口和最终导出建议 |
 | 2026-05-23 | 3.0-10 | main | `[step-3.0-10][docs] finalize v3 qa release records` | 3.0 最终 QA 与交付整理：build 通过；新增 final checklist、release notes、demo script、最终文件树和发布/tag 建议 |
+| 2026-05-23 | 3.0-11 | main | `[step-3.0-11][style] retune v3 warm light UI tokens` | 3.0 UI token 复调：按浅暖灰白规范统一页面/容器/首页主面板/输入框/计时器/按钮三态/圆角/间距，并将首页右侧标题改为独立图标位 |
+| 2026-05-23 | 4.0-01 | main | `[step-4.0-01][docs] record v4 project structure check` | 4.0 AI 接入前结构检查：确认 Vite+React、首页/待购/收藏页、mock 菜谱生成、现有 AI 抽象层和后续修改文件建议；build 通过 |
+| 2026-05-23 | 4.0-02 | main | `[step-4.0-02][chore] harden gitignore and secret checks` | 4.0 GitHub/Vercel 上传前安全检查：补齐应用子项目 `.env` 忽略规则，确认 `.env`、`node_modules`、`dist` 不会提交，未发现真实 API Key；build 通过 |
+| 2026-05-23 | 4.0-03 | main | `[step-4.0-03][feat] add ai response schema and mock fallback data` | 4.0 AI 数据结构：新增 `aiTypes.js` 与 `mockAIResponse.js`，统一 answer/recipes/shoppingList/cookingSteps/estimatedTime/tips 数据合同；build 通过 |
+| 2026-05-23 | 4.0-04 | main | `[step-4.0-04][feat] add frontend ai service fallback layer` | 4.0 前端 AI 服务层：新增 `askAI(userMessage, context)`，默认 POST `/api/ai`，支持超时、请求失败、非法 JSON、非法结构时回退 `mockAIResponse`；build 通过 |
+| 2026-05-23 | 4.0-05 | main | `[step-4.0-05][feat] add vercel ai serverless endpoint` | 4.0 Vercel Serverless API：新增 `api/ai.js`，服务端读取 `AI_API_KEY/AI_MODEL/AI_BASE_URL`，无 Key 或 provider 异常时回退 mock/demo；build 与语法检查通过 |
+| 2026-05-23 | 4.0-06 | main | `[step-4.0-06][chore] add ai env example` | 4.0 环境变量示例：新增 `.env.example`，说明 `AI_API_KEY/AI_MODEL/AI_BASE_URL`，补充根 `.gitignore` 反忽略规则以允许提交示例文件；build 通过 |
+| 2026-05-23 | 4.0-07 | main | `[step-4.0-07][feat] strengthen ai planning prompt` | 4.0 AI Prompt：强化 `api/ai.js` 系统提示，约束大学生做饭场景、结构化 JSON schema、默认假设、tips 和购物清单字段，并加入 `response_format`；build 与语法检查通过 |
+| 2026-05-23 | 4.0-08 | main | `[step-4.0-08][feat] hook home page to ai service` | 4.0 首页 AI 接入：`HomePage` 调用 `askAI` 并展示 loading、answer、recipes、cookingSteps、tips 与演示模式标签，同时保留原 mock generate 状态；build 通过 |
+| 2026-05-23 | 4.0-09 | main | `[step-4.0-09][feat] sync ai shopping list to local storage` | 4.0 待购清单联动：AI `shoppingList` 保存到 `xiaofanzhuo_ai_shopping_list`，并映射进既有待购清单数据流；支持 AI 分组、勾选、删除和清空全部；build 通过 |
+| 2026-05-23 | 4.0-10 | main | `[step-4.0-10][feat] sync ai recommended recipes to favorites` | 4.0 收藏联动：AI 推荐菜谱可在首页收藏，保存到 `xiaofanzhuo_favorite_recipes`，收藏页合并展示内置收藏与 AI 收藏，支持去重和取消收藏；build 通过 |
+| 2026-05-23 | 4.0-11 | main | `[step-4.0-11][ux] add demo mode notice` | 4.0 demo 模式提示：`demoMode: true` 时在首页 AI 结果卡片显示“当前为演示模式，AI 内容由示例数据生成。”；提示不阻断推荐菜谱、待购清单和收藏；build 通过 |
+| 2026-05-23 | 4.0-12 | main | `[step-4.0-12][chore] harden ai error handling fallbacks` | 4.0 容错检查：补强 fallbackReason 透传、provider 超时/非 JSON/字段不完整回退、空输入默认需求、AI shopping localStorage 写入失败兜底；build 与 askAI fallback 检查通过 |
+| 2026-05-23 | 4.0-13 | main | `feat: add AI integration for xiaofanzhuo 4.0` | 4.0 Git 提交前检查：确认当前为 Git 仓库、分支 `main`、remote 已配置；`.env/.env.local/node_modules/dist` 已忽略；未发现真实 API Key；build 通过；本步未提交未推送 |
+| 2026-05-23 | 4.0-14 | main | `feat: add AI integration for xiaofanzhuo 4.0` | 4.0 上传前最终检查：build 通过；未发现真实 API Key；README 已补充本地运行、Vercel 环境变量、AI demo 模式说明；`vite.config.js` 已兼容 Vercel 根路径；本步未提交未推送 |
+| 2026-05-24 | 4.0-15 | main | `docs: add vercel deployment guide for xiaofanzhuo 4.0` | 4.0 Vercel 部署说明：新增 `docs/vercel-deployment-guide.md`，记录 GitHub 导入、Root Directory、Vite 构建配置、AI 环境变量、密钥安全、demo 模式和部署后测试路径；build 通过；本步未提交未推送 |
+| 2026-05-24 | 4.0-16 | main | `docs: add ai deployment test checklist for xiaofanzhuo 4.0` | 4.0 上线后测试清单：新增 `docs/ai-deployment-test-checklist.md`，覆盖首页、AI loading/answer、recipes、shoppingList、收藏、demo 模式、真实 AI、localStorage、移动端和控制台检查；build 通过；本步未提交未推送 |

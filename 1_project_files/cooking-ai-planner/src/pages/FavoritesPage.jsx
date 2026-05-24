@@ -4,6 +4,7 @@ import { getRecipeById } from '../data/recipeCatalog.js'
 import RecipeCard from '../components/home/RecipeCard.jsx'
 import { downloadJSON, exportFavoritesToJSON, exportShoppingListToJSON } from '../services/exportService.js'
 import { useFavorites } from '../hooks/useFavorites.js'
+import useAIFavoriteRecipes from '../hooks/useAIFavoriteRecipes.js'
 import useToast from '../hooks/useToast.js'
 
 function matchQuery(recipe, query) {
@@ -11,6 +12,7 @@ function matchQuery(recipe, query) {
   if (!q) return true
   const parts = [
     recipe.title,
+    recipe.description,
     ...(recipe.tags || []),
     ...(recipe.coreIngredients || []),
     ...((recipe.ingredients || []).map((item) => item.name)),
@@ -19,21 +21,33 @@ function matchQuery(recipe, query) {
   return parts.filter(Boolean).join(' ').toLowerCase().includes(q)
 }
 
+function isAIRecipe(recipe) {
+  return recipe && recipe.source === 'ai_generated'
+}
+
 export default function FavoritesPage() {
   const { favoriteIds, isFavorite, toggleFavorite } = useFavorites()
+  const { aiFavoriteRecipes, removeAIFavoriteRecipe } = useAIFavoriteRecipes()
   const { toast, showToast } = useToast()
   const [query, setQuery] = useState('')
   const [activeCap, setActiveCap] = useState('all')
   const [removingIds, setRemovingIds] = useState(() => new Set())
 
-  const favRecipes = useMemo(() => favoriteIds.map((id) => getRecipeById(id)).filter(Boolean), [favoriteIds])
+  const favRecipes = useMemo(() => {
+    const catalogRecipes = favoriteIds.map((id) => getRecipeById(id)).filter(Boolean)
+    return [...aiFavoriteRecipes, ...catalogRecipes]
+  }, [aiFavoriteRecipes, favoriteIds])
+
+  const totalFavoriteCount = favRecipes.length
+
   const caps = useMemo(
     () => [
       { key: 'all', label: '全部', test: () => true },
+      { key: 'ai', label: 'AI 推荐', test: (recipe) => isAIRecipe(recipe) },
       { key: 't10', label: '10 分钟内', test: (recipe) => recipe.minutes <= 10 },
       { key: 't20', label: '20 分钟内', test: (recipe) => recipe.minutes <= 20 },
       { key: 'b10', label: '<10 元', test: (recipe) => recipe.budget === 'low' },
-      { key: 'easy', label: '新手', test: (recipe) => String(recipe.difficulty) === '新手' },
+      { key: 'easy', label: '新手', test: (recipe) => String(recipe.difficulty).includes('新手') },
       {
         key: 'simple',
         label: '极简',
@@ -58,6 +72,22 @@ export default function FavoritesPage() {
     setActiveCap('all')
   }
 
+  const removeFavoriteWithFade = (recipe) => {
+    if (removingIds.has(recipe.id)) return
+    const next = new Set(removingIds)
+    next.add(recipe.id)
+    setRemovingIds(next)
+
+    setTimeout(() => {
+      if (isAIRecipe(recipe)) removeAIFavoriteRecipe(recipe.id)
+      else if (isFavorite(recipe.id)) toggleFavorite(recipe.id)
+      showToast('已取消收藏')
+      const after = new Set(next)
+      after.delete(recipe.id)
+      setRemovingIds(after)
+    }, 220)
+  }
+
   return (
     <section className="page v3Page">
       <div className="v3PageHero">
@@ -65,7 +95,7 @@ export default function FavoritesPage() {
           <div className="v3PageHero__eyebrow">练习收藏夹</div>
           <h1 className="v3PageHero__title">我的收藏</h1>
           <p className="v3PageHero__desc">
-            已收藏 {favoriteIds.length} 道 · 当前显示 {filtered.length} 道。这里是复练和备选菜谱的辅助页。
+            已收藏 {totalFavoriteCount} 道 · 当前显示 {filtered.length} 道。这里会同时展示内置菜谱和 AI 推荐菜谱。
           </p>
         </div>
         <button
@@ -113,10 +143,10 @@ export default function FavoritesPage() {
         </div>
       </div>
 
-      {favoriteIds.length === 0 ? (
+      {totalFavoriteCount === 0 ? (
         <div className="emptyState v3EmptyState">
           <div className="emptyState__title">还没有收藏 ⭐</div>
-          <div className="emptyState__hint">先从首页生成或随机一道菜，把适合复练的菜收藏起来。</div>
+          <div className="emptyState__hint">先从首页生成 AI 推荐或随机一道菜，把适合复练的菜收藏起来。</div>
           <div className="actionsRow">
             <Link to="/" className="ghostBtn isPrimary">
               回首页
@@ -143,29 +173,11 @@ export default function FavoritesPage() {
                   <button
                     type="button"
                     className="iconBtn"
-                    aria-label={isFavorite(recipe.id) ? '取消收藏' : '收藏'}
-                    onClick={() => {
-                      if (removingIds.has(recipe.id)) return
-                      if (!isFavorite(recipe.id)) {
-                        toggleFavorite(recipe.id)
-                        showToast('已收藏')
-                        return
-                      }
-
-                      const next = new Set(removingIds)
-                      next.add(recipe.id)
-                      setRemovingIds(next)
-                      setTimeout(() => {
-                        toggleFavorite(recipe.id)
-                        showToast('已取消收藏')
-                        const after = new Set(next)
-                        after.delete(recipe.id)
-                        setRemovingIds(after)
-                      }, 220)
-                    }}
-                    style={{ color: isFavorite(recipe.id) ? 'var(--c-primary)' : undefined }}
+                    aria-label="取消收藏"
+                    onClick={() => removeFavoriteWithFade(recipe)}
+                    style={{ color: 'var(--c-primary)' }}
                   >
-                    {isFavorite(recipe.id) ? '★' : '☆'}
+                    ★
                   </button>
                 }
               />

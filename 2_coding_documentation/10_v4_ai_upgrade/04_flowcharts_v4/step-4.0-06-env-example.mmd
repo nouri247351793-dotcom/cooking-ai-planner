@@ -1,0 +1,11 @@
+flowchart TD
+  A[Step 4.0-06 Env Example] --> B[Check Existing Env Files]
+  B --> C[Add .env.example]
+  C --> D[Confirm Real Env Files Ignored]
+  D --> E{.env.example Ignored?}
+  E -->|Yes| F[Add Unignore Rule]
+  E -->|No| G[Keep Rules]
+  F --> H[Run Build]
+  G --> H
+  H --> I[Build Passed]
+  I --> J[Record Step 6]

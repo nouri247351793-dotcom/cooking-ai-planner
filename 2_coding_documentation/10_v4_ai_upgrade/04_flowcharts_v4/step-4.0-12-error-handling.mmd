@@ -1,0 +1,16 @@
+flowchart TD
+  A[User Clicks Generate] --> B{Input Empty?}
+  B -- Yes --> C[Use Default Beginner Prompt]
+  B -- No --> D[Use User Prompt]
+  C --> E[askAI]
+  D --> E
+  E --> F{Frontend Request OK?}
+  F -- No --> G[Mock Demo Fallback]
+  F -- Yes --> H{Response JSON And Schema OK?}
+  H -- No --> G
+  H -- Yes --> I[Render AI Result]
+  G --> J[Render Demo Notice With Reason]
+  J --> K[Keep Recipes Shopping Favorites Available]
+  I --> L[Sync Shopping And Favorites]
+  K --> L
+  L --> M[Build Passed]

@@ -36,7 +36,8 @@ export default function TaskDetailPage() {
     }
 
     const nextStats = deriveTaskStats(result.progress)
-    showToast(`已领取 +${difficulty.xp} XP，当前 Lv.${nextStats.level}`)
+    const levelText = result.leveledUp ? `升级到 Lv.${nextStats.level}` : `当前 Lv.${nextStats.level}`
+    showToast(`已领取 +${difficulty.xp} XP，${levelText}`)
   }
 
   return (

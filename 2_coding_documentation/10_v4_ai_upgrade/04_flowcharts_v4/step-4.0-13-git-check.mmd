@@ -1,0 +1,11 @@
+flowchart TD
+  A[Step 13 Git Check] --> B[Run Git Status]
+  B --> C{Is Git Repository?}
+  C -- No --> D[Ask User Before git init]
+  C -- Yes --> E[List Changed Files]
+  E --> F[Check Branch And Remote]
+  F --> G[Check Ignore Rules]
+  G --> H[Scan For API Key Patterns]
+  H --> I[Run Build]
+  I --> J[Record Suggested Commit Message]
+  J --> K[No Commit Or Push In This Step]

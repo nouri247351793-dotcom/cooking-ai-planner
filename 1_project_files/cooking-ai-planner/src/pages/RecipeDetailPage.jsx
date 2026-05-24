@@ -1,16 +1,23 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import AddToShoppingResultModal from '../components/recipe/AddToShoppingResultModal.jsx'
 import { getRecipeById } from '../data/recipeCatalog.js'
 import { useFavorites } from '../hooks/useFavorites.js'
 import { useShoppingList } from '../hooks/useShoppingList.js'
 import { useRecent } from '../hooks/useRecent.js'
+import useAIFavoriteRecipes from '../hooks/useAIFavoriteRecipes.js'
 import useToast from '../hooks/useToast.js'
+import { generateStepImage } from '../services/stepImageService.js'
 
 function formatBudget(budget) {
+  if (budget === 'unknown') return 'AI估算'
   if (budget === 'low') return '<10元'
   if (budget === 'mid') return '10-30元'
   return '不确定'
+}
+
+function isAIRecipe(recipe) {
+  return recipe?.source === 'ai_generated' || String(recipe?.id || '').startsWith('ai-recipe:')
 }
 
 function parseQty(qty) {
@@ -45,8 +52,46 @@ function buildSelectionKey(type, id) {
   return `${type}:${id}`
 }
 
+function StepImageSlot({ step, recipeTitle, stepIndex }) {
+  const [imageState, setImageState] = useState({ status: 'loading', imageSrc: '', prompt: '' })
+
+  useEffect(() => {
+    let alive = true
+    setImageState({ status: 'loading', imageSrc: '', prompt: '' })
+    generateStepImage(step?.detail || step?.title || '', recipeTitle, { stepIndex })
+      .then((result) => {
+        if (!alive) return
+        setImageState(result)
+      })
+      .catch(() => {
+        if (!alive) return
+        setImageState({ status: 'fallback', imageSrc: '', prompt: '' })
+      })
+
+    return () => {
+      alive = false
+    }
+  }, [recipeTitle, step?.detail, step?.title, stepIndex])
+
+  if (imageState.status === 'loading') {
+    return <div className="step__imgPlaceholder step__imgPlaceholder--loading">正在生成步骤辅助图...</div>
+  }
+
+  if (!imageState.imageSrc) {
+    return <div className="step__imgPlaceholder">辅助图片生成失败，已回退占位图</div>
+  }
+
+  return (
+    <figure className="stepImage">
+      <img src={imageState.imageSrc} alt={`${recipeTitle} ${step?.title || `步骤 ${stepIndex + 1}`} 辅助图`} />
+      <figcaption>{imageState.status === 'mock' ? 'AI 辅助图预览 · mock' : 'AI 辅助图'}</figcaption>
+    </figure>
+  )
+}
+
 function RecipeDetailInner({ recipe }) {
   const { isFavorite, toggleFavorite } = useFavorites()
+  const aiFavorites = useAIFavoriteRecipes()
   const { setShoppingItems } = useShoppingList()
   const { addRecentCooked } = useRecent()
   const { toast, showToast } = useToast()
@@ -62,7 +107,8 @@ function RecipeDetailInner({ recipe }) {
   const [lastAddedCount, setLastAddedCount] = useState(0)
 
   const selectedCount = selected.size
-  const isFav = isFavorite(recipe.id)
+  const fromAI = isAIRecipe(recipe)
+  const isFav = fromAI ? aiFavorites.isAIFavoriteRecipe(recipe.id) : isFavorite(recipe.id)
 
   const toggleSelection = (type, name) => {
     const key = buildSelectionKey(type, name)
@@ -268,7 +314,7 @@ function RecipeDetailInner({ recipe }) {
                 {typeof s.minutes === 'number' ? <div className="step__time">{s.minutes} min</div> : null}
               </div>
 
-              {idx < 2 ? <div className="step__imgPlaceholder">辅助图片占位（可替换）</div> : null}
+              <StepImageSlot step={s} recipeTitle={recipe.title} stepIndex={idx} />
 
               <div className="step__detail">{s.detail}</div>
             </li>
@@ -293,8 +339,12 @@ function RecipeDetailInner({ recipe }) {
           type="button"
           className={isFav ? 'actionBtn is-active' : 'actionBtn'}
           onClick={() => {
-            const wasFav = isFavorite(recipe.id)
-            toggleFavorite(recipe.id)
+            const wasFav = fromAI ? aiFavorites.isAIFavoriteRecipe(recipe.id) : isFavorite(recipe.id)
+            if (fromAI) {
+              aiFavorites.toggleAIFavoriteRecipe(recipe)
+            } else {
+              toggleFavorite(recipe.id)
+            }
             showToast(wasFav ? '已取消收藏' : '已收藏')
           }}
         >

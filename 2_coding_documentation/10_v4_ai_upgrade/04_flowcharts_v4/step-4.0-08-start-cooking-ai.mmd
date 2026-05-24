@@ -1,0 +1,16 @@
+flowchart TD
+  A[Step 4.0-08 Home AI Hookup] --> B[User Enters Need]
+  B --> C[Click Generate Or Press Enter]
+  C --> D[Set AI Loading]
+  D --> E[Build Home Context]
+  E --> F[Call askAI]
+  E --> G[Keep Existing generate Mock]
+  F --> H{AI Result}
+  H -->|Success| I[Render Answer Recipes Steps Tips]
+  H -->|demoMode| J[Render Demo Badge]
+  H -->|Error| K[Render Friendly Error]
+  G --> L[Keep Existing Mock State]
+  I --> M[Build Passed]
+  J --> M
+  K --> M
+  M --> N[Record Step 8]
