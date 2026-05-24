@@ -86,6 +86,9 @@ npm.cmd run dev
 - RAG 从“本地 JSON”升级为可扩展方案：更清晰的知识库管理与检索策略
 - 数据能力增强：导入/导出更完善、以及更清晰的练习记录与复盘视图
 
+## 当前版本预览
+https://nouri247351793-dotcom.github.io/cooking-ai-planner/
+
 ## 说明
 
 - 本仓库更像“可演示的产品原型 + 过程归档”，相关过程材料在 `2_coding_documentation/`。
