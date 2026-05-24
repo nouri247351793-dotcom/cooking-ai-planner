@@ -86,6 +86,7 @@ function buildMockResponse(reason, extra = {}) {
     demoMode: true,
     source: 'mock',
     fallbackReason: reason,
+    debugMessage: '真实 AI 请求失败，已回退演示数据，请查看 Vercel Logs',
     ...extra,
   }
 }
@@ -114,6 +115,17 @@ function logAIProviderFailure({ status, responseText, error, model, baseUrl, api
     AI_MODEL: model || DEFAULT_MODEL,
     AI_BASE_URL: normalizeBaseUrl(baseUrl),
     apiKey: maskApiKeyState(apiKey),
+  })
+}
+
+function logAIEnvCheck() {
+  console.log('[AI DEBUG] env check', {
+    hasApiKey: Boolean(process.env.AI_API_KEY),
+    apiKeyPreview: process.env.AI_API_KEY
+      ? `${process.env.AI_API_KEY.slice(0, 6)}...${process.env.AI_API_KEY.slice(-4)}`
+      : 'missing',
+    model: process.env.AI_MODEL,
+    baseUrl: process.env.AI_BASE_URL,
   })
 }
 
@@ -146,12 +158,16 @@ function extractJsonText(text) {
 }
 
 function parseAIContent(text) {
-  const jsonText = extractJsonText(text)
-  if (!jsonText) return null
+  const rawContent = extractJsonText(text)
+  if (!rawContent) return { data: null, rawContent: '', error: null }
   try {
-    return JSON.parse(jsonText)
-  } catch {
-    return null
+    return { data: JSON.parse(rawContent), rawContent, error: null }
+  } catch (error) {
+    console.error('[AI ERROR] JSON parse failed', {
+      rawContent: limitLogText(rawContent),
+      error: error.message,
+    })
+    return { data: null, rawContent, error }
   }
 }
 
@@ -208,6 +224,10 @@ async function requestAIProvider({ apiKey, model, baseUrl, userMessage, context 
       signal: controller ? controller.signal : undefined,
     })
   } catch (error) {
+    console.error('[AI ERROR] request failed', {
+      message: error.message,
+      stack: error.stack,
+    })
     return {
       ok: false,
       status: error && error.name === 'AbortError' ? 504 : 502,
@@ -218,6 +238,8 @@ async function requestAIProvider({ apiKey, model, baseUrl, userMessage, context 
   } finally {
     if (timeoutId) clearTimeout(timeoutId)
   }
+
+  console.log('[AI DEBUG] upstream status', response.status)
 
   let responseText = ''
   try {
@@ -233,6 +255,11 @@ async function requestAIProvider({ apiKey, model, baseUrl, userMessage, context 
   }
 
   if (!response.ok) {
+    console.error('[AI ERROR] upstream failed', {
+      status: response.status,
+      statusText: response.statusText,
+      body: limitLogText(responseText),
+    })
     return {
       ok: false,
       status: response.status,
@@ -246,6 +273,10 @@ async function requestAIProvider({ apiKey, model, baseUrl, userMessage, context 
   try {
     data = JSON.parse(responseText)
   } catch (error) {
+    console.error('[AI ERROR] JSON parse failed', {
+      rawContent: limitLogText(responseText),
+      error: error.message,
+    })
     return {
       ok: false,
       status: 502,
@@ -258,19 +289,20 @@ async function requestAIProvider({ apiKey, model, baseUrl, userMessage, context 
   const content = data && data.choices && data.choices[0] && data.choices[0].message ? data.choices[0].message.content : ''
   const parsed = parseAIContent(content)
 
-  if (!isAIResponse(parsed)) {
+  if (!isAIResponse(parsed.data)) {
     return {
       ok: false,
       status: 502,
       statusText: 'AI provider returned invalid JSON shape',
-      reason: 'invalid_response_shape',
-      responseText: content || responseText,
+      reason: parsed.error ? 'invalid_provider_content_json' : 'invalid_response_shape',
+      responseText: parsed.rawContent || content || responseText,
+      error: parsed.error,
     }
   }
 
   return {
     ok: true,
-    data: normalizeAIResponse(parsed),
+    data: normalizeAIResponse(parsed.data),
   }
 }
 
@@ -294,6 +326,8 @@ export default async function handler(req, res) {
   const apiKey = process.env.AI_API_KEY
   const model = process.env.AI_MODEL || DEFAULT_MODEL
   const baseUrl = process.env.AI_BASE_URL || DEFAULT_BASE_URL
+
+  logAIEnvCheck()
 
   if (!apiKey) {
     logAIProviderFailure({

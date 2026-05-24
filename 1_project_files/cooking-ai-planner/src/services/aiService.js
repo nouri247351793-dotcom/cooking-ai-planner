@@ -20,6 +20,7 @@ function buildFallbackResponse(reason) {
     demoMode: true,
     source: 'mock',
     fallbackReason: reason || 'unknown',
+    debugMessage: '真实 AI 请求失败，已回退演示数据，请查看 Vercel Logs',
   }
 }
 
@@ -36,6 +37,7 @@ function getResponseMeta(data, payload) {
     demoMode: Boolean((data && data.demoMode) || (payload && payload.demoMode)),
     source: (data && data.source) || (payload && payload.source) || 'api',
     fallbackReason: (data && data.fallbackReason) || (payload && payload.fallbackReason) || '',
+    debugMessage: (data && data.debugMessage) || (payload && payload.debugMessage) || '',
   }
 }
 
