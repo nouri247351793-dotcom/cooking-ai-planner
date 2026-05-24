@@ -2,7 +2,17 @@ import mockAIResponse from '../data/mockAIResponse.js'
 import { isAIResponse, normalizeAIResponse } from './aiTypes.js'
 
 export const AI_API_ENDPOINT = '/api/ai'
-export const AI_REQUEST_TIMEOUT_MS = 12000
+export const AI_REQUEST_TIMEOUT_MS = 45000
+
+function logAIRequestFailure(reason, extra = {}) {
+  console.error('[xiaofanzhuo ai] client request failed', {
+    reason: reason || 'unknown',
+    endpoint: extra.endpoint || AI_API_ENDPOINT,
+    status: extra.status || 'n/a',
+    responseText: extra.responseText || '',
+    errorMessage: extra.error && extra.error.message ? extra.error.message : extra.error ? String(extra.error) : '',
+  })
+}
 
 function buildFallbackResponse(reason) {
   return {
@@ -61,18 +71,30 @@ export async function askAI(userMessage, context = {}, options = {}) {
     })
 
     if (!response.ok) {
+      let responseText = ''
+      try {
+        responseText = await response.text()
+      } catch {
+        responseText = ''
+      }
+      logAIRequestFailure(`http_${response.status}`, { endpoint, status: response.status, responseText })
       return buildFallbackResponse(`http_${response.status}`)
     }
 
     let data = null
     try {
       data = await response.json()
-    } catch {
+    } catch (error) {
+      logAIRequestFailure('invalid_json', { endpoint, error })
       return buildFallbackResponse('invalid_json')
     }
 
     const payload = pickResponsePayload(data)
     if (!isAIResponse(payload)) {
+      logAIRequestFailure('invalid_response_shape', {
+        endpoint,
+        responseText: JSON.stringify(data),
+      })
       return buildFallbackResponse('invalid_response_shape')
     }
 
@@ -82,6 +104,7 @@ export async function askAI(userMessage, context = {}, options = {}) {
     }
   } catch (error) {
     const reason = error && error.name === 'AbortError' ? 'timeout' : 'request_failed'
+    logAIRequestFailure(reason, { endpoint, error })
     return buildFallbackResponse(reason)
   } finally {
     if (timeoutId) globalThis.clearTimeout(timeoutId)

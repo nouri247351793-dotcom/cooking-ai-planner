@@ -3,7 +3,8 @@ import { isAIResponse, normalizeAIResponse } from '../src/services/aiTypes.js'
 
 const DEFAULT_BASE_URL = 'https://api.openai.com/v1'
 const DEFAULT_MODEL = 'gpt-4o-mini'
-const DEFAULT_PROVIDER_TIMEOUT_MS = 15000
+const DEFAULT_PROVIDER_TIMEOUT_MS = 45000
+const LOG_TEXT_LIMIT = 4000
 
 const AI_RESPONSE_JSON_SCHEMA_DESCRIPTION = `
 {
@@ -87,6 +88,33 @@ function buildMockResponse(reason, extra = {}) {
     fallbackReason: reason,
     ...extra,
   }
+}
+
+function maskApiKeyState(apiKey) {
+  const key = String(apiKey || '').trim()
+  if (!key) return { exists: false }
+  return {
+    exists: true,
+    preview: `${key.slice(0, 3)}***${key.slice(-4)}`,
+  }
+}
+
+function limitLogText(text) {
+  const raw = String(text || '')
+  if (raw.length <= LOG_TEXT_LIMIT) return raw
+  return `${raw.slice(0, LOG_TEXT_LIMIT)}... [truncated ${raw.length - LOG_TEXT_LIMIT} chars]`
+}
+
+function logAIProviderFailure({ status, responseText, error, model, baseUrl, apiKey, reason }) {
+  console.error('[xiaofanzhuo ai] upstream request failed', {
+    reason: reason || 'unknown',
+    upstreamStatus: status || 'n/a',
+    upstreamResponseText: limitLogText(responseText),
+    errorMessage: error && error.message ? error.message : error ? String(error) : '',
+    AI_MODEL: model || DEFAULT_MODEL,
+    AI_BASE_URL: normalizeBaseUrl(baseUrl),
+    apiKey: maskApiKeyState(apiKey),
+  })
 }
 
 function parseRequestBody(req) {
@@ -185,9 +213,23 @@ async function requestAIProvider({ apiKey, model, baseUrl, userMessage, context 
       status: error && error.name === 'AbortError' ? 504 : 502,
       statusText: error && error.name === 'AbortError' ? 'AI provider request timed out' : 'AI provider request failed',
       reason: error && error.name === 'AbortError' ? 'provider_timeout' : 'provider_exception',
+      error,
     }
   } finally {
     if (timeoutId) clearTimeout(timeoutId)
+  }
+
+  let responseText = ''
+  try {
+    responseText = await response.text()
+  } catch (error) {
+    return {
+      ok: false,
+      status: 502,
+      statusText: 'AI provider response text could not be read',
+      reason: 'provider_response_read_failed',
+      error,
+    }
   }
 
   if (!response.ok) {
@@ -195,18 +237,22 @@ async function requestAIProvider({ apiKey, model, baseUrl, userMessage, context 
       ok: false,
       status: response.status,
       statusText: response.statusText || 'AI provider request failed',
+      reason: 'provider_http_error',
+      responseText,
     }
   }
 
   let data
   try {
-    data = await response.json()
-  } catch {
+    data = JSON.parse(responseText)
+  } catch (error) {
     return {
       ok: false,
       status: 502,
       statusText: 'AI provider returned invalid JSON',
       reason: 'invalid_provider_json',
+      responseText,
+      error,
     }
   }
   const content = data && data.choices && data.choices[0] && data.choices[0].message ? data.choices[0].message.content : ''
@@ -218,6 +264,7 @@ async function requestAIProvider({ apiKey, model, baseUrl, userMessage, context 
       status: 502,
       statusText: 'AI provider returned invalid JSON shape',
       reason: 'invalid_response_shape',
+      responseText: content || responseText,
     }
   }
 
@@ -249,6 +296,15 @@ export default async function handler(req, res) {
   const baseUrl = process.env.AI_BASE_URL || DEFAULT_BASE_URL
 
   if (!apiKey) {
+    logAIProviderFailure({
+      status: 'missing_api_key',
+      responseText: '',
+      error: new Error('AI_API_KEY is missing'),
+      model,
+      baseUrl,
+      apiKey,
+      reason: 'missing_api_key',
+    })
     sendJson(res, 200, buildMockResponse('missing_api_key'))
     return
   }
@@ -256,6 +312,15 @@ export default async function handler(req, res) {
   try {
     const result = await requestAIProvider({ apiKey, model, baseUrl, userMessage, context })
     if (!result.ok) {
+      logAIProviderFailure({
+        status: result.status,
+        responseText: result.responseText,
+        error: result.error || new Error(result.statusText || 'AI provider request failed'),
+        model,
+        baseUrl,
+        apiKey,
+        reason: result.reason || 'provider_request_failed',
+      })
       sendJson(
         res,
         200,
@@ -275,7 +340,16 @@ export default async function handler(req, res) {
       demoMode: false,
       source: 'ai',
     })
-  } catch {
+  } catch (error) {
+    logAIProviderFailure({
+      status: 'handler_exception',
+      responseText: '',
+      error,
+      model,
+      baseUrl,
+      apiKey,
+      reason: 'provider_exception',
+    })
     sendJson(
       res,
       200,
